@@ -47,7 +47,7 @@ const SearchBar: React.FC = () => {
             <h2 className="font-bold">Valencia, Spn.</h2>
             <p className="mt-[-3px]">2 km</p>
           </div>
-          <div className={`${isNightMode ? "text-white" : "text-[#232323]"}`}>
+          <div>
             <Icon path={mdiCrosshairsGps} size={0.7} />
           </div>
         </div>
