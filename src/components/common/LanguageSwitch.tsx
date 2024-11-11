@@ -57,7 +57,7 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
       <button
         onClick={toggleMenu}
         className={`dropdown-toggle flex items-center py-1 px-2 font-bold ${
-          isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+          isNightMode ? "bg-[#232323]" : "bg-[#FFFFFF]"
         } rounded-full`}
       >
         <img
