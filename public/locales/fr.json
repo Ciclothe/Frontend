@@ -3,7 +3,7 @@
     "Country": "Pays",
     "City": "Ville",
     "settings": "Paramètres",
-    "Swap": "Échanger",
+    "Swipe": "Échanger",
     "Share": "Partager",
     "Ask": "Poser une question",
     "Views": "Vues",
@@ -39,11 +39,11 @@
     "doneItCardParagraph": "Un vêtement pour vous, chaleur et sécurité pour un autre."
   },
   "Menu": {
-    "Home": "Accueil",
+    "Feed": "Accueil",
     "Explore": "Explorer",
-    "Swap": "Échanger",
-    "My activity": "Mon activité",
-    "Menu": "Paramètres"
+    "Swipe": "Échanger",
+    "Events": "Événements",
+    "Chats": "Conversations"
   },
   "RecommendedCard": {
     "RecommendedProfiles": "Profils recommandés",
@@ -79,7 +79,7 @@
     "HidePost": "Masquer le post",
     "UnfollowAccount": "Ne plus suivre le compte"
   },
-  "Swap": {
+  "Swipe": {
     "SwapTitle": "Sélectionnez les vêtements que vous souhaitez offrir dans l'échange",
     "SwapParagraphOne": "Lors de l'envoi de votre demande d'échange, gardez à l'esprit que l'utilisateur a un délai de 5 jours pour répondre. Pendant ce temps, ",
     "SwapParagraphTwo": "ils peuvent accepter votre demande, faire une contre-offre ou la rejeter.",

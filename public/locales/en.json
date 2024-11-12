@@ -3,7 +3,7 @@
     "Country": "Country",
     "City": "City",
     "settings": "Settings",
-    "Swap": "Swap",
+    "Swipe": "Swipe",
     "Share": "Share",
     "Ask": "Ask A Question",
     "Views": "Views",
@@ -39,11 +39,11 @@
     "doneItCardParagraph": "A Garment For You, Warmth And Security For Another."
   },
   "Menu": {
-    "Home": "Home",
+    "Feed": "Feed",
     "Explore": "Explore",
-    "Swap": "Swap",
-    "My activity": "My Activity",
-    "Menu": "Settings"
+    "Swipe": "Swipe",
+    "Events": "Events",
+    "Chats": "Chats"
   },
   "RecommendedCard": {
     "RecommendedProfiles": "Recommended Profiles",
@@ -79,7 +79,7 @@
     "HidePost": "Hide Post",
     "UnfollowAccount": "Unfollow Account"
   },
-  "Swap": {
+  "Swipe": {
     "SwapTitle": "Select the Garments You Want to Offer in the Swap",
     "SwapParagraphOne": "When Sending Your Swap Request, Keep in Mind That the User Has a 5-Day Deadline to Respond. During This Time, ",
     "SwapParagraphTwo": "They Can Accept Your Request, Make a Counteroffer, or Reject It. ",

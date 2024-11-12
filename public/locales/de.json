@@ -3,7 +3,7 @@
     "Country": "Land",
     "City": "Stadt",
     "settings": "Einstellungen",
-    "Swap": "Tauschen",
+    "Swipe": "Tauschen",
     "Share": "Teilen",
     "Ask": "Eine Frage stellen",
     "Views": "Ansichten",
@@ -39,11 +39,11 @@
     "doneItCardParagraph": "Ein Kleidungsstück für dich, Wärme und Sicherheit für andere."
   },
   "Menu": {
-    "Home": "Startseite",
+    "Feed": "Startseite",
     "Explore": "Erkunden",
-    "Swap": "Tauschen",
-    "My activity": "Meine Aktivität",
-    "Menu": "Einstellungen"
+    "Swipe": "Tauschen",
+    "Events": "Veranstaltungen",
+    "Chats": "Chats"
   },
   "RecommendedCard": {
     "RecommendedProfiles": "Empfohlene Profile",
@@ -69,7 +69,7 @@
     "HidePost": "Beitrag verbergen",
     "UnfollowAccount": "Konto nicht mehr folgen"
   },
-  "Swap": {
+  "Swipe": {
     "SwapTitle": "Wählen Sie die Kleidungsstücke aus, die Sie im Tausch anbieten möchten",
     "SwapParagraphOne": "Bitte beachten Sie bei der Absendung Ihrer Tausch-Anfrage, dass der Nutzer 5 Tage Zeit hat, um zu antworten. In dieser Zeit können sie",
     "SwapParagraphTwo": "Ihre Anfrage akzeptieren, ein Gegenangebot machen oder ablehnen.",

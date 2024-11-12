@@ -8,7 +8,7 @@ const CiclotheLogotipoMobile = (props: any) => {
       viewBox="0 0 146 158"
     >
       <defs>
-        <clipPath id="clip-path">
+        <clipPath id="clipPath">
           <rect
             id="Rectángulo_1571"
             data-name="Rectángulo 1571"
@@ -24,14 +24,14 @@ const CiclotheLogotipoMobile = (props: any) => {
       <g
         id="Mesa_de_trabajo_1"
         data-name="Mesa de trabajo – 1"
-        clip-path="url(#clip-Mesa_de_trabajo_1)"
+        clipPath="url(#clip-Mesa_de_trabajo_1)"
       >
         <g
           id="Grupo_3545"
           data-name="Grupo 3545"
           transform="translate(0.346 0.363)"
         >
-          <g id="Grupo_3452" data-name="Grupo 3452" clip-path="url(#clip-path)">
+          <g id="Grupo_3452" data-name="Grupo 3452" clipPath="url(#clipPath)">
             <path
               id="Trazado_3098"
               data-name="Trazado 3098"

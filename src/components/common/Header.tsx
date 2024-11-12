@@ -8,7 +8,11 @@ import SearchBar from "./SearchBar";
 import LanguageSwitch from "./LanguageSwitch";
 import { useTranslation } from "react-i18next";
 
-const Header = () => {
+interface HeaderProps {
+  toggleMenu: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ toggleMenu }) => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
 
@@ -21,7 +25,7 @@ const Header = () => {
       >
         {/*APP LOGO*/}
         <div className="col-span-5 md:col-span-3 flex items-center">
-          <div className="md:fixed flex gap-4">
+          <div className="md:fixed flex gap-4 z-[100]">
             {/* LOGO VARIANT */}
             <div className="hidden md:block">
               <div className="hidden xl:flex">
@@ -39,7 +43,10 @@ const Header = () => {
               </div>
             </div>
             {/* GRID VIEW BUTTON */}
-            <div className="flex items-center justify-center md:hidden">
+            <div
+              className="flex items-center justify-center md:hidden"
+              onClick={toggleMenu}
+            >
               <Icon path={mdiViewGrid} size={0.9} />
             </div>
             {/* SWITCH LANGUAGUE */}

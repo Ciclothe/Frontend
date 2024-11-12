@@ -3,7 +3,7 @@
     "Country": "País",
     "City": "Ciudad",
     "settings": "Configuraciones",
-    "Swap": "Intercambiar",
+    "Swipe": "Intercambiar",
     "Share": "Compartir",
     "Ask": "Hacer una pregunta",
     "Views": "Vistas",
@@ -39,11 +39,11 @@
     "doneItCardParagraph": "Una prenda para ti, calidez y seguridad para otro."
   },
   "Menu": {
-    "Home": "Inicio",
+    "Feed": "Inicio",
     "Explore": "Explorar",
-    "Swap": "Intercambiar",
-    "My activity": "Mi actividad",
-    "Menu": "Configuraciones"
+    "Swipe": "Intercambiar",
+    "Events": "Eventos",
+    "Chats": "Chats"
   },
   "RecommendedCard": {
     "RecommendedProfiles": "Perfiles recomendados",
@@ -79,7 +79,7 @@
     "HidePost": "Ocultar publicación",
     "UnfollowAccount": "Dejar de seguir cuenta"
   },
-  "Swap": {
+  "Swipe": {
     "SwapTitle": "Selecciona las prendas que deseas ofrecer en el intercambio",
     "SwapParagraphOne": "Al enviar tu solicitud de intercambio, ten en cuenta que el usuario tiene un plazo de 5 días para responder. Durante este tiempo, ",
     "SwapParagraphTwo": "pueden aceptar tu solicitud, hacer una contraoferta o rechazarla.",
