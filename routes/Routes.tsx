@@ -14,7 +14,7 @@ function RoutesViews() {
       {/* Route for FeedView and other views with MainLayout */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<FeedView />} />
-        <Route path="/home" element={<FeedView />} />
+        <Route path="/feed" element={<FeedView />} />
       </Route>
 
       {/* Routes for Authentication */}

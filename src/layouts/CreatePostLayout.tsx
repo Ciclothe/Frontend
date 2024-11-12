@@ -105,7 +105,7 @@ export const CreatePostLayout: FC<CreatePostLayoutProps> = ({
 
       setCreatedSuccess(true);
       setTimeout(() => {
-        navigate("/home");
+        navigate("/feed");
       }, 2000);
     } catch (error) {
       setAlertMessage("Alerts.PostCreationError");

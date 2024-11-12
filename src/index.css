@@ -13,12 +13,20 @@ body {
 
 .bodyNightMode {
   background-color: #0a0a0a;
-  color: #f1f1f1;
+  color: #f0eff4;
 }
 
 .bodyDayMode {
   background-color: #f0eff4;
-  color: #000000;
+  color: #0a0a0a;
+}
+
+.textLight {
+  color: #f0eff4;
+}
+
+.textDark {
+  color: #0a0a0a;
 }
 
 .textReveal {

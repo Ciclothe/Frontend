@@ -1,3 +1,27 @@
+/**
+ * SearchBar component renders a search input field with an icon and a location display.
+ * It uses the current theme and translation context.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SearchBar />
+ * )
+ *
+ * @returns {JSX.Element} The rendered SearchBar component.
+ *
+ * @remarks
+ * - The component uses `useTheme` to determine if night mode is enabled.
+ * - The component uses `useTranslation` for internationalization.
+ * - The search input field can be focused by clicking on the magnifying glass icon.
+ * - The location display shows a hardcoded location "Valencia, Spn." and distance "2 km".
+ *
+ * @dependencies
+ * - `useTheme` from "@/context/ThemeContext"
+ * - `useTranslation` from "react-i18next"
+ * - `Icon` from "@mdi/react"
+ * - `mdiMagnify` and `mdiCrosshairsGps` from "@mdi/js"
+ */
 import React from "react";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
@@ -42,7 +66,7 @@ const SearchBar: React.FC = () => {
           />
         </div>
         {/* LOCATION SEARCH */}
-        <div className="bg-[#02995D] border text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-6 p-2 md:aspect-square lg:aspect-auto px-4 md:px-[0px] py-[2px] md:py-[0px] lg:py-[2px] rounded-full lg:px-4 flex items-center">
+        <div className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-6 px-4 md:px-2 lg:px-4 py-[2px] rounded-full flex items-center md:aspect-square lg:aspect-auto">
           <div className="flex md:hidden lg:flex flex-col whitespace-nowrap">
             <h2 className="font-bold">Valencia, Spn.</h2>
             <p className="mt-[-3px]">2 km</p>
