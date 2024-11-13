@@ -41,9 +41,6 @@ const SidebarLeft = () => {
           <RecommendedProfiles />
         </div>
       </div>
-      <div>
-        <ChatWindow />
-      </div>
     </div>
   );
 };
