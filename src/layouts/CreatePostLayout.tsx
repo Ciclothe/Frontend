@@ -6,11 +6,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 import API_CONSTANTS from "@/services/config";
 import PostPreview from "@/pages/createPost/components/PostPreview";
-import ModeSwitch from "@/components/common/ModeSwitch";
-import LanguageSwitch from "@/components/common/LanguageSwitch";
+import ModeSwitch from "@/components/ui/ModeSwitch";
+import LanguageSwitch from "@/components/ui/LanguageSwitch";
 import CiclotheLogotipo from "../../public/CiclotheLogotipo";
 import Icon from "@mdi/react";
-import AlertComponent from "@/components/common/Alert";
+import AlertComponent from "@/components/ui/Alert";
 
 //? ICONS
 import { mdiArrowRight, mdiArrowLeft, mdiCheck } from "@mdi/js";

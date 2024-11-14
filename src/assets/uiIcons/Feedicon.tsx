@@ -15,7 +15,7 @@ const FeedIcon = (props: any) => {
 		c0.3,34.6-26.6,63.8-62.3,67.5h-265C15,389.3,8.2,321.9,8.2,321.9z"
           fill={props.isSelected ? props.colorSelected : "none"}
           stroke={props.isSelected ? "none" : props.colorUnselected}
-          strokeWidth="20"
+          strokeWidth="30"
         />
 
         <path

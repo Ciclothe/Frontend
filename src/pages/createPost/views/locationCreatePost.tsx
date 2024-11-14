@@ -3,7 +3,7 @@ import { mdiMapMarker } from "@mdi/js";
 import Icon from "@mdi/react";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import Chip from "@mui/material/Chip";
-import AlertComponent from "@/components/common/Alert";
+import AlertComponent from "@/components/ui/Alert";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useUser } from "@/context/UserContext.js";

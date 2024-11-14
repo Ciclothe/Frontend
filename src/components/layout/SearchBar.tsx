@@ -44,7 +44,7 @@ const SearchBar: React.FC = () => {
           <div
             onClick={() => {
               const inputElement = document.getElementById(
-                "searchInput"
+                "searchInputGlobal"
               ) as HTMLInputElement | null;
               if (inputElement) {
                 inputElement.focus();
@@ -59,7 +59,7 @@ const SearchBar: React.FC = () => {
             />
           </div>
           <input
-            id="searchInput"
+            id="searchInputGlobal"
             type="text"
             placeholder={t("Global.SearchHolder")}
             className="bg-transparent w-full outline-none rounded-full text-white p-2"

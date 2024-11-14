@@ -1,8 +1,7 @@
 import RecommendedProfiles from "./RecommendedProfiles";
-import ChatWindow from "./ChatWindow";
 import { useState, useEffect } from "react";
 
-const SidebarLeft = () => {
+const SidebarRight = () => {
   const [windowHeight, setWindowHeight] = useState("calc(100vh - 6em)");
   const [isScrolling, setIsScrolling] = useState(false);
 
@@ -45,4 +44,4 @@ const SidebarLeft = () => {
   );
 };
 
-export default SidebarLeft;
+export default SidebarRight;
