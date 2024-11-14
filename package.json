@@ -18,7 +18,7 @@
     "@mui/material": "^6.0.0-beta.5",
     "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.10",
-    "emoji-picker-react": "^4.11.1",
+    "emoji-picker-react": "^4.12.0",
     "i18next": "^23.11.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",

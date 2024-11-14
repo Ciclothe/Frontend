@@ -15,7 +15,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useTranslation } from "react-i18next";
-import LanguageSwitch from "../common/LanguageSwitch";
+import LanguageSwitch from "../ui/LanguageSwitch";
 
 enum AlertSeverity {
   SUCCESS = "success",

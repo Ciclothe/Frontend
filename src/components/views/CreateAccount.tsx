@@ -12,8 +12,8 @@ import API_CONSTANTS from "@/services/config";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSwitch from "../common/LanguageSwitch";
-import AlertComponent from "../common/Alert";
+import LanguageSwitch from "../ui/LanguageSwitch";
+import AlertComponent from "../ui/Alert";
 
 function CreateAccount() {
   const { t } = useTranslation();

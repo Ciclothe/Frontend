@@ -5,7 +5,7 @@ import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import LanguageSwitch from "./LanguageSwitch";
+import LanguageSwitch from "../ui/LanguageSwitch";
 import { useTranslation } from "react-i18next";
 
 interface HeaderProps {
@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ toggleMenu }) => {
         </div>
         {/*HEADERS ACTIONS*/}
         <div className="col-span-5 md:col-span-3 flex items-center justify-end">
-          <div className="md:fixed flex items-center gap-4">
+          <div className="xl:fixed flex items-center gap-4">
             {/*CREATE POST BUTTON*/}
             <button
               className={`${

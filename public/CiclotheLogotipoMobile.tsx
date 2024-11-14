@@ -2,7 +2,6 @@ const CiclotheLogotipoMobile = (props: any) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
       width={props.size}
       height={props.size}
       viewBox="0 0 146 158"

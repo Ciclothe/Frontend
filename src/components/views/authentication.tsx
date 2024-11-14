@@ -2,7 +2,7 @@ import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 import video from "../../assets/videoTest.mp4";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import LanguageSwitch from "../common/LanguageSwitch";
+import LanguageSwitch from "../ui/LanguageSwitch";
 
 function Authentication() {
   const { t } = useTranslation();

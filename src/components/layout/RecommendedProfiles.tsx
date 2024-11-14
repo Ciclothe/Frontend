@@ -63,7 +63,7 @@ const RecommendedProfiles = () => {
                   <img
                     src={user.image}
                     alt="profile Pic"
-                    className="h-[3em] w-[3em] object-cover rounded-full"
+                    className="h-[3em] aspect-square object-cover rounded-full"
                   />
                   <div className="w-full ml-2">
                     <p className="font-bold whitespace-nowrap">
