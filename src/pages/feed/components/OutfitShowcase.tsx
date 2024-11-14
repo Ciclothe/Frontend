@@ -7,9 +7,12 @@ import ShareIcon from "@/assets/uiIcons/ShareIcon";
 import SaveIcon from "@/assets/uiIcons/SaveIcon";
 import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker, { EmojiStyle, Theme } from "emoji-picker-react";
+import PostOptions from "@/components/layout/PostOptions";
+import { useTheme } from "@/context/ThemeContext.js";
 
 interface OutfitShowcaseProps {
   data: {
+    id: number;
     userData: {
       username: string;
       profilePicture: string;
@@ -54,6 +57,8 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [comment, setComment] = useState("");
   const commentInputRef = useRef<any>(null);
+  const [opened, setOpened] = useState(false);
+  const { isNightMode } = useTheme();
 
   useEffect(() => {
     if (data?.postAnalitics?.postLiked) {
@@ -79,18 +84,30 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center relative sm:border rounded-xl border-1 border-[#3E3E3D]">
+    <div
+      className={`${
+        isNightMode ? "border-[#3E3E3D]" : "border-[#DDDDDE]"
+      }  w-full flex items-center justify-center relative sm:border rounded-xl border-1`}
+    >
       <div className="hidden sm:block absolute left-0 top-0 w-full h-full rounded-xl">
         <div className="relative w-full h-full rounded-xl">
           <img
             src={data?.postImg}
             className="rounded-xl w-full h-full object-cover"
           />
-          <div className="bg-black bg-opacity-90 backdrop-blur-md backdrop-brightness-90 absolute z-10 left-0 top-0 w-full h-full rounded-xl"></div>
+          <div
+            className={`${
+              isNightMode ? "bg-black" : "bg-white"
+            } bg-opacity-90 backdrop-blur-md backdrop-brightness-90 absolute z-10 left-0 top-0 w-full h-full rounded-xl`}
+          ></div>
         </div>
       </div>
       {/* Main Container for Post */}
-      <div className="sm:bg-[#232323] md:w-[80%] lg:w-[75%] sm:p-4 text-white gap-4 grid grid-cols-12 z-10 rounded-xl md:rounded-none">
+      <div
+        className={`${
+          isNightMode ? "sm:bg-[#232323] text-white" : "bg-white text-black"
+        } md:w-[80%] lg:w-[75%] sm:p-4 gap-4 grid grid-cols-12 z-10 rounded-xl md:rounded-none`}
+      >
         {/* USER DATA */}
         <div className="col-span-12 grid grid-cols-12">
           <div className="col-span-1 flex justify-center">
@@ -113,8 +130,16 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
             {/* POST DESCRIPTION */}
             <p className="titleStyles">{data?.postDescription}</p>
           </div>
-          <div className="col-span-1 flex justify-end">
+          <div
+            className="col-span-1 flex justify-end relative cursor-pointer"
+            onClick={() => setOpened(!opened)}
+          >
             <Icon path={mdiDotsVertical} size={0.8} />
+            <PostOptions
+              postId={data?.id}
+              opened={opened}
+              setOpened={setOpened}
+            />
           </div>
         </div>
 
@@ -133,10 +158,14 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                 />
 
                 {/* SWAP DATA OVERLAY */}
-                <div className="p-2 bg-[#232323] rounded-lg absolute bottom-2">
+                <div
+                  className={`p-2 ${
+                    isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                  } rounded-lg absolute bottom-2`}
+                >
                   <div className="flex gap-2 items-center justify-center">
                     {/* OFFERED GARMENT */}
-                    <div className="w-[6em] h-[6em] rounded-md bg-red-500">
+                    <div className="w-[6em] h-[6em] rounded-md">
                       <img
                         src={data?.swapData?.offered?.coverImg}
                         alt="Offered garment pic"
@@ -145,7 +174,7 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                     </div>
 
                     {/* OBTAINED GARMENT */}
-                    <div className="w-[6em] h-[6em] rounded-md bg-red-500">
+                    <div className="w-[6em] h-[6em] rounded-md">
                       <img
                         src={data?.swapData?.obtained?.coverImg}
                         alt="Obtained garment pic"
@@ -154,7 +183,11 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                     </div>
 
                     {/* SWAP ICON */}
-                    <div className="rounded-full bg-[#02995D] bg-opacity-30 backdrop-blur-md backdrop-brightness-50 absolute border border-[#02995D] p-2">
+                    <div
+                      className={`rounded-full bg-[#02995D] ${
+                        isNightMode ? "bg-opacity-30" : "bg-opacity-10"
+                      } backdrop-blur-md backdrop-brightness-50 absolute border border-[#02995D] p-2`}
+                    >
                       <Swapicon size={"1em"} color={"#02995D"} />
                     </div>
                   </div>
@@ -164,7 +197,9 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                 <div className="flex sm:hidden col-span-1 h-full flex-col items-center justify-end gap-4 absolute right-2 bottom-2">
                   <div
                     className={`${
-                      liked ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                      liked
+                        ? "bg-[#0DBC73]"
+                        : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                     } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                     onMouseEnter={() => setLiked(true)}
                     onMouseLeave={() =>
@@ -173,34 +208,48 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                   >
                     <HeartIcon
                       size={"1.5em"}
-                      colorFill={"#232323"}
-                      colorStroke={"#F1F1F1"}
+                      colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                      colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                       isSelected={liked}
                     />
                     <p
                       className={`${
-                        liked ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                        liked
+                          ? `${
+                              isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                            }`
+                          : `${
+                              isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                            }`
                       } font-bold`}
                     >
                       {data?.postAnalitics?.likes}
                     </p>
                   </div>
                   <div
-                    className={`bg-[#3A3A3A]  flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
+                    className={`${
+                      isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"
+                    } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                     onClick={focusCommentInput}
                   >
                     <CommentsIcon
                       size={"1.5em"}
-                      colorStroke={"#F1F1F1"}
+                      colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                       isSelected={liked}
                     />
-                    <p className={`text-[#F1F1F1] font-bold`}>
+                    <p
+                      className={`${
+                        isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                      } font-bold`}
+                    >
                       {data?.postAnalitics?.comments}
                     </p>
                   </div>
                   <div
                     className={`${
-                      shared ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                      shared
+                        ? "bg-[#0DBC73]"
+                        : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                     } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                     onMouseEnter={() => setShared(true)}
                     onMouseLeave={() =>
@@ -209,13 +258,19 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                   >
                     <ShareIcon
                       size={"1.5em"}
-                      colorFill={"#232323"}
-                      colorStroke={"#F1F1F1"}
+                      colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                      colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                       isSelected={shared}
                     />
                     <p
                       className={`${
-                        shared ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                        shared
+                          ? `${
+                              isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                            }`
+                          : `${
+                              isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                            }`
                       } font-bold`}
                     >
                       {data?.postAnalitics?.shares}
@@ -223,7 +278,9 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                   </div>
                   <div
                     className={`${
-                      saved ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                      saved
+                        ? "bg-[#0DBC73]"
+                        : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                     } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                     onMouseEnter={() => setSaved(true)}
                     onMouseLeave={() =>
@@ -232,13 +289,19 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                   >
                     <SaveIcon
                       size={"1.5em"}
-                      colorFill={"#232323"}
-                      colorStroke={"#F1F1F1"}
+                      colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                      colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                       isSelected={saved}
                     />
                     <p
                       className={`${
-                        saved ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                        saved
+                          ? `${
+                              isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                            }`
+                          : `${
+                              isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                            }`
                       } font-bold`}
                     >
                       {data?.postAnalitics?.saves}
@@ -250,41 +313,53 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
               <div className="hidden sm:flex col-span-1 h-full flex-col items-center justify-center gap-4">
                 <div
                   className={`${
-                    liked ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                    liked
+                      ? "bg-[#0DBC73]"
+                      : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                   } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                   onMouseEnter={() => setLiked(true)}
                   onMouseLeave={() => setLiked(data?.postAnalitics?.postLiked)}
                 >
                   <HeartIcon
                     size={"1.5em"}
-                    colorFill={"#232323"}
-                    colorStroke={"#F1F1F1"}
+                    colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                    colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                     isSelected={liked}
                   />
                   <p
                     className={`${
-                      liked ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                      liked
+                        ? `${isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"}`
+                        : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
                     } font-bold`}
                   >
                     {data?.postAnalitics?.likes}
                   </p>
                 </div>
                 <div
-                  className={`bg-[#3A3A3A]  flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
+                  className={`${
+                    isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"
+                  } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                   onClick={focusCommentInput}
                 >
                   <CommentsIcon
                     size={"1.5em"}
-                    colorStroke={"#F1F1F1"}
+                    colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                     isSelected={liked}
                   />
-                  <p className={`text-[#F1F1F1] font-bold`}>
+                  <p
+                    className={`${
+                      isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                    } font-bold`}
+                  >
                     {data?.postAnalitics?.comments}
                   </p>
                 </div>
                 <div
                   className={`${
-                    shared ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                    shared
+                      ? "bg-[#0DBC73]"
+                      : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                   } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                   onMouseEnter={() => setShared(true)}
                   onMouseLeave={() =>
@@ -293,13 +368,15 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                 >
                   <ShareIcon
                     size={"1.5em"}
-                    colorFill={"#232323"}
-                    colorStroke={"#F1F1F1"}
+                    colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                    colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                     isSelected={shared}
                   />
                   <p
                     className={`${
-                      shared ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                      shared
+                        ? `${isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"}`
+                        : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
                     } font-bold`}
                   >
                     {data?.postAnalitics?.shares}
@@ -307,20 +384,24 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                 </div>
                 <div
                   className={`${
-                    saved ? "bg-[#0DBC73]" : "bg-[#3A3A3A] "
+                    saved
+                      ? "bg-[#0DBC73]"
+                      : `${isNightMode ? "bg-[#3A3A3A]" : "bg-[#F1F1F1]"}`
                   } flex flex-col items-center justify-center cursor-pointer px-[10px] py-[8px] rounded-lg gap-1`}
                   onMouseEnter={() => setSaved(true)}
                   onMouseLeave={() => setSaved(data?.postAnalitics?.postSaved)}
                 >
                   <SaveIcon
                     size={"1.5em"}
-                    colorFill={"#232323"}
-                    colorStroke={"#F1F1F1"}
+                    colorFill={`${isNightMode ? "#232323" : "#F1F1F1"}`}
+                    colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                     isSelected={saved}
                   />
                   <p
                     className={`${
-                      saved ? "text-[#3A3A3A]" : "text-[#F1F1F1]"
+                      saved
+                        ? `${isNightMode ? "text-[#3A3A3A]" : "text-[#F1F1F1]"}`
+                        : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
                     } font-bold`}
                   >
                     {data?.postAnalitics?.saves}
@@ -385,7 +466,7 @@ const OutfitShowcase: React.FC<OutfitShowcaseProps> = ({ data }) => {
                     height={"30em"}
                     skinTonesDisabled={true}
                     searchDisabled={true}
-                    theme={Theme.DARK}
+                    theme={isNightMode ? Theme.DARK : Theme.LIGHT}
                     reactionsDefaultOpen={false}
                   />
                 </div>

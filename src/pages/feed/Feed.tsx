@@ -5,7 +5,9 @@ interface PostProps {
   data: any;
 }
 
+// Test Data
 const postTestOutfitShowcase = {
+  id: 1,
   type: "OutfitShowcase",
   userData: {
     username: "MisterX",
