@@ -33,10 +33,10 @@ const SearchBar: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="w-full lg:w-[80%] xl:w-[70%] flex items-center justify-center">
       <div
         className={`${
-          isNightMode ? "bg-[#232323]" : "bg-white"
+          isNightMode ? "bg-[#171717] text-white" : "bg-white text-black"
         } rounded-full w-full flex items-center justify-between`}
       >
         {/* ELEMENT SEARCH */}
@@ -66,13 +66,13 @@ const SearchBar: React.FC = () => {
           />
         </div>
         {/* LOCATION SEARCH */}
-        <div className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-6 px-4 md:px-2 lg:px-4 py-[2px] rounded-full flex items-center md:aspect-square lg:aspect-auto">
-          <div className="flex md:hidden lg:flex flex-col whitespace-nowrap">
+        <div className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-2 md:gap-6 px-4 py-[2px] rounded-full flex items-center">
+          <div className="flex flex-col whitespace-nowrap">
             <h2 className="font-bold">Valencia, Spn.</h2>
             <p className="mt-[-3px]">2 km</p>
           </div>
           <div>
-            <Icon path={mdiCrosshairsGps} size={0.7} />
+            <Icon path={mdiCrosshairsGps} size={0.8} />
           </div>
         </div>
       </div>

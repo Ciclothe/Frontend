@@ -16,13 +16,13 @@ export const MainLayout: FC = () => {
   return (
     <>
       {/* Desktop View */}
-      <div className="px-[1em] lg:px-[5em] text-black lg:grid grid-cols-12">
+      <div className="text-black lg:grid grid-cols-12 relative gap-4">
         {/* Header */}
-        <header className="col-span-12">
+        <header className="col-span-12 sticky top-0">
           <Header toggleMenu={handleMenuClick} />
         </header>
 
-        <div className="col-span-12 flex md:gap-6">
+        <div className="col-span-12 flex md:gap-6 px-[1em] lg:px-[5em]">
           {/* Left Sidebar */}
           <div className="hidden md:block min-w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] relative">
             <MenuDesktop />
