@@ -15,7 +15,7 @@ interface PostCardProps {
   data: {
     type: string;
     id: number;
-  } & Partial<{
+
     userData: {
       username: string;
       profilePicture: string;
@@ -58,7 +58,7 @@ interface PostCardProps {
       profilePicture: string;
       comment: string;
     }>;
-  }>;
+  };
 }
 
 const PostCard: React.FC<PostCardProps> = ({ data }) => {
@@ -219,7 +219,18 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
 
             {/* SWAP DATA POST */}
             <div className="col-span-12 xl:hidden">
-              {data?.type == "Swap" && <SwapCard swapData={data} />}
+              {data?.type == "Swap" && (
+                <SwapCard
+                  swapData={{
+                    garmentImgs: data.garmentImgs,
+                    garmentCondition: data.garmentCondition,
+                    garmentTitle: data.garmentTitle,
+                    garmentColor: data.garmentColor,
+                    garmentSize: data.garmentSize,
+                    garmentBrand: data.garmentBrand,
+                  }}
+                />
+              )}
             </div>
 
             {/* ANALITICS*/}

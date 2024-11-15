@@ -11,11 +11,7 @@ interface PostOptionsProps {
   setOpened: (opened: boolean) => void; // Función para actualizar el estado de apertura
 }
 
-const PostOptions: React.FC<PostOptionsProps> = ({
-  postId,
-  setOpened,
-  opened,
-}) => {
+const PostOptions: React.FC<PostOptionsProps> = ({ setOpened, opened }) => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
 

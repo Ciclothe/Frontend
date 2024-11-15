@@ -135,7 +135,7 @@ function ResetPassword() {
   };
 
   useEffect(() => {
-    let timer: number;
+    let timer: ReturnType<typeof setInterval>;
     if (codeSent && countdown > 0) {
       timer = setInterval(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
