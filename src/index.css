@@ -5,20 +5,20 @@
 
 body {
   margin: 0;
-  background-color: #0a0a0a;
+  background-color: #0b0b0b;
   min-height: 100vh;
   font-family: "helvetica";
   font-size: 12px;
 }
 
 .bodyNightMode {
-  background-color: #0a0a0a;
+  background-color: #0b0b0b;
   color: #f0eff4;
 }
 
 .bodyDayMode {
   background-color: #f0eff4;
-  color: #0a0a0a;
+  color: #0b0b0b;
 }
 
 .textLight {
@@ -26,7 +26,7 @@ body {
 }
 
 .textDark {
-  color: #0a0a0a;
+  color: #0b0b0b;
 }
 
 .textReveal {

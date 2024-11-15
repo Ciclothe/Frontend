@@ -5,9 +5,11 @@ import SidebarRight from "@/components/layout/SidebarRight";
 import Header from "@/components/layout/Header";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { useTheme } from "@/context/ThemeContext";
 
 export const MainLayout: FC = () => {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
+  const { isNightMode } = useTheme();
 
   const handleMenuClick = () => {
     setShowMenuMobile((prevShowMenuMobile) => !prevShowMenuMobile);
@@ -16,13 +18,17 @@ export const MainLayout: FC = () => {
   return (
     <>
       {/* Desktop View */}
-      <div className="px-[1em] lg:px-[5em] text-black lg:grid grid-cols-12">
+      <div className="text-black lg:grid grid-cols-12 relative gap-4">
         {/* Header */}
-        <header className="col-span-12">
+        <header
+          className={`col-span-12 sticky top-0 z-[1000] ${
+            isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
+          }`}
+        >
           <Header toggleMenu={handleMenuClick} />
         </header>
 
-        <div className="col-span-12 flex md:gap-6">
+        <div className="col-span-12 flex md:gap-6 px-[1em] lg:px-[5em]">
           {/* Left Sidebar */}
           <div className="hidden md:block min-w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] relative">
             <MenuDesktop />
