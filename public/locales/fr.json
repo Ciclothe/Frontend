@@ -80,6 +80,7 @@
     "UnfollowAccount": "Ne plus suivre le compte"
   },
   "Swipe": {
+    "MadeASwapWith": "a fait un swap avec",
     "SwapTitle": "Sélectionnez les vêtements que vous souhaitez offrir dans l'échange",
     "SwapParagraphOne": "Lors de l'envoi de votre demande d'échange, gardez à l'esprit que l'utilisateur a un délai de 5 jours pour répondre. Pendant ce temps, ",
     "SwapParagraphTwo": "ils peuvent accepter votre demande, faire une contre-offre ou la rejeter.",
