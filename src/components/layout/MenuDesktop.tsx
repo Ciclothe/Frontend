@@ -1,42 +1,3 @@
-/**
- * The `MenuDesktop` component renders a vertical menu with navigation links.
- * It uses the current theme and translation context, and highlights the active route.
- *
- * @component
- *
- * @returns {JSX.Element} The rendered component.
- *
- * @example
- * <MenuDesktop />
- *
- * @remarks
- * This component uses the `useTheme` hook to determine if night mode is active,
- * the `useTranslation` hook for internationalization, and the `useLocation` hook
- * to determine the current route.
- *
- * The menu items are defined in an array with their respective icons, labels, and routes.
- * The active route is highlighted, and the menu items change color on hover.
- *
- * The component also includes a settings button at the bottom.
- *
- * @hook
- * @name useTheme
- * @description Provides the current theme context.
- *
- * @hook
- * @name useTranslation
- * @description Provides the translation context.
- *
- * @hook
- * @name useLocation
- * @description Provides the current location context.
- *
- * @typedef {Object} MenuItem
- * @property {Function} icon - A function that returns the icon component for the menu item.
- * @property {string} label - The label for the menu item.
- * @property {string} route - The route path for the menu item.
- */
-
 import React from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
@@ -47,8 +8,7 @@ import ExploreIcon from "@/assets/uiIcons/ExploreIcon";
 import EventsIcon from "@/assets/uiIcons/EventsIcon";
 import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
 import Icon from "@mdi/react";
-import { mdiCog } from "@mdi/js";
-
+import { mdiCog, mdiPlusBoxOutline } from "@mdi/js";
 const MenuDesktop = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
@@ -121,7 +81,7 @@ const MenuDesktop = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between fixed lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] ${
+      className={`flex flex-col justify-between fixed lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] pt-4 ${
         isNightMode ? "textLight" : "textDark"
       }`}
       style={{
@@ -146,7 +106,7 @@ const MenuDesktop = () => {
             <Link
               to={item.route}
               key={index}
-              className={`flex items-center w-full justify-start p-2 rounded-lg text-[2em] font-bold ${
+              className={`flex items-center w-full justify-start p-2 rounded-lg text-[1.7em] font-bold ${
                 currentIsActive
                   ? "text-[#0DBC73] hover:text-[#0DBC73]"
                   : `${
@@ -161,11 +121,20 @@ const MenuDesktop = () => {
             </Link>
           );
         })}
+        {/*CREATE POST BUTTON DESKTOP*/}
+        <div
+          className={`${
+            isNightMode ? "hover:text-black" : "hover:text-white"
+          } hidden md:flex bg-[#02995D] text-[#02995D] border-[#02995D] hover:bg-opacity-100 border-2 border bg-opacity-10 flex items-center rounded-full py-3 w-fit px-10 justify-center gap-2 mt-4 cursor-pointer`}
+        >
+          <Icon path={mdiPlusBoxOutline} size={0.7} />
+          <p className="hidden md:flex font-bold">{t("Global.CreatePost")}</p>
+        </div>
       </div>
       <div>
         <button
           type="button"
-          className="flex items-center w-full justify-start p-2 hover:text-[#0DBC73] rounded-lg"
+          className="flex items-center w-full justify-start p-2 hover:text-[#0DBC73] rounded-lg text-[1.3em]"
         >
           <Icon path={mdiCog} size={0.8} />
           <p className="ml-2 font-bold">{t("Global.settings")}</p>
