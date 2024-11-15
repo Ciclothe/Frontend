@@ -1,25 +1,23 @@
 import Icon from "@mdi/react";
-import { mdiBellOutline, mdiViewGrid } from "@mdi/js";
+import { mdiBellOutline } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-interface HeaderProps {
-  toggleMenu: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ toggleMenu }) => {
+const Header = () => {
   const { isNightMode } = useTheme();
 
   return (
     <div
-      className="border-b px-[1em] lg:px-[5em]"
+      className={`px-[1em] lg:px-[5em]`}
       style={{
         borderBottomWidth: "0.5px",
-        borderBottomColor: "rgba(255, 255, 255, 0.1)",
         borderStyle: "solid",
+        borderColor: isNightMode
+          ? "rgba(255, 255, 255, 0.1)"
+          : "rgba(140, 140, 140, 0.1)",
       }}
     >
       <div
