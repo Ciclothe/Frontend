@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import PostOptions from "@/components/layout/PostOptions";
 import { useTheme } from "@/context/ThemeContext.js";
 import ImageCarousel from "@/components/ui/ImageCarousel";
+import SwapCard from "@/components/layout/SwapCard";
 
 interface PostCardProps {
   data: {
@@ -180,7 +181,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                     <div
                       className={`p-2 ${
                         isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
-                      } rounded-lg absolute bottom-2`}
+                      } rounded-lg absolute bottom-2 z-10`}
                     >
                       <div className="flex gap-2 items-center justify-center">
                         {/* OFFERED GARMENT */}
@@ -215,6 +216,11 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                 </div>
               </div>
             )}
+
+            {/* SWAP DATA POST */}
+            <div className="col-span-12 xl:hidden">
+              {data?.type == "Swap" && <SwapCard swapData={data} />}
+            </div>
 
             {/* ANALITICS*/}
             <div className="flex col-span-12 items-center justify-start gap-4 mt-3">

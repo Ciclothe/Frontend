@@ -62,7 +62,7 @@ const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
           </div>
 
           {/* SWAP DATA POST */}
-          <div className="absolute z-100 bottom-0 w-full p-2 z-[100]">
+          <div className="hidden xl:block absolute bottom-0 w-full p-2 z-[100]">
             <SwapCard swapData={data} />
           </div>
         </div>

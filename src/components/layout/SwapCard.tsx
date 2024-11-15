@@ -3,7 +3,7 @@ import SwapIcon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext.js";
 
 interface SwapData {
-  garmentImgs: { src: string }[];
+  garmentImgs: any;
   garmentCondition: string;
   garmentTitle: string;
   garmentColor: string;
@@ -47,18 +47,22 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
 
   return (
     <div
-      className={`${showDetails ? "w-full" : "w-fit"} ${
-        isNightMode ? "bg-opacity-50" : "bg-opacity-30"
-      } p-2 rounded-md col-span-12 h-full flex gap-2 text-white flex-col mt-2 backdrop-blur-lg backdrop-brightness-10 bg-black`}
+      className={`${
+        isNightMode
+          ? "border-gray-50 border-opacity-20 xl:bg-opacity-50 text-white xl:text-white"
+          : "border-black border-opacity-10 xl:bg-opacity-30 text-black xl:text-white"
+      } ${
+        showDetails ? "w-full" : "w-full xl:w-fit"
+      }  p-2 rounded-md border xl:border-none col-span-12 h-full flex gap-2 flex-col mt-2 xl:backdrop-blur-lg xl:backdrop-brightness-10 xl:bg-black`}
       onMouseEnter={() => setShowDetails(true)}
       onMouseLeave={() => setShowDetails(false)}
     >
       <div className="flex h-full">
         <div
-          className={`aspect-square transition-all duration-300 transform ${
+          className={`aspect-square xl:transition-all xl:duration-300 xl:transform ${
             showDetails
-              ? "opacity-100 scale-100 w-[7em]"
-              : "opacity-0 scale-0 h-0 w-[0em]"
+              ? "xl:opacity-100 xl:scale-100 w-[7em]"
+              : "xl:opacity-0 xl:scale-0 xl:h-0 w-[7em] xl:w-[0em]"
           }`}
         >
           <img
@@ -86,9 +90,9 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
       <button
         className={`${
           showDetails
-            ? "flex opacity-100 translate-y-0 w-full"
-            : "hidden opacity-0 -translate-y-2 w-[0em]"
-        }  bg-[#02995D] text-white items-center justify-center gap-2 transition-all duration-300 transform`}
+            ? "flex xl:opacity-100 xl:translate-y-0 w-full"
+            : "xl:hidden flex xl:opacity-0 xl:-translate-y-2 xl:w-[0em]"
+        }  bg-[#02995D] text-white items-center justify-center gap-2 xl:transition-all xl:duration-300 xl:transform`}
       >
         <SwapIcon size={"1em"} color={"white"} />
         Swap
