@@ -62,7 +62,9 @@ const SearchBar: React.FC = () => {
             id="searchInputGlobal"
             type="text"
             placeholder={t("Global.SearchHolder")}
-            className="bg-transparent w-full outline-none rounded-full text-white p-2"
+            className={`bg-transparent w-full outline-none rounded-full ${
+              isNightMode ? "text-white" : "text-black"
+            } p-2`}
           />
         </div>
         {/* LOCATION SEARCH */}
