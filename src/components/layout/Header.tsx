@@ -11,7 +11,9 @@ const Header = () => {
 
   return (
     <div
-      className={`px-[1em] lg:px-[5em]`}
+      className={`px-[1em] lg:px-[5em] py-[2em] flex flex-col gap-4 ${
+        isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
+      }`}
       style={{
         borderBottomWidth: "0.5px",
         borderStyle: "solid",
@@ -23,7 +25,7 @@ const Header = () => {
       <div
         className={`${
           isNightMode ? "text-white" : "text-black"
-        } grid grid-cols-12 md:gap-10 py-[2em]`}
+        } grid grid-cols-12 md:gap-10`}
       >
         {/*APP LOGO*/}
         <div className="col-span-5 md:col-span-2 flex items-center">
