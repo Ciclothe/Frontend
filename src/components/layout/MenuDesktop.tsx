@@ -81,7 +81,7 @@ const MenuDesktop = () => {
 
   return (
     <div
-      className={`flex flex-col justify-between fixed lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] pt-4 ${
+      className={`flex flex-col justify-between ${
         isNightMode ? "textLight" : "textDark"
       }`}
       style={{
@@ -117,7 +117,7 @@ const MenuDesktop = () => {
               onMouseLeave={handleMouseLeave}
             >
               {item.icon(currentIsActive)}
-              <p className="ml-6">{t(`Menu.${item.label}`)}</p>
+              <p className="ml-5">{t(`Menu.${item.label}`)}</p>
             </Link>
           );
         })}

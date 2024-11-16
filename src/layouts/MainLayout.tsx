@@ -13,22 +13,16 @@ export const MainLayout: FC = () => {
 
   return (
     <>
-      {/* Desktop View */}
-      <div className="text-black lg:grid grid-cols-12 relative">
-        {/* Header */}
-        <header
-          className={`col-span-12 sticky top-0 z-[1000] ${
-            isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
-          }`}
-        >
+      <div className="w-full flex flex-col h-[500vh] relative">
+        <div className="sticky top-0 z-[100]">
           <Header />
-        </header>
-
-        <div className="col-span-12 flex md:gap-6 px-[1em] lg:px-[5em]">
-          {/* Left Sidebar */}
+        </div>
+        <div className="flex flex-grow w-full relative">
+          {/* SIDEBAR LEFT MENU DESKTOP */}
           <div
-            className={`hidden md:block min-w-[25vw] lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] relative `}
+            className="hidden md:block w-[30%] xl:w-[28%] fixed py-4 pl-[1em] lg:pl-[5em]"
             style={{
+              height: `calc(100vh - 12vh)`,
               borderRightWidth: "0.5px",
               borderStyle: "solid",
               borderColor: isNightMode
@@ -39,27 +33,30 @@ export const MainLayout: FC = () => {
             <MenuDesktop />
           </div>
 
-          <div className="md:hidden">
+          {/* SIDEBAR LEFT MENU MOBILE */}
+          <div className="flex md:hidden">
             <MenuMobile />
           </div>
 
-          {/* Main Content Area */}
-          <div className="md:mt-0 flex-grow flex flex-col">
-            {/* Main Content */}
+          {/* Main Content */}
+          <div className="w-full ml-[1em] mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[5em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%] p-4">
             <Outlet />
           </div>
 
-          {/* Right Sidebar */}
-          <div className="hidden xl:block lg:min-w-[25vw] lg:max-w-[25vw] xl:min-w-[20vw] xl:max-w-[20vw] relative">
+          {/* Sidebar Right */}
+          <div
+            className="hidden xl:flex w-[28%] fixed right-0 justify-end py-4 pr-[1em] lg:pr-[5em]"
+            style={{
+              height: `calc(100vh - 12vh)`,
+              borderLeftWidth: "0.5px",
+              borderStyle: "solid",
+              borderColor: isNightMode
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(140, 140, 140, 0.1)",
+            }}
+          >
             <SidebarRight />
           </div>
-        </div>
-
-        {/*CREATE POST BUTTON MOBILE*/}
-        <div
-          className={`fixed z-[1000] bottom-20 right-5 fixed w-fit flex md:hidden bg-[#02995D] text-[#02995D] border-[#02995D] backdrop-blur-md backdrop-brightness-50 border-2 border bg-opacity-20 flex items-center rounded-full p-2 justify-center aspect-square`}
-        >
-          <Icon path={mdiPlusBoxOutline} size={1} />
         </div>
       </div>
     </>
