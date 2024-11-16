@@ -7,11 +7,9 @@ import { Outlet } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
 import { mdiPlusBoxOutline } from "@mdi/js";
-import { useTranslation } from "react-i18next";
 
 export const MainLayout: FC = () => {
   const { isNightMode } = useTheme();
-  const { t } = useTranslation();
 
   return (
     <>
