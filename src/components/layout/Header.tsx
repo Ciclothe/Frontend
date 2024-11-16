@@ -5,13 +5,19 @@ import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import SectionSwitcher from "@/components/layout/SectionSwitcher";
 
 const Header = () => {
   const { isNightMode } = useTheme();
 
+  const sectionOptions = [
+    { name: "Following", path: "/feed/following" },
+    { name: "Communities", path: "/feed/communities" },
+  ];
+
   return (
     <div
-      className={`px-[1em] lg:px-[5em] py-[2em] flex flex-col gap-4 ${
+      className={`pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col ${
         isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
       }`}
       style={{
@@ -88,8 +94,12 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="md:hidden col-span-6">
+      <div className="md:hidden col-span-12 mt-6">
         <SearchBar />
+      </div>
+
+      <div className="md:hidden col-span-12">
+        <SectionSwitcher options={sectionOptions} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ body {
   background-color: #0b0b0b;
   min-height: 100vh;
   font-family: "helvetica";
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .bodyNightMode {
@@ -47,16 +47,6 @@ body {
 .MuiMenuItem-root,
 li {
   font-size: small !important;
-}
-
-a {
-  font-weight: normal;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #003900;
 }
 
 .MuiSelect-select {

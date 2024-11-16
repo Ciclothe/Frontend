@@ -106,7 +106,7 @@ const MenuDesktop = () => {
             <Link
               to={item.route}
               key={index}
-              className={`flex items-center w-full justify-start p-2 rounded-lg text-[1.7em] font-bold ${
+              className={`flex items-center w-fit justify-start p-2 rounded-lg text-[1.7em] font-bold ${
                 currentIsActive
                   ? "text-[#0DBC73] hover:text-[#0DBC73]"
                   : `${

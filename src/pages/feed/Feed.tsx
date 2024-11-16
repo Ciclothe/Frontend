@@ -1,5 +1,6 @@
 import PostCard from "./components/PostCard";
 import SwapNotification from "./components/SwapNotification";
+import SectionSwitcher from "@/components/layout/SectionSwitcher";
 
 // Combined test data for OutfitShowcase and NotificationSwap
 const testPosts = [
@@ -218,16 +219,25 @@ const testPosts = [
   },
 ];
 
+const sectionOptions = [
+  { name: "Following", path: "/feed/following" },
+  { name: "Communities", path: "/feed/communities" },
+];
 const FeedView = () => {
   return (
     <div className="flex flex-col gap-6">
-      {testPosts.map((post: any) =>
-        post.type === "NotificationSwap" ? (
-          <SwapNotification key={post.id} data={post} />
-        ) : (
-          <PostCard key={post.id} data={post} />
-        )
-      )}
+      <div className="hidden md:flex w-full md:w-[70%] xl:w-[44%] fixed z-[100]">
+        <SectionSwitcher options={sectionOptions} />
+      </div>
+      <div className="md:mt-[4em] p-4">
+        {testPosts.map((post: any) =>
+          post.type === "NotificationSwap" ? (
+            <SwapNotification key={post.id} data={post} />
+          ) : (
+            <PostCard key={post.id} data={post} />
+          )
+        )}
+      </div>
     </div>
   );
 };
