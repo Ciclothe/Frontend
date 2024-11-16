@@ -7,17 +7,19 @@ import { Outlet } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
 import { mdiPlusBoxOutline } from "@mdi/js";
+import { useTranslation } from "react-i18next";
 
 export const MainLayout: FC = () => {
   const { isNightMode } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <>
-      <div className="w-full flex flex-col h-[500vh] relative">
+      <div className="w-full flex flex-col">
         <div className="sticky top-0 z-[100]">
           <Header />
         </div>
-        <div className="flex flex-grow w-full relative">
+        <div className="flex flex-grow w-full">
           {/* SIDEBAR LEFT MENU DESKTOP */}
           <div
             className="hidden md:block w-[30%] xl:w-[28%] fixed py-4 pl-[1em] lg:pl-[5em]"
@@ -33,13 +35,22 @@ export const MainLayout: FC = () => {
             <MenuDesktop />
           </div>
 
+          {/*CREATE POST BUTTON DESKTOP*/}
+          <div
+            className={`${
+              isNightMode ? "hover:text-black" : "hover:text-white"
+            }  fixed z-[100] right-2 bottom-20 md:hidden backdrop-blur-lg backdrop-brightness-50 bg-[#02995D] text-[#02995D] border-[#02995D] border-2 border bg-opacity-20 flex items-center rounded-full p-3 h-fit w-fit justify-center`}
+          >
+            <Icon path={mdiPlusBoxOutline} size={1.2} />
+          </div>
+
           {/* SIDEBAR LEFT MENU MOBILE */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden relative">
             <MenuMobile />
           </div>
 
           {/* Main Content */}
-          <div className="w-full ml-[1em] mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[5em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%] p-4">
+          <div className="w-full ml-[1em] mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[5em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%]">
             <Outlet />
           </div>
 

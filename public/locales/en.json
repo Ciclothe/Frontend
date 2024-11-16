@@ -50,6 +50,10 @@
     "Follow": "Follow",
     "SeeMore": "See More"
   },
+  "SectionSwitcher": {
+    "Following": "Following",
+    "Communities": "Communities"
+  },
   "Chat": {
     "Messages": "Messages",
     "NoMessages": "No messages",
