@@ -1,6 +1,7 @@
 import PostCard from "./components/PostCard";
 import SwapNotification from "./components/SwapNotification";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
+import { useOutletContext } from "react-router-dom";
 
 // Combined test data for OutfitShowcase and NotificationSwap
 const testPosts = [
@@ -174,7 +175,7 @@ const testPosts = [
       },
       {
         src: "https://images1.vinted.net/t/04_024a1_cDq4Nvs1NXkoN7Qt1wsqFMBy/f800/1730917127.jpeg?s=db323a4f7e497112ce295d9f3810d0368ba3b62d",
-        orientation: "portrait",
+        orientation: "square",
       },
       {
         src: "https://images1.vinted.net/t/02_01a04_JQx5vQr8FwZmzv1Jf8izuTPx/f800/1730917127.jpeg?s=c92619047aa7640c9731a526f7ed5f3af39702ad",
@@ -198,7 +199,7 @@ const testPosts = [
       comments: 5,
       shares: 4,
       saves: 50,
-      postLiked: true,
+      postLiked: false,
       postShared: false,
       postSaved: false,
     },
@@ -223,13 +224,24 @@ const sectionOptions = [
   { name: "Following", path: "/feed/following" },
   { name: "Communities", path: "/feed/communities" },
 ];
+
+interface MainLayoutContextType {
+  showHeader: boolean;
+}
+
 const FeedView = () => {
+  const { showHeader } = useOutletContext<MainLayoutContextType>();
+
   return (
     <div className="flex flex-col gap-6">
-      <div className="hidden md:flex w-full md:w-[70%] xl:w-[44%] fixed z-[100]">
+      <div
+        className={`hidden md:flex w-full md:w-[70%] xl:w-[44%] ${
+          showHeader ? "fixed" : "fixed top-0"
+        } z-[100]`}
+      >
         <SectionSwitcher options={sectionOptions} />
       </div>
-      <div className="md:mt-[4em] p-4">
+      <div className="md:mt-[4em] p-4 flex flex-col gap-4">
         {testPosts.map((post: any) =>
           post.type === "NotificationSwap" ? (
             <SwapNotification key={post.id} data={post} />

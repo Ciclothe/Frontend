@@ -9,7 +9,12 @@ import EventsIcon from "@/assets/uiIcons/EventsIcon";
 import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
 import Icon from "@mdi/react";
 import { mdiCog, mdiPlusBoxOutline } from "@mdi/js";
-const MenuDesktop = () => {
+
+interface MenuDesktopProps {
+  showHeader: boolean;
+}
+
+const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
@@ -85,7 +90,7 @@ const MenuDesktop = () => {
         isNightMode ? "textLight" : "textDark"
       }`}
       style={{
-        height: `calc(100vh - 10em)`,
+        height: `${showHeader ? "calc(100vh - 128px)" : "calc(100vh - 32px)"}`,
         overflowX: "hidden",
       }}
     >

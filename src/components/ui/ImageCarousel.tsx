@@ -39,9 +39,11 @@ const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
         <div
           className={`w-full flex-shrink-0 relative ${
             garmentImgs[currentIndex]?.orientation === "landscapes"
-              ? "aspect-[5/4]"
+              ? "aspect-[16/9]"
+              : garmentImgs[currentIndex]?.orientation === "square"
+              ? "aspect-[1/1]"
               : "aspect-[4/5]"
-          }`}
+          } max-h-[40em]`}
         >
           <img
             src={garmentImgs[currentIndex]?.src}
@@ -65,21 +67,21 @@ const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
           <div className="hidden xl:block absolute bottom-0 w-full p-2 z-[100]">
             <SwapCard swapData={data} />
           </div>
-        </div>
-      </div>
 
-      <div className="absolute top-0 left-0 w-full h-full flex items-center">
-        <div
-          onClick={handlePrev}
-          className="absolute left-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-r-lg"
-        >
-          <Icon path={mdiChevronLeft} size={0.8} />
-        </div>
-        <div
-          onClick={handleNext}
-          className="absolute right-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-l-lg"
-        >
-          <Icon path={mdiChevronRight} size={0.8} />
+          <div className="absolute top-0 left-0 w-full h-full flex items-center">
+            <div
+              onClick={handlePrev}
+              className="absolute left-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-r-lg"
+            >
+              <Icon path={mdiChevronLeft} size={0.8} />
+            </div>
+            <div
+              onClick={handleNext}
+              className="absolute right-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-l-lg"
+            >
+              <Icon path={mdiChevronRight} size={0.8} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

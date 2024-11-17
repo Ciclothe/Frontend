@@ -54,6 +54,12 @@
     "Following": "Folgen",
     "Communities": "Gemeinschaften"
   },
+  "GarmentCondition": {
+    "new": "Neu",
+    "as_new": "Wie Neu",
+    "used": "Gebraucht",
+    "bad_state": "Schlechter Zustand"
+  },
   "Chat": {
     "Messages": "Nachrichten",
     "NoMessages": "Keine Nachrichten",
