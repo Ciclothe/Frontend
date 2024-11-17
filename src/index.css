@@ -190,18 +190,6 @@ button {
   text-overflow: ellipsis;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 .chat-container {
   max-height: calc(100vh - 10em);
   overflow-y: auto;
