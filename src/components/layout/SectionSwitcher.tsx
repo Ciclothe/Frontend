@@ -23,7 +23,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
           key={index}
           onClick={() => setSelectedOption(option)}
           className={`flex flex-col items-center h-full ${
-            isCentered ? "px-10" : "px-5"
+            isCentered ? "px-10 w-[50%]" : "px-5"
           } md:px-5 cursor-pointer ${
             selectedOption === option
               ? "text-opacity-100"
@@ -31,7 +31,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
           }`}
         >
           <a href={option?.path}>
-            <p className="align-middle fond bold py-[1em] md:text-[1.1em]">
+            <p className="align-middle fond bold pb-[1em] md:pt-[1em] md:text-[1.1em]">
               {t(`SectionSwitcher.${option?.name}`)}
             </p>
           </a>

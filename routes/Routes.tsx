@@ -6,7 +6,7 @@ import AddProduct from "@/pages/createPost/CreatePost";
 import MessagesView from "../src/components/views/MessagesView";
 import CreateAccount from "../src/components/views/CreateAccount";
 import SignIn from "../src/components/views/SignIn";
-import { MainLayout } from "@/layouts";
+import MainLayout from "@/layouts/MainLayout";
 
 function RoutesViews() {
   return (
