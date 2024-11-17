@@ -207,8 +207,8 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
               )}
 
               {/* SWAP DATA POST */}
-              <div className="col-span-12 mb-2 xl:hidden">
-                {data?.type == "Swap" && (
+              {data?.type == "Swap" && (
+                <div className="col-span-12 mb-2 xl:hidden">
                   <SwapCard
                     swapData={{
                       garmentImgs: data.garmentImgs,
@@ -219,8 +219,8 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                       garmentBrand: data.garmentBrand,
                     }}
                   />
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
