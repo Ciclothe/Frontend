@@ -48,7 +48,7 @@ const MainLayout: FC = () => {
         <Header />
       </div>
 
-      <div className={`flex ${showHeader ? "flex-grow" : "h-screen"} w-full`}>
+      <div className={`flex ${showHeader ? "flex-grow" : "h-full"} w-full`}>
         {/* Sidebar Left */}
         <div
           className={`hidden md:block w-[30%] xl:w-[28%] fixed py-4 pl-[1em] lg:pl-[5em] ${

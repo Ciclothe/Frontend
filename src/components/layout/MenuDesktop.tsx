@@ -137,13 +137,10 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         </div>
       </div>
       <div>
-        <button
-          type="button"
-          className="flex items-center w-full justify-start p-2 hover:text-[#0DBC73] rounded-lg text-[1.3em]"
-        >
+        <div className="flex items-center w-full justify-start p-2 hover:text-[#0DBC73] rounded-lg text-[1.3em]">
           <Icon path={mdiCog} size={0.8} />
           <p className="ml-2 font-bold">{t("Global.settings")}</p>
-        </button>
+        </div>
       </div>
     </div>
   );
