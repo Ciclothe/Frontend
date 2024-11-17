@@ -38,6 +38,12 @@
     "doneIt": "Donar",
     "doneItCardParagraph": "Una prenda para ti, calidez y seguridad para otro."
   },
+  "GarmentCondition": {
+    "new": "Nuevo",
+    "as_new": "Como Nuevo",
+    "used": "Usado",
+    "bad_state": "Mal Estado"
+  },
   "Menu": {
     "Feed": "Inicio",
     "Explore": "Explorar",

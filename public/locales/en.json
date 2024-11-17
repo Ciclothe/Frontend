@@ -38,6 +38,12 @@
     "doneIt": "Done It",
     "doneItCardParagraph": "A Garment For You, Warmth And Security For Another."
   },
+  "GarmentCondition": {
+    "new": "New",
+    "as_new": "As New",
+    "used": "Used",
+    "bad_state": "Bad State"
+  },
   "Menu": {
     "Feed": "Feed",
     "Explore": "Explore",

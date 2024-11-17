@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SwapIcon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext.js";
+import { useTranslation } from "react-i18next";
 
 interface SwapData {
   garmentImgs: any;
@@ -13,7 +14,9 @@ interface SwapData {
 
 const SwapCard = ({ swapData }: { swapData: SwapData }) => {
   const { isNightMode } = useTheme();
+  const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
+
   const {
     garmentImgs,
     garmentCondition,
@@ -31,19 +34,14 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
       bad_state: "text-[#CC2936]",
     };
 
-    const formattedText = condition
-      .split("_")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-
     const colorClass =
       conditionColors[condition as keyof typeof conditionColors] ||
       "text-gray-500";
 
-    return { formattedText, colorClass };
+    return { colorClass };
   };
 
-  const { formattedText, colorClass } = formatCondition(garmentCondition);
+  const { colorClass } = formatCondition(garmentCondition);
 
   return (
     <div
@@ -73,10 +71,10 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
         </div>
         <div className="ml-2 w-full flex flex-col justify-around h-full">
           <p className={`font-bold capitalize ${colorClass}`}>
-            {formattedText}
+            {t(`GarmentCondition.${swapData?.garmentCondition}`)}{" "}
           </p>
           <div className="w-full">
-            <h2 className="font-bold text-[1.4em] capitalize">
+            <h2 className="font-bold text-[1.2em] capitalize">
               {garmentTitle}
             </h2>
             <div className="flex items-center gap-2 opacity-60 capitalize">
@@ -87,16 +85,16 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
           </div>
         </div>
       </div>
-      <button
+      <div
         className={`${
           showDetails
             ? "flex xl:opacity-100 xl:translate-y-0 w-full"
             : "xl:hidden flex xl:opacity-0 xl:-translate-y-2 xl:w-[0em]"
-        }  bg-[#02995D] text-white items-center justify-center gap-2 xl:transition-all xl:duration-300 xl:transform`}
+        }  bg-[#02995D] rounded-lg py-2 text-white cursor-pointer items-center justify-center gap-2 xl:transition-all xl:duration-300 xl:transform`}
       >
         <SwapIcon size={"1em"} color={"white"} />
         Swap
-      </button>
+      </div>
     </div>
   );
 };

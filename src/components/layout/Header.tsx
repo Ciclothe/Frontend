@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <div
-      className={`pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col ${
+      className={`pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 ${
         isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
       }`}
       style={{
@@ -94,7 +94,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="md:hidden col-span-12 mt-6">
+      <div className="md:hidden col-span-12">
         <SearchBar />
       </div>
 
