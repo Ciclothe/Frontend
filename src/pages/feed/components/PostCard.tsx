@@ -239,7 +239,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
               >
                 <HeartIcon
                   size={"1.5em"}
-                  colorFill={`${isNightMode ? "#0DBC73" : "#232323"}`}
+                  colorFill={`#0DBC73`}
                   colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
                   isSelected={liked}
                 />
