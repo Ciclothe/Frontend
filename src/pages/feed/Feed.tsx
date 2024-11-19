@@ -1,5 +1,6 @@
 import PostCard from "./components/PostCard";
 import SwapNotification from "./components/SwapNotification";
+import TextCard from "./components/TextCard";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useOutletContext } from "react-router-dom";
 
@@ -218,6 +219,85 @@ const testPosts = [
       },
     ],
   },
+  {
+    id: 5,
+    type: "Text",
+    userData: {
+      username: "MisterX",
+      profilePicture:
+        "https://i.pinimg.com/75x75_RS/63/58/42/635842ca8a6895adc59e30761996cc12.jpg",
+      location: {
+        city: "Madrid",
+        country: "Spain",
+      },
+    },
+    postTitle: "Why I’m Hooked On Vintage Vibes 🧥✨",
+    postDescription:
+      "Hey Vintagevibes Crew! I Just Wanted To Take A Second To Talk About Why I’m So Into Vintage Style And Why It Honestly Just Feels Different From Anything Else. For Me, It’s About More Than Just The Look—It's The Stories Behind Each Piece. I Love The Idea Of Wearing Something That’s Been Around For Decades.",
+    postAnalitics: {
+      likes: 745,
+      comments: 5,
+      shares: 4,
+      saves: 50,
+      postLiked: false,
+      postShared: false,
+      postSaved: false,
+    },
+    comments: [
+      {
+        username: "thomastomillo",
+        profilePicture:
+          "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
+        comment: "Damn !! thats a cool Hoodie my man",
+      },
+      {
+        username: "rforrever",
+        profilePicture:
+          "https://i.pinimg.com/280x280_RS/45/c0/51/45c0513b67958fadcfc29222b5e6a749.jpg",
+        comment: "Love it, bro!",
+      },
+    ],
+  },
+  {
+    id: 6,
+    type: "Text",
+    userData: {
+      username: "StreetStyleGuru",
+      profilePicture:
+        "https://i.pinimg.com/75x75_RS/63/58/42/635842ca8a6895adc59e30761996cc12.jpg",
+      location: {
+        city: "Tokyo",
+        country: "Japan",
+      },
+    },
+    postTitle: "Exploring the Depth of Streetwear Culture 👟✨",
+    postDescription:
+      "Hey Streetwear Enthusiasts! Just wanted to dive into why streetwear has such a unique vibe. It’s more than just fashion—it's a lifestyle, an attitude. From the oversized hoodies to the vintage sneakers, each piece tells a story of rebellion and creativity. Check out this video for some serious inspiration on the evolution of streetwear: https://www.youtube.com/watch?v=IoImcga6Gq8&ab_channel=makotoarchive",
+    postAnalitics: {
+      likes: 1020,
+      comments: 18,
+      shares: 22,
+      saves: 75,
+      postLiked: false,
+      postShared: false,
+      postSaved: false,
+    },
+    comments: [
+      {
+        username: "urbanlegend",
+        profilePicture:
+          "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
+        comment:
+          "Totally agree! Streetwear is all about expressing individuality.",
+      },
+      {
+        username: "vintagesneak",
+        profilePicture:
+          "https://i.pinimg.com/280x280_RS/45/c0/51/45c0513b67958fadcfc29222b5e6a749.jpg",
+        comment: "That video is fire! Thanks for sharing, mate!",
+      },
+    ],
+  },
 ];
 
 const sectionOptions = [
@@ -245,6 +325,8 @@ const FeedView = () => {
         {testPosts.map((post: any) =>
           post.type === "NotificationSwap" ? (
             <SwapNotification key={post.id} data={post} />
+          ) : post.type === "Text" ? (
+            <TextCard key={post.id} data={post} />
           ) : (
             <PostCard key={post.id} data={post} />
           )

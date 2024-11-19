@@ -1,21 +1,17 @@
+import React, { useState, useEffect } from "react";
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
-import Swapicon from "@/assets/icons/Swapicon";
 import HeartIcon from "@/assets/uiIcons/HeartIcon";
 import CommentsIcon from "@/assets/uiIcons/CommentsIcon";
 import ShareIcon from "@/assets/uiIcons/ShareIcon";
 import SaveIcon from "@/assets/uiIcons/SaveIcon";
-import React, { useState, useEffect } from "react";
 import PostOptions from "@/components/layout/PostOptions";
 import { useTheme } from "@/context/ThemeContext.js";
-import ImageCarousel from "@/components/ui/ImageCarousel";
-import SwapCard from "@/components/layout/SwapCard";
 
-interface PostCardProps {
+interface TextCardProps {
   data: {
-    type: string;
     id: number;
-
+    type: "Text";
     userData: {
       username: string;
       profilePicture: string;
@@ -24,16 +20,8 @@ interface PostCardProps {
         country: string;
       };
     };
+    postTitle: string;
     postDescription: string;
-    postImg: string;
-    imageOrientation: string;
-    garmentTitle: string;
-    garmentCondition: string;
-    garmentSize: string;
-    garmentBrand: string;
-    garmentColor: string;
-    garmentDescription: string;
-    garmentImgs: Array<{ src: string; orientation: "portrait" | "landscapes" }>;
     postAnalitics: {
       likes: number;
       comments: number;
@@ -43,16 +31,6 @@ interface PostCardProps {
       postShared: boolean;
       postSaved: boolean;
     };
-    swapData: {
-      offered: {
-        link: string;
-        coverImg: string;
-      };
-      obtained: {
-        link: string;
-        coverImg: string;
-      };
-    };
     comments: Array<{
       username: string;
       profilePicture: string;
@@ -61,36 +39,47 @@ interface PostCardProps {
   };
 }
 
-const PostCard: React.FC<PostCardProps> = ({ data }) => {
-  const [liked, setLiked] = useState<any>(false);
-  const [shared, setShared] = useState<any>(false);
-  const [saved, setSaved] = useState<any>(false);
+const TextCard: React.FC<TextCardProps> = ({ data }) => {
+  const [liked, setLiked] = useState(false);
+  const [shared, setShared] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [opened, setOpened] = useState(false);
+  const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
   const { isNightMode } = useTheme();
 
   useEffect(() => {
-    if (data?.postAnalitics?.postLiked) {
-      setLiked(true);
+    if (data?.postAnalitics?.postLiked) setLiked(true);
+    if (data?.postAnalitics?.postShared) setShared(true);
+    if (data?.postAnalitics?.postSaved) setSaved(true);
+
+    // Regex para detectar URL en la descripción del post
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const foundUrl = data.postDescription.match(urlRegex);
+
+    if (foundUrl && foundUrl.length > 0) {
+      const videoUrl = foundUrl[0];
+
+      // Extraer el ID del video de YouTube
+      const videoIdMatch = videoUrl.match(
+        /(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([^&]+)/
+      );
+      const videoId = videoIdMatch ? videoIdMatch[1] : null;
+
+      if (videoId) {
+        setVideoThumbnail(`https://img.youtube.com/vi/${videoId}/0.jpg`);
+      }
     }
-    if (data?.postAnalitics?.postShared) {
-      setShared(true);
-    }
-    if (data?.postAnalitics?.postSaved) {
-      setSaved(true);
-    }
-  }, []);
+  }, [data]);
 
   return (
     <>
-      {/* Main Container for Post */}
       <div
         className={`${
           isNightMode
             ? "text-white hover:md:bg-[#171717] md:border-white/10"
             : "text-black hover:md:bg-white md:border-gray-500/1"
-        } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-2`}
+        } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer md:border md:border-2`}
       >
-        {/* PROFILE PIC */}
         <div className="col-span-1 max-h-full overflow-hidden">
           <div className="flex justify-center">
             <img
@@ -107,11 +96,10 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
             ></div>
           </div>
         </div>
-        {/* MAIN CONTENT */}
+
+        {/* Contenedor principal del texto y miniatura */}
         <div className="col-span-11 grid grid-cols-12 gap-2">
-          {/* USER DATA */}
           <div className="col-span-12 grid grid-cols-12">
-            {/* Username and Location */}
             <div className="col-span-11">
               <div className="flex items-center gap-2">
                 <p className="font-bold">@{data?.userData?.username}</p>
@@ -120,12 +108,6 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                   {data?.userData?.location?.country}
                 </p>
               </div>
-              {/* POST DESCRIPTION */}
-              <p className="descriptionStyles">
-                {data.type == "Swap"
-                  ? data?.garmentDescription
-                  : data?.postDescription}
-              </p>
             </div>
             <div
               className="col-span-1 flex justify-end relative cursor-pointer"
@@ -139,95 +121,44 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
               />
             </div>
           </div>
-          {/* MAIN CONTENT */}
-          <div className="col-span-12 grid grid-cols-12">
-            <div className="col-span-12 grid grid-cols-12 gap-1 justify-center">
-              {/* POST IMAGE */}
-              {data?.type == "Swap" ? (
-                <ImageCarousel
-                  garmentImgs={data?.garmentImgs || []}
-                  data={data}
-                />
-              ) : (
-                <div className="col-span-12 grid grid-cols-12">
-                  <div className="col-span-12 rounded-lg w-fit relative flex items-center justify-start">
-                    <div className="relative">
-                      <img
-                        src={data?.postImg}
-                        alt="post image"
-                        className={`${
-                          data.imageOrientation === "landscapes"
-                            ? "aspect-[16/9]"
-                            : data.imageOrientation === "square"
-                            ? "aspect-[1/1]"
-                            : "aspect-[4/5]"
-                        } max-h-[40em] object-cover rounded-lg`}
-                      />
-
-                      {/* SWAP DATA OVERLAY */}
-                      {data?.type === "OutfitShowcase" && (
-                        <div
-                          className={`p-2 ${
-                            isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
-                          } rounded-lg absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10`}
-                        >
-                          <div className="flex gap-2 items-center justify-center">
-                            {/* OFFERED GARMENT */}
-                            <div className="w-[6em] h-[6em] rounded-md">
-                              <img
-                                src={data?.swapData?.offered?.coverImg}
-                                alt="Offered garment pic"
-                                className="h-full w-full object-cover rounded-md"
-                              />
-                            </div>
-
-                            {/* OBTAINED GARMENT */}
-                            <div className="w-[6em] h-[6em] rounded-md">
-                              <img
-                                src={data?.swapData?.obtained?.coverImg}
-                                alt="Obtained garment pic"
-                                className="h-full w-full object-cover rounded-md"
-                              />
-                            </div>
-
-                            {/* SWAP ICON */}
-                            <div
-                              className={`rounded-full bg-[#02995D] ${
-                                isNightMode ? "bg-opacity-30" : "bg-opacity-10"
-                              } backdrop-blur-md absolute backdrop-brightness-50 border border-[#02995D] p-2`}
-                            >
-                              <Swapicon size={"1em"} color={"#02995D"} />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* SWAP DATA POST */}
-              {data?.type == "Swap" && (
-                <div className="col-span-12 mb-2 xl:hidden">
-                  <SwapCard
-                    swapData={{
-                      garmentImgs: data.garmentImgs,
-                      garmentCondition: data.garmentCondition,
-                      garmentTitle: data.garmentTitle,
-                      garmentColor: data.garmentColor,
-                      garmentSize: data.garmentSize,
-                      garmentBrand: data.garmentBrand,
-                    }}
-                  />
-                </div>
-              )}
+          <div className="col-span-12 flex flex-col md:flex-row gap-2">
+            <div className="flex-1">
+              <p className="font-bold text-[1.2em] titleStyles">
+                {data?.postTitle}
+              </p>
+              <p className="opacity-50 descriptionStyles">
+                {data?.postDescription.split(" ").map((word, index) => {
+                  if (word.match(/https?:\/\/[^\s]+/)) {
+                    return (
+                      <a
+                        key={index}
+                        href={word}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#0DBC73] underline"
+                      >
+                        {word}
+                      </a>
+                    );
+                  }
+                  return ` ${word}`;
+                })}
+              </p>
             </div>
+            {videoThumbnail && (
+              <div className="aspect-[16/9] md:w-[8em] md:max-w-[8em] w-full">
+                <img
+                  src={videoThumbnail}
+                  alt="Video thumbnail"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            )}
           </div>
         </div>
-        {/* POST ANALITICS */}
+
         <div className="col-span-12 grid grid-cols-12">
           <div className="col-span-1"></div>
-          {/* ANALITICS*/}
           <div className="flex col-span-11 items-center justify-between">
             <div className="flex gap-4">
               <div
@@ -253,9 +184,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                   {data?.postAnalitics?.likes}
                 </p>
               </div>
-              <div
-                className={`opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-              >
+              <div className="opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1">
                 <CommentsIcon
                   size={"1.5em"}
                   colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
@@ -327,4 +256,4 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
   );
 };
 
-export default PostCard;
+export default TextCard;
