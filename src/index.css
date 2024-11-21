@@ -11,6 +11,12 @@ body {
   font-size: 13px;
 }
 
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+}
+
 .bodyNightMode {
   background-color: #0b0b0b;
   color: #f0eff4;
