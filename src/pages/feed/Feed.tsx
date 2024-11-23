@@ -6,7 +6,7 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect } from "react";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 
-// Combined test data for OutfitShowcase and NotificationSwap
+// Combined test data
 const testPosts = {
   following: [
     {
@@ -440,7 +440,7 @@ const FeedView = () => {
       <div
         className={`hidden md:flex w-full md:w-[70%] xl:w-[44%] ${
           showHeader ? "fixed" : "fixed top-0"
-        } z-[100]`}
+        } z-[1000]`}
       >
         <SectionSwitcher options={sectionOptions} />;
       </div>

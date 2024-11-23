@@ -41,7 +41,7 @@ const MainLayout: FC = () => {
     <div className="w-full flex flex-col">
       {/* Header */}
       <div
-        className={`sticky top-0 z-[100] md:${
+        className={`sticky top-0 z-[1000] md:${
           showHeader ? "transform translate-y-0" : "transform -translate-y-full"
         }`}
       >
