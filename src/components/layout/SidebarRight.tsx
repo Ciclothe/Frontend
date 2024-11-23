@@ -12,6 +12,7 @@ const SidebarRight = () => {
   const { profiles, loading, error } = useUserData();
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
+  const skeletonItems = [1, 2, 3];
 
   return (
     <div
@@ -32,55 +33,60 @@ const SidebarRight = () => {
       <div>
         {error || loading ? (
           <div>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                justifyContent: "space-between",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <Skeleton
-                  variant="circular"
-                  width={40}
-                  height={40}
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {skeletonItems.map((_, index) => (
+                <Box
+                  key={index} // Asignar una key única
                   sx={{
-                    bgcolor: "grey.900",
-                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "space-between",
                   }}
-                />
-
-                <Stack sx={{ ml: 2 }}>
-                  <Skeleton
-                    height={25}
-                    width={60}
+                >
+                  <Box
                     sx={{
-                      bgcolor: "grey.900",
+                      display: "flex",
+                      width: "100%",
+                      alignItems: "center",
                     }}
-                  />
+                  >
+                    <Skeleton
+                      variant="circular"
+                      width={40}
+                      height={40}
+                      sx={{
+                        bgcolor: "grey.900",
+                        borderRadius: "50%",
+                      }}
+                    />
+
+                    <Stack sx={{ ml: 2 }}>
+                      <Skeleton
+                        height={25}
+                        width={60}
+                        sx={{
+                          bgcolor: "grey.900",
+                        }}
+                      />
+                      <Skeleton
+                        height={20}
+                        width={100}
+                        sx={{
+                          bgcolor: "grey.900",
+                        }}
+                      />
+                    </Stack>
+                  </Box>
+
                   <Skeleton
-                    height={20}
+                    variant="rounded"
                     width={100}
-                    sx={{
-                      bgcolor: "grey.900",
-                    }}
+                    height={35}
+                    sx={{ bgcolor: "grey.900" }}
                   />
-                </Stack>
-              </Box>
-
-              <Skeleton
-                variant="rounded"
-                width={100}
-                height={35}
-                sx={{ bgcolor: "grey.900" }}
-              />
+                </Box>
+              ))}
             </Box>
           </div>
         ) : (
