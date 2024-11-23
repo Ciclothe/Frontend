@@ -1,15 +1,15 @@
-import { useState } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { useActiveSection } from "@/context/ActiveSectionContext";
 
 interface SectionSwitcherProps {
-  options: { name: string; path: string }[];
+  options: { name: string; value: number }[];
 }
+
 const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
-
-  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const { activeSection, setActiveSection } = useActiveSection();
 
   const isCentered = options.length === 2;
   const containerClasses = `flex items-center h-full w-full font-bold ${
@@ -18,26 +18,26 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
 
   return (
     <div className={containerClasses}>
-      {options.map((option: any, index: number) => (
+      {options.map((option, index) => (
         <div
           key={index}
-          onClick={() => setSelectedOption(option)}
+          onClick={() => {
+            setActiveSection(option.value);
+          }}
           className={`flex flex-col items-center h-full ${
             isCentered ? "px-10 w-[50%]" : "px-5"
           } md:px-5 cursor-pointer ${
-            selectedOption === option
+            activeSection === option.value
               ? "text-opacity-100"
               : "opacity-50 hover:opacity-100"
           }`}
         >
-          <a href={option?.path}>
-            <p className="align-middle fond bold pb-[1em] md:pt-[1em] md:text-[1.1em]">
-              {t(`SectionSwitcher.${option?.name}`)}
-            </p>
-          </a>
+          <p className="align-middle font-bold pb-[1em] md:pt-[1em] md:text-[1.1em]">
+            {t(`SectionSwitcher.${option.name}`)}
+          </p>
           <div
             className={`h-[2px] md:h-[4px] w-full bg-[#0DBC73] rounded-full transition-all duration-300 ${
-              selectedOption === option ? "opacity-100" : "opacity-0"
+              activeSection === option.value ? "opacity-100" : "opacity-0"
             }`}
           ></div>
         </div>

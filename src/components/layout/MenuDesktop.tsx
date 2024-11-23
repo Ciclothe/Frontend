@@ -136,7 +136,7 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
           <p className="hidden md:flex font-bold">{t("Global.CreatePost")}</p>
         </div>
       </div>
-      <div>
+      <div className="mt-20 lg:mt-0">
         <div className="flex items-center w-full justify-start p-2 hover:text-[#0DBC73] rounded-lg text-[1.3em]">
           <Icon path={mdiCog} size={0.8} />
           <p className="ml-2 font-bold">{t("Global.settings")}</p>

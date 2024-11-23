@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from "@mdi/react";
-import { mdiDotsVertical } from "@mdi/js";
+import { mdiDotsVertical, mdiCircleSmall } from "@mdi/js";
 import HeartIcon from "@/assets/uiIcons/HeartIcon";
 import CommentsIcon from "@/assets/uiIcons/CommentsIcon";
 import ShareIcon from "@/assets/uiIcons/ShareIcon";
@@ -12,6 +12,7 @@ interface TextCardProps {
   data: {
     id: number;
     type: "Text";
+    createdAt: string;
     userData: {
       username: string;
       profilePicture: string;
@@ -19,6 +20,10 @@ interface TextCardProps {
         city: string;
         country: string;
       };
+    };
+    communityData: {
+      url: string;
+      communityPicture: string;
     };
     postTitle: string;
     postDescription: string;
@@ -48,18 +53,17 @@ const TextCard: React.FC<TextCardProps> = ({ data }) => {
   const { isNightMode } = useTheme();
 
   useEffect(() => {
+    setVideoThumbnail(null);
     if (data?.postAnalitics?.postLiked) setLiked(true);
     if (data?.postAnalitics?.postShared) setShared(true);
     if (data?.postAnalitics?.postSaved) setSaved(true);
 
-    // Regex para detectar URL en la descripción del post
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const foundUrl = data.postDescription.match(urlRegex);
 
     if (foundUrl && foundUrl.length > 0) {
       const videoUrl = foundUrl[0];
 
-      // Extraer el ID del video de YouTube
       const videoIdMatch = videoUrl.match(
         /(?:youtube\.com\/.*[?&]v=|youtu\.be\/)([^&]+)/
       );
@@ -70,6 +74,37 @@ const TextCard: React.FC<TextCardProps> = ({ data }) => {
       }
     }
   }, [data]);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = now.getFullYear() - date.getFullYear();
+
+    switch (true) {
+      case years > 0:
+        return date.getFullYear().toString();
+      case months > 0:
+        return `${months} ${months === 1 ? "month" : "months"}`;
+      case weeks > 0:
+        return `${weeks} ${weeks === 1 ? "week" : "weeks"}`;
+      case days > 0:
+        return `${days} ${days === 1 ? "day" : "days"}`;
+      case hours > 0:
+        return `${hours}h`;
+      case minutes > 0:
+        return `${minutes}m`;
+      default:
+        return `${seconds}s`;
+    }
+  };
 
   return (
     <>
@@ -96,17 +131,33 @@ const TextCard: React.FC<TextCardProps> = ({ data }) => {
             ></div>
           </div>
         </div>
-
-        {/* Contenedor principal del texto y miniatura */}
         <div className="col-span-11 grid grid-cols-12 gap-2">
           <div className="col-span-12 grid grid-cols-12">
             <div className="col-span-11">
-              <div className="flex items-center gap-2">
-                <p className="font-bold">@{data?.userData?.username}</p>
-                <p className="opacity-50">
-                  {data?.userData?.location?.city},{" "}
-                  {data?.userData?.location?.country}
-                </p>
+              <div className="items-center gap-2">
+                <div className="flex gap-2 items-center">
+                  <p className="font-bold">@{data?.userData?.username}</p>
+                  {data?.communityData && (
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <img
+                          src={data?.communityData.communityPicture}
+                          alt="Community pic"
+                          className="w-5 h-5 rounded-full"
+                        />
+                        <p className="opacity-50">/{data?.communityData.url}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center opacity-50">
+                  <p>
+                    {data?.userData?.location?.city},{" "}
+                    {data?.userData?.location?.country}
+                  </p>
+                  <Icon path={mdiCircleSmall} size={0.8} />
+                  <p>{formatDate(data?.createdAt)}</p>
+                </div>
               </div>
             </div>
             <div
