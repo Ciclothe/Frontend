@@ -6,13 +6,16 @@ import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
+import { useUserData } from "@/context/UserDataContext";
+import ProfileImage from "@/components/ui/ProfilePic";
 
 const Header = () => {
+  const { user } = useUserData();
   const { isNightMode } = useTheme();
 
   const sectionOptions = [
-    { name: "Following", path: "/feed/following" },
-    { name: "Communities", path: "/feed/communities" },
+    { name: "Following", value: 0 },
+    { name: "Communities", value: 1 },
   ];
 
   return (
@@ -57,10 +60,7 @@ const Header = () => {
             </div>
             {/* GRID VIEW BUTTON */}
             <div className="md:hidden">
-              <img
-                src="https://media-mad2-1.cdn.whatsapp.net/v/t61.24694-24/461311350_1759088984909553_1624269758618571134_n.jpg?ccb=11-4&oh=01_Q5AaIE-DkYrr9S_xW36lSrw-ZHpBCj6TyMwoG9x988eXi6Uv&oe=673DE79B&_nc_sid=5e03e0&_nc_cat=111"
-                className="w-8 h-8 rounded-full"
-              ></img>
+              <ProfileImage profilePic={user?.profilePhoto} />
             </div>
           </div>
         </div>
@@ -86,10 +86,7 @@ const Header = () => {
             </div>
             {/* PROFILE BUTTON */}
             <div className="hidden md:block">
-              <img
-                src="https://media-mad2-1.cdn.whatsapp.net/v/t61.24694-24/461311350_1759088984909553_1624269758618571134_n.jpg?ccb=11-4&oh=01_Q5AaIE-DkYrr9S_xW36lSrw-ZHpBCj6TyMwoG9x988eXi6Uv&oe=673DE79B&_nc_sid=5e03e0&_nc_cat=111"
-                className="w-8 h-8 rounded-full"
-              ></img>
+              <ProfileImage profilePic={user?.profilePhoto} />
             </div>
           </div>
         </div>
