@@ -5,6 +5,8 @@ import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useOutletContext } from "react-router-dom";
 import { useEffect } from "react";
 import { useActiveSection } from "@/context/ActiveSectionContext";
+import { usePostButton } from "@/context/CreatePostActive";
+import { useNavigate } from "react-router-dom";
 
 // Combined test data
 const testPosts = {
@@ -175,7 +177,9 @@ const testPosts = {
       garmentBrand: "Trapstar",
       garmentColor: "Black",
       garmentDescription:
-        "The Hooded Bomber Is Made In The Italy From Heavy Nubuck Leather With A High Loft Fill To Create Bold Structure.",
+        "• Super puffer jacket, used for 6 months but no longer my size 👌\n" +
+        "• Hood zipper needs repair (see last photo), that’s why it’s priced as it is\n" +
+        "• Keeps you warm, perfect for winter ❄️",
       garmentImgs: [
         {
           src: "https://images1.vinted.net/t/04_017c8_X6wmW3YofxA7FWy3izc4D9Nx/f800/1730917127.jpeg?s=aee6af5c500867852c68986eac21ace376ae6b4d",
@@ -211,20 +215,6 @@ const testPosts = {
         postShared: false,
         postSaved: false,
       },
-      comments: [
-        {
-          username: "thomastomillo",
-          profilePicture:
-            "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
-          comment: "Damn !! thats a cool Hoodie my man",
-        },
-        {
-          username: "rforrever",
-          profilePicture:
-            "https://i.pinimg.com/280x280_RS/45/c0/51/45c0513b67958fadcfc29222b5e6a749.jpg",
-          comment: "Love it, bro!",
-        },
-      ],
     },
     {
       id: 5,
@@ -427,13 +417,23 @@ interface MainLayoutContextType {
 }
 
 const FeedView = () => {
+  const navigate = useNavigate();
+  const { setShowPostButton } = usePostButton();
   const { showHeader } = useOutletContext<MainLayoutContextType>();
   const { activeSection } = useActiveSection();
 
   useEffect(() => {
-    console.log(activeSection);
     window.scrollTo(0, 0);
   }, [activeSection]);
+
+  useEffect(() => {
+    setShowPostButton(true);
+  }, []);
+
+  const redirectToPost = (post: any) => {
+    const postData = encodeURIComponent(JSON.stringify(post));
+    navigate(`/post/${post?.userData?.username}`, { state: { postData } });
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -442,7 +442,7 @@ const FeedView = () => {
           showHeader ? "fixed" : "fixed top-0"
         } z-[1000]`}
       >
-        <SectionSwitcher options={sectionOptions} />;
+        <SectionSwitcher options={sectionOptions} />
       </div>
       <div className="md:mt-[4em] p-4 flex flex-col gap-4">
         {(activeSection === 0
@@ -450,11 +450,23 @@ const FeedView = () => {
           : testPosts.communities
         ).map((post: any) =>
           post.type === "NotificationSwap" ? (
-            <SwapNotification key={post.id} data={post} />
+            <SwapNotification
+              key={post.id}
+              data={post}
+              onClick={() => redirectToPost(post)}
+            />
           ) : post.type === "Text" ? (
-            <TextCard key={post.id} data={post} />
+            <TextCard
+              key={post.id}
+              data={post}
+              onClick={() => redirectToPost(post)}
+            />
           ) : (
-            <PostCard key={post.id} data={post} />
+            <PostCard
+              key={post.id}
+              data={post}
+              onClick={() => redirectToPost(post)}
+            />
           )
         )}
       </div>

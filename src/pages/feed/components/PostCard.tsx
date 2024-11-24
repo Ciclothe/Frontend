@@ -63,9 +63,10 @@ interface PostCardProps {
       comment: string;
     }>;
   };
+  onClick: () => void;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ data }) => {
+const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
   const [liked, setLiked] = useState<any>(false);
   const [shared, setShared] = useState<any>(false);
   const [saved, setSaved] = useState<any>(false);
@@ -124,6 +125,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
             ? "text-white hover:md:bg-[#171717] md:border-white/10"
             : "text-black hover:md:bg-white md:border-gray-500/1"
         } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-2`}
+        onClick={onClick}
       >
         {/* PROFILE PIC */}
         <div className="col-span-1 max-h-full overflow-hidden">
@@ -175,14 +177,15 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
               </div>
               {/* POST DESCRIPTION */}
               <p className="descriptionStyles">
-                {data.type == "Swap"
-                  ? data?.garmentDescription
-                  : data?.postDescription}
+                {data.type == "Swap" ? "" : data?.postDescription}
               </p>
             </div>
             <div
               className="col-span-1 flex justify-end relative cursor-pointer"
-              onClick={() => setOpened(!opened)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpened(!opened);
+              }}
             >
               <Icon path={mdiDotsVertical} size={0.8} />
               <PostOptions
@@ -200,6 +203,7 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                 <ImageCarousel
                   garmentImgs={data?.garmentImgs || []}
                   data={data}
+                  isPostDetails={false}
                 />
               ) : (
                 <div className="col-span-12 grid grid-cols-12">
@@ -306,21 +310,23 @@ const PostCard: React.FC<PostCardProps> = ({ data }) => {
                   {data?.postAnalitics?.likes}
                 </p>
               </div>
-              <div
-                className={`opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-              >
-                <CommentsIcon
-                  size={"1.5em"}
-                  colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
-                />
-                <p
-                  className={`${
-                    isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
-                  } font-bold`}
+              {data?.type !== "Swap" && (
+                <div
+                  className={`opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1`}
                 >
-                  {data?.postAnalitics?.comments}
-                </p>
-              </div>
+                  <CommentsIcon
+                    size={"1.5em"}
+                    colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
+                  />
+                  <p
+                    className={`${
+                      isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                    } font-bold`}
+                  >
+                    {data?.postAnalitics?.comments}
+                  </p>
+                </div>
+              )}
               <div
                 className={`${
                   shared ? "opacity-100" : "opacity-50"

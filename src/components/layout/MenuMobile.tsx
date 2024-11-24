@@ -119,42 +119,40 @@ const MenuMobile = () => {
   ];
 
   return (
-    <div className="absolute left-0 md::hidden">
-      <div
-        className={`flex flex-col justify-between w-full ${
-          isNightMode
-            ? "bg-[#0B0B0B] text-[#f0eff4]"
-            : "bg-[#f0eff4] text-[#0B0B0B]"
-        } fixed bottom-0 py-4`}
-        style={{
-          zIndex: 1000,
-          overflowY: "scroll",
-          borderTopWidth: "0.5px",
-          borderStyle: "solid",
-          borderColor: isNightMode
-            ? "rgba(255, 255, 255, 0.1)"
-            : "rgba(140, 140, 140, 0.1)",
-        }}
-      >
-        <div>
-          {/* MENU ITEMS */}
-          <div className="flex">
-            {menuItems.map((item, index) => {
-              const isActive =
-                location.pathname === item.route ||
-                (location.pathname === "/" && item.route === "/feed");
-              return (
-                <MenuItem
-                  key={index}
-                  item={{ ...item, label: t(`Menu.${item.label}`) }}
-                  isNightMode={isNightMode}
-                  isActive={hoveredIndex === index || isActive}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                />
-              );
-            })}
-          </div>
+    <div
+      className={`flex flex-col justify-between w-full ${
+        isNightMode
+          ? "bg-[#0B0B0B] text-[#f0eff4]"
+          : "bg-[#f0eff4] text-[#0B0B0B]"
+      } py-4`}
+      style={{
+        zIndex: 1000,
+        overflowY: "scroll",
+        borderTopWidth: "0.5px",
+        borderStyle: "solid",
+        borderColor: isNightMode
+          ? "rgba(255, 255, 255, 0.1)"
+          : "rgba(140, 140, 140, 0.1)",
+      }}
+    >
+      <div>
+        {/* MENU ITEMS */}
+        <div className="flex">
+          {menuItems.map((item, index) => {
+            const isActive =
+              location.pathname === item.route ||
+              (location.pathname === "/" && item.route === "/feed");
+            return (
+              <MenuItem
+                key={index}
+                item={{ ...item, label: t(`Menu.${item.label}`) }}
+                isNightMode={isNightMode}
+                isActive={hoveredIndex === index || isActive}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
