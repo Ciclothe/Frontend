@@ -41,6 +41,7 @@ const PostDetails = () => {
     : null;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setShowPostButton(false);
     setVideoThumbnail(null);
     if (postData?.postAnalitics?.postLiked) setLiked(true);

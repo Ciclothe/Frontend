@@ -19,18 +19,7 @@ const Header = () => {
   ];
 
   return (
-    <div
-      className={`pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 ${
-        isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
-      }`}
-      style={{
-        borderBottomWidth: "0.5px",
-        borderStyle: "solid",
-        borderColor: isNightMode
-          ? "rgba(255, 255, 255, 0.1)"
-          : "rgba(140, 140, 140, 0.1)",
-      }}
-    >
+    <>
       <div
         className={`${
           isNightMode ? "text-white" : "text-black"
@@ -98,7 +87,7 @@ const Header = () => {
       <div className="md:hidden col-span-12">
         <SectionSwitcher options={sectionOptions} />
       </div>
-    </div>
+    </>
   );
 };
 
