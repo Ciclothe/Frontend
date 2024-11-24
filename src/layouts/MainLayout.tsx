@@ -40,7 +40,7 @@ const MainLayout: FC = () => {
   }, [scrollY, isMdOrLarger]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col min-h-screen">
       {/* Header */}
       <div
         className={`sticky top-0 z-[1000] md:${
