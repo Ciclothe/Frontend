@@ -53,7 +53,7 @@ const MainLayout: FC = () => {
   }, [scrollY, isMdOrLarger, location.pathname]);
 
   return (
-    <div className="w-full flex flex-col min-h-screen">
+    <div className="w-full flex flex-col min-h-screen justify-between">
       {/* Header */}
       <div
         className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 fixed top-0 z-[2000] ${
