@@ -8,11 +8,13 @@ import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
 import { mdiPlusBoxOutline } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { usePostButton } from "@/context/CreatePostActive";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [scrollY, setScrollY] = useState(0);
   const { isNightMode } = useTheme();
+  const { showPostButton } = usePostButton();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -48,7 +50,22 @@ const MainLayout: FC = () => {
         <Header />
       </div>
 
-      <div className={`flex ${showHeader ? "flex-grow" : "h-full"} w-full`}>
+      <div
+        className={`flex relative ${
+          showHeader ? "flex-grow" : "h-full"
+        } w-full`}
+      >
+        {/* Create Post Button for Mobile */}
+        {showPostButton && (
+          <div
+            className={`${
+              isNightMode ? "text-black" : "text-white"
+            } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#02995D] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
+          >
+            <Icon path={mdiPlusBoxOutline} size={1.2} />
+          </div>
+        )}
+
         {/* Sidebar Left */}
         <div
           className={`hidden md:block w-[30%] xl:w-[28%] fixed py-4 pl-[1em] lg:pl-[5em] ${
@@ -66,23 +83,9 @@ const MainLayout: FC = () => {
           <MenuDesktop showHeader={showHeader} />
         </div>
 
-        {/* Create Post Button for Mobile */}
-        <div
-          className={`${
-            isNightMode ? "text-black" : "text-white"
-          } fixed z-[100] right-2 bottom-20 md:hidden bg-[#02995D] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
-        >
-          <Icon path={mdiPlusBoxOutline} size={1.2} />
-        </div>
-
-        {/* Sidebar Left Menu Mobile */}
-        <div className="flex md:hidden relative">
-          <MenuMobile />
-        </div>
-
         {/* Main Content */}
         <div
-          className={`w-full mb-10 md:mb-0 md:ml-[1em] md:mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[0em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%]`}
+          className={`w-full md:ml-[1em] md:mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[0em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%]`}
         >
           <Outlet context={{ showHeader: isMdOrLarger ? showHeader : true }} />
         </div>
@@ -103,6 +106,11 @@ const MainLayout: FC = () => {
         >
           <SidebarRight />
         </div>
+      </div>
+
+      {/* Sidebar Left Menu Mobile */}
+      <div className="flex md:hidden sticky bottom-0 z-[1000]">
+        <MenuMobile />
       </div>
     </div>
   );

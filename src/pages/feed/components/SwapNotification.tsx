@@ -54,9 +54,13 @@ interface SwapNotificationProps {
       comment: string;
     }>;
   };
+  onClick: () => void;
 }
 
-const SwapNotification: React.FC<SwapNotificationProps> = ({ data }) => {
+const SwapNotification: React.FC<SwapNotificationProps> = ({
+  data,
+  onClick,
+}) => {
   const [liked, setLiked] = useState(false);
   const [shared, setShared] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -83,6 +87,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({ data }) => {
           ? "text-white hover:md:bg-[#171717] md:border-white/10"
           : "text-black hover:md:bg-white md:border-gray-500/1"
       } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-2`}
+      onClick={onClick}
     >
       {/* Main Container for Post */}
 
@@ -120,7 +125,10 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({ data }) => {
         </div>
         <div
           className="col-span-1 flex justify-end relative cursor-pointer"
-          onClick={() => setOpened(!opened)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpened(!opened);
+          }}
         >
           <Icon path={mdiDotsVertical} size={0.8} />
           <PostOptions

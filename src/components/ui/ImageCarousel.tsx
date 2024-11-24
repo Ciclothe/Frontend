@@ -13,9 +13,14 @@ interface Image {
 interface ImageCarouselProps {
   garmentImgs: Image[];
   data: any;
+  isPostDetails: boolean;
 }
 
-const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
+const ImageCarousel = ({
+  garmentImgs,
+  data,
+  isPostDetails,
+}: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { isNightMode } = useTheme();
 
@@ -33,21 +38,29 @@ const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
 
   return (
     <div
-      className={`relative w-full overflow-hidden col-span-12 flex items-center`}
+      className={`relative w-full overflow-hidden col-span-12 flex items-center ${
+        isPostDetails ? "justify-center" : "justify-start"
+      }`}
     >
-      <div className="flex transition-transform duration-300">
+      <div
+        className={`flex ${
+          isPostDetails ? "justify-center" : "justify-start"
+        } w-full`}
+      >
         <div
-          className={`w-full flex-shrink-0 relative ${
+          className={`flex-shrink-0 relative ${
             garmentImgs[currentIndex]?.orientation === "landscapes"
-              ? "aspect-[16/9]"
+              ? "aspect-[16/9] w-full"
               : garmentImgs[currentIndex]?.orientation === "square"
-              ? "aspect-[1/1]"
-              : "aspect-[4/5]"
-          } max-h-[40em]`}
+              ? "aspect-[1/1] w-full md:w-auto md:h-full"
+              : "aspect-[4/5] w-full md:w-auto md:h-full"
+          } ${isPostDetails ? "max-h-[35em]" : "max-h-[40em]"}`}
         >
           <img
             src={garmentImgs[currentIndex]?.src}
-            className={`w-full h-full object-cover rounded-lg`}
+            className={`w-full h-full object-cover ${
+              isPostDetails ? " rounded-null" : " rounded-lg"
+            }`}
             alt={`garment-${currentIndex}`}
           />
           <div
@@ -63,18 +76,26 @@ const ImageCarousel = ({ garmentImgs, data }: ImageCarouselProps) => {
             <p className="font-bold">{currentIndex + 1}</p>
           </div>
           {/* SWAP DATA POST */}
-          <div className="hidden xl:block absolute bottom-0 w-full p-2 z-[100]">
-            <SwapCard swapData={data} />
-          </div>
+          {!isPostDetails && (
+            <div className="hidden xl:block absolute bottom-0 w-full p-2 z-[100]">
+              <SwapCard swapData={data} />
+            </div>
+          )}
           <div className="absolute top-0 left-0 w-full h-full flex items-center">
             <div
-              onClick={handlePrev}
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrev();
+              }}
               className="absolute left-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-r-lg"
             >
               <Icon path={mdiChevronLeft} size={0.8} />
             </div>
             <div
-              onClick={handleNext}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
               className="absolute right-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-l-lg"
             >
               <Icon path={mdiChevronRight} size={0.8} />

@@ -36,7 +36,7 @@ const FeedIcon = (props: any) => {
         <path
           id="Trazado_3071"
           d="M208.3,348.1v-70.6"
-          stroke={isSelected ? colorStroke : colorUnselected}
+          stroke={colorStroke}
           strokeWidth="20"
         />
       </g>
