@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { redirect, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Icon from "@mdi/react";
 import {
   mdiDotsVertical,
@@ -499,7 +499,7 @@ const PostDetails = () => {
             />
             {/* COMMENTS */}
             <div className="flex flex-col gap-2 col-span-12 mx-4 mt-2">
-              {postData?.comments.map((comment, index) => (
+              {postData?.comments.map((comment: any, index: number) => (
                 <div key={index} className="flex items-center gap-2 max-w-full">
                   {/* Comment User Picture */}
                   <div className="rounded-full h-4 aspect-square">
