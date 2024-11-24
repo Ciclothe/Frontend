@@ -9,12 +9,14 @@ import Icon from "@mdi/react";
 import { mdiPlusBoxOutline } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePostButton } from "@/context/CreatePostActive";
+import { useLocation } from "react-router-dom";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [scrollY, setScrollY] = useState(0);
   const { isNightMode } = useTheme();
   const { showPostButton } = usePostButton();
+  const location = useLocation();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -29,30 +31,50 @@ const MainLayout: FC = () => {
   };
 
   useEffect(() => {
-    if (isMdOrLarger) {
-      window.addEventListener("scroll", handleScroll);
+    if (location.pathname.includes("/post/")) {
+      setShowHeader(false);
+    } else if (!isMdOrLarger) {
+      setShowHeader(true);
     }
-    return () => {
+  }, [location.pathname]);
+
+  useEffect(() => {
+    console.log("Scrolling");
+    if (!location.pathname.includes("/post")) {
       if (isMdOrLarger) {
-        window.removeEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll);
       }
-    };
-  }, [scrollY, isMdOrLarger]);
+      return () => {
+        if (isMdOrLarger) {
+          window.removeEventListener("scroll", handleScroll);
+        }
+      };
+    }
+  }, [scrollY, isMdOrLarger, location.pathname]);
 
   return (
     <div className="w-full flex flex-col min-h-screen">
       {/* Header */}
       <div
-        className={`sticky top-0 z-[1000] md:${
+        className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 fixed top-0 z-[2000] ${
+          isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
+        } md:${
           showHeader ? "transform translate-y-0" : "transform -translate-y-full"
         }`}
+        style={{
+          borderBottomWidth: "0.5px",
+          borderStyle: "solid",
+          borderColor: isNightMode
+            ? "rgba(255, 255, 255, 0.1)"
+            : "rgba(140, 140, 140, 0.1)",
+        }}
       >
         <Header />
       </div>
 
       <div
         className={`flex relative ${
-          showHeader ? "flex-grow" : "h-full"
+          showHeader ? "flex-grow mt-[13em] md:mt-[7em]" : "h-full"
         } w-full`}
       >
         {/* Create Post Button for Mobile */}
