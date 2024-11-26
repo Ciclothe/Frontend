@@ -29,7 +29,9 @@
     "Next": "Next",
     "Search": "Search...",
     "Ubication": "Ubication",
-    "Today": "Today"
+    "Today": "Today",
+    "AddComment": "Add a comment...",
+    "Reply": "Reply"
   },
   "UserProfileCard": {
     "createPost": "Create Post"
