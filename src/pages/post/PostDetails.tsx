@@ -119,7 +119,9 @@ const PostDetails = () => {
       <div
         className={`${
           isNightMode ? "text-white" : "text-black"
-        } grid grid-cols-12 ${postData?.type !== "Swap" ? "md:my-4" : "mt-4"}`}
+        } grid grid-cols-12 ${
+          postData?.type !== "Swap" ? "mt-4 md:my-4" : "mt-4"
+        }`}
       >
         {postData?.type !== "NotificationSwap" ? (
           <>
