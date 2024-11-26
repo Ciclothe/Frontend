@@ -36,7 +36,7 @@ const SidebarRight = () => {
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {skeletonItems.map((_, index) => (
                 <Box
-                  key={index} // Asignar una key única
+                  key={index}
                   sx={{
                     display: "flex",
                     alignItems: "center",
@@ -56,7 +56,7 @@ const SidebarRight = () => {
                       width={40}
                       height={40}
                       sx={{
-                        bgcolor: "grey.900",
+                        bgcolor: isNightMode ? "grey.900" : "grey.300",
                         borderRadius: "50%",
                       }}
                     />
@@ -66,14 +66,14 @@ const SidebarRight = () => {
                         height={25}
                         width={60}
                         sx={{
-                          bgcolor: "grey.900",
+                          bgcolor: isNightMode ? "grey.900" : "grey.300",
                         }}
                       />
                       <Skeleton
                         height={20}
                         width={100}
                         sx={{
-                          bgcolor: "grey.900",
+                          bgcolor: isNightMode ? "grey.900" : "grey.300",
                         }}
                       />
                     </Stack>
@@ -83,7 +83,7 @@ const SidebarRight = () => {
                     variant="rounded"
                     width={100}
                     height={35}
-                    sx={{ bgcolor: "grey.900" }}
+                    sx={{ bgcolor: isNightMode ? "grey.900" : "grey.300" }}
                   />
                 </Box>
               ))}
