@@ -10,6 +10,8 @@ import { mdiPlusBoxOutline } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useLocation } from "react-router-dom";
+import SwapModal from "@/components/common/SwapModal";
+import { useSwap } from "@/context/SwapContext";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -17,6 +19,7 @@ const MainLayout: FC = () => {
   const { isNightMode } = useTheme();
   const { showPostButton } = usePostButton();
   const location = useLocation();
+  const { showModal, selectedPost } = useSwap();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -39,7 +42,6 @@ const MainLayout: FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    console.log("Scrolling");
     if (!location.pathname.includes("/post")) {
       if (isMdOrLarger) {
         window.addEventListener("scroll", handleScroll);
@@ -129,7 +131,7 @@ const MainLayout: FC = () => {
           <SidebarRight />
         </div>
       </div>
-
+      {showModal && <SwapModal selectedPost={selectedPost} />}
       {/* Sidebar Left Menu Mobile */}
       {showPostButton && (
         <div className="flex md:hidden sticky bottom-0 z-[1000]">

@@ -2,29 +2,17 @@ import { useState } from "react";
 import SwapIcon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useTranslation } from "react-i18next";
+import { useSwap } from "@/context/SwapContext";
 
-interface SwapData {
-  garmentImgs: any;
-  garmentCondition: string;
-  garmentTitle: string;
-  garmentColor: string;
-  garmentSize: string;
-  garmentBrand: string;
+interface SwapCardProps {
+  swapData: any;
 }
 
-const SwapCard = ({ swapData }: { swapData: SwapData }) => {
+const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
+  const { setModalState } = useSwap();
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
-
-  const {
-    garmentImgs,
-    garmentCondition,
-    garmentTitle,
-    garmentColor,
-    garmentSize,
-    garmentBrand,
-  } = swapData;
 
   const formatCondition = (condition: string) => {
     const conditionColors = {
@@ -41,7 +29,11 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
     return { colorClass };
   };
 
-  const { colorClass } = formatCondition(garmentCondition);
+  const { colorClass } = formatCondition(swapData?.garmentCondition);
+
+  const showSwapModal = () => {
+    setModalState(true, swapData);
+  };
 
   return (
     <div
@@ -64,7 +56,7 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
           }`}
         >
           <img
-            src={garmentImgs?.[0]?.src}
+            src={swapData?.garmentImgs?.[0]?.src}
             className="w-full h-full object-cover rounded-md"
             alt="Garment Image"
           />
@@ -75,12 +67,12 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
           </p>
           <div className="w-full">
             <h2 className="font-bold text-[1.2em] capitalize">
-              {garmentTitle}
+              {swapData?.garmentTitle}
             </h2>
             <div className="flex items-center gap-2 opacity-60 capitalize">
-              <p>{garmentColor}</p>
-              <p className="border-l-[1px] pl-2">{garmentSize}</p>
-              <p className="border-l-[1px] pl-2">{garmentBrand}</p>
+              <p>{swapData?.garmentColor}</p>
+              <p className="border-l-[1px] pl-2">{swapData?.garmentSize}</p>
+              <p className="border-l-[1px] pl-2">{swapData?.garmentBrand}</p>
             </div>
           </div>
         </div>
@@ -91,6 +83,10 @@ const SwapCard = ({ swapData }: { swapData: SwapData }) => {
             ? "flex xl:opacity-100 xl:translate-y-0 w-full"
             : "xl:hidden flex xl:opacity-0 xl:-translate-y-2 xl:w-[0em]"
         }  bg-[#02995D] rounded-lg py-2 text-white cursor-pointer items-center justify-center gap-2 xl:transition-all xl:duration-300 xl:transform`}
+        onClick={(e) => {
+          e.stopPropagation();
+          showSwapModal();
+        }}
       >
         <SwapIcon size={"1em"} color={"white"} />
         Swap

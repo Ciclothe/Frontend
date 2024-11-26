@@ -124,7 +124,7 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
           isNightMode
             ? "text-white hover:md:bg-[#171717] md:border-white/10"
             : "text-black hover:md:bg-white md:border-gray-500/1"
-        } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-2`}
+        } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointermd:border md:border-2`}
         onClick={onClick}
       >
         {/* PROFILE PIC */}
@@ -266,16 +266,7 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
               {/* SWAP DATA POST */}
               {data?.type == "Swap" && (
                 <div className="col-span-12 mb-2 xl:hidden">
-                  <SwapCard
-                    swapData={{
-                      garmentImgs: data.garmentImgs,
-                      garmentCondition: data.garmentCondition,
-                      garmentTitle: data.garmentTitle,
-                      garmentColor: data.garmentColor,
-                      garmentSize: data.garmentSize,
-                      garmentBrand: data.garmentBrand,
-                    }}
-                  />
+                  <SwapCard swapData={data} />
                 </div>
               )}
             </div>
