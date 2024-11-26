@@ -29,7 +29,9 @@
     "Years": "Années",
     "Search": "Chercher...",
     "Ubication": "Emplacement",
-    "Today": "Aujourd'hui"
+    "Today": "Aujourd'hui",
+    "AddComment": "Ajouter un commentaire...",
+    "Reply": "Répondre"
   },
   "UserProfileCard": {
     "createPost": "Créer un post"

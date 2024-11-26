@@ -29,7 +29,9 @@
     "Next": "Weiter",
     "Search": "Suchen...",
     "Ubication": "Standort",
-    "Today": "Heute"
+    "Today": "Heute",
+    "AddComment": "Einen Kommentar hinzufügen...",
+    "Reply": "Antworten"
   },
   "UserProfileCard": {
     "createPost": "Beitrag erstellen"

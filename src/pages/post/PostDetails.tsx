@@ -118,7 +118,7 @@ const PostDetails = () => {
       <div
         className={`${
           isNightMode ? "text-white" : "text-black"
-        } grid grid-cols-12 ${postData?.type !== "Swap" ? "my-4" : "mt-4"}`}
+        } grid grid-cols-12 ${postData?.type !== "Swap" ? "md:my-4" : "mt-4"}`}
       >
         {postData?.type !== "NotificationSwap" ? (
           <>
@@ -454,15 +454,15 @@ const PostDetails = () => {
         </div>
         {postData?.type !== "Swap" ? (
           <>
-            {/* ADD COMMENT SECTION */}
-            <div className="flex w-full justify-between items-center gap-1 my-1 col-span-12 relative py-2 px-4">
+            {/* ADD COMMENT SECTION DESKTOP */}
+            <div className="hidden md:flex w-full justify-between items-center gap-1 my-1 col-span-12 relative py-2 px-4">
               <input
                 type="text"
                 ref={commentInputRef}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 className="w-full bg-transparent border-none focus:outline-none placeholder-gray-500"
-                placeholder="Add a comment..."
+                placeholder={t("Global.AddComment")}
               />
 
               {/* Emoji Icon */}
@@ -493,13 +493,13 @@ const PostDetails = () => {
               )}
             </div>
             <hr
-              className={`col-span-12 ${
+              className={`col-span-12 mt-4 md:mt-0 ${
                 isNightMode ? "border-white/10" : "border-gray-400/10"
               }`}
             />
             {/* COMMENTS */}
             <div className="flex flex-col gap-2 col-span-12 mx-4 mt-2">
-              {postData?.comments.map((comment, index) => (
+              {postData?.comments.map((comment: any, index: number) => (
                 <div key={index} className="flex items-center gap-2 max-w-full">
                   {/* Comment User Picture */}
                   <div className="rounded-full h-4 aspect-square">
@@ -519,6 +519,57 @@ const PostDetails = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div
+              className={`block md:hidden w-full justify-between items-center gap-1 mt-1 col-span-12 py-2 px-4 sticky bottom-0 z-[2000] ${
+                isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
+              }`}
+            >
+              <div className="flex items-center py-2">
+                <input
+                  type="text"
+                  ref={commentInputRef}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="w-full bg-transparent border-none focus:outline-none placeholder-gray-500"
+                  placeholder={t("Global.AddComment")}
+                />
+
+                {/* Emoji Icon */}
+                <div
+                  onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                  className="cursor-pointer"
+                >
+                  <Icon
+                    path={mdiEmoticonHappyOutline}
+                    size={0.8}
+                    className="opacity-50"
+                  />
+                </div>
+
+                {/* Emoji Picker */}
+                {showEmojiPicker && (
+                  <div className="absolute bottom-full mb-2 right-0 z-20">
+                    <EmojiPicker
+                      onEmojiClick={handleEmojiClick}
+                      emojiStyle={EmojiStyle.GOOGLE}
+                      height={"30em"}
+                      skinTonesDisabled={true}
+                      searchDisabled={true}
+                      theme={isNightMode ? Theme.DARK : Theme.LIGHT}
+                      reactionsDefaultOpen={false}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* SEND BUTTOM */}
+              {comment.length > 0 && (
+                <div className="bg-[#0DBC73] w-full flex items-center justify-center py-2 rounded-lg">
+                  {t("Global.Reply")}
+                </div>
+              )}
             </div>
           </>
         ) : (

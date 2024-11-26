@@ -109,9 +109,11 @@ const MainLayout: FC = () => {
       </div>
 
       {/* Sidebar Left Menu Mobile */}
-      <div className="flex md:hidden sticky bottom-0 z-[1000]">
-        <MenuMobile />
-      </div>
+      {showPostButton && (
+        <div className="flex md:hidden sticky bottom-0 z-[1000]">
+          <MenuMobile />
+        </div>
+      )}
     </div>
   );
 };
