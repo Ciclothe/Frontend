@@ -66,12 +66,12 @@ li {
 }
 
 .cardNightMode {
-  background-color: #171717;
+  background-color: #0b0b0b;
   color: #ffffff;
 }
 
 .cardDayMode {
-  background-color: white;
+  background-color: #f0eff4;
   color: #213547;
 }
 
