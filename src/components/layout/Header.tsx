@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiBellOutline } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
@@ -8,15 +9,22 @@ import SearchBar from "./SearchBar";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useUserData } from "@/context/UserDataContext";
 import ProfileImage from "@/components/ui/ProfilePic";
+import NotificationBanner from "@/components/common/NotificationBanner";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 const Header = () => {
   const { user } = useUserData();
   const { isNightMode } = useTheme();
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const sectionOptions = [
     { name: "Following", value: 0 },
     { name: "Communities", value: 1 },
   ];
+
+  const toggleNotifications = () => {
+    setShowNotifications((prev) => !prev);
+  };
 
   return (
     <>
@@ -70,9 +78,18 @@ const Header = () => {
         <div className="col-span-5 md:col-span-2 flex items-center justify-end">
           <div className="flex items-center gap-4">
             {/* NOTIFICATIONS */}
-            <div>
-              <Icon path={mdiBellOutline} size={0.9} />
-            </div>
+            <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
+              <div className="relative">
+                <div onClick={toggleNotifications}>
+                  <Icon
+                    path={mdiBellOutline}
+                    size={0.9}
+                    className="cursor-pointer"
+                  />
+                </div>
+                {showNotifications && <NotificationBanner />}
+              </div>
+            </ClickAwayListener>
             {/* PROFILE BUTTON */}
             <div className="hidden md:block">
               <ProfileImage profilePic={user?.profilePhoto} />

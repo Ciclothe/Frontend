@@ -3,6 +3,7 @@ import { mdiPencilOutline } from "@mdi/js";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+
 const NotificationBanner = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
@@ -64,8 +65,8 @@ const NotificationBanner = () => {
         <div
           className={`flex justify-center items-center px-5 ${
             isNightMode
-              ? "bg-[#141414] hover:bg-[#232323]"
-              : "bg-white hover:bg-[#E2E2E2]"
+              ? "bg-[#0B0B0B] hover:bg-[#232323]"
+              : "bg-[#F0EFF4] hover:bg-[#E2E2E2]"
           } py-3 font-bold text-[#1B6B44] rounded-b-xl cursor-pointer`}
         >
           <p>{t("Notification.SeeAllNotifications")}</p>
