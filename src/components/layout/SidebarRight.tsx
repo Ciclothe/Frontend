@@ -24,14 +24,15 @@ const SidebarRight = () => {
         <p className="font-bold pb-3">
           {t("RecommendedCard.RecommendedProfiles")}
         </p>
-        {!error && !loading && (
-          <p className="text-[#0DBC73] cursor-pointer">
-            {t("RecommendedCard.SeeMore")}
-          </p>
-        )}
+        {(!error && !loading) ||
+          (profiles?.length == 0 && (
+            <p className="text-[#0DBC73] cursor-pointer">
+              {t("RecommendedCard.SeeMore")}
+            </p>
+          ))}
       </div>
       <div>
-        {error || loading ? (
+        {error || loading || profiles?.length == 0 ? (
           <div>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {skeletonItems.map((_, index) => (
@@ -56,7 +57,7 @@ const SidebarRight = () => {
                       width={40}
                       height={40}
                       sx={{
-                        bgcolor: isNightMode ? "grey.900" : "grey.300",
+                        bgcolor: isNightMode ? "grey.900" : "grey.100",
                         borderRadius: "50%",
                       }}
                     />
@@ -66,14 +67,14 @@ const SidebarRight = () => {
                         height={25}
                         width={60}
                         sx={{
-                          bgcolor: isNightMode ? "grey.900" : "grey.300",
+                          bgcolor: isNightMode ? "grey.900" : "grey.100",
                         }}
                       />
                       <Skeleton
                         height={20}
                         width={100}
                         sx={{
-                          bgcolor: isNightMode ? "grey.900" : "grey.300",
+                          bgcolor: isNightMode ? "grey.900" : "grey.100",
                         }}
                       />
                     </Stack>
@@ -83,7 +84,7 @@ const SidebarRight = () => {
                     variant="rounded"
                     width={100}
                     height={35}
-                    sx={{ bgcolor: isNightMode ? "grey.900" : "grey.300" }}
+                    sx={{ bgcolor: isNightMode ? "grey.900" : "grey.100" }}
                   />
                 </Box>
               ))}

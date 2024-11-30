@@ -54,10 +54,10 @@ const MenuMobile = () => {
       icon: (isActive: boolean) => (
         <FeedIcon
           size={"1em"}
-          colorSelected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isFilled={true}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#f0eff4"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -69,8 +69,8 @@ const MenuMobile = () => {
         <ExploreIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -82,8 +82,8 @@ const MenuMobile = () => {
         <EventsIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -96,9 +96,9 @@ const MenuMobile = () => {
         <ChatsIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#f0eff4"}
+          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -110,7 +110,7 @@ const MenuMobile = () => {
         <CommunitiesIcon
           size={"1em"}
           isActive={isActive}
-          colorSelected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
         />
       ),
       label: "Explore",
@@ -122,8 +122,8 @@ const MenuMobile = () => {
     <div
       className={`flex flex-col justify-between w-full ${
         isNightMode
-          ? "bg-[#0B0B0B] text-[#f0eff4]"
-          : "bg-[#f0eff4] text-[#0B0B0B]"
+          ? "bg-[#0B0B0B] text-[#ffffff]"
+          : "bg-[#ffffff] text-[#0B0B0B]"
       } py-4`}
       style={{
         zIndex: 1000,

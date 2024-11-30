@@ -1,14 +1,13 @@
 import Icon from "@mdi/react";
 import { mdiDotsVertical } from "@mdi/js";
-import HeartIcon from "@/assets/uiIcons/HeartIcon";
-import CommentsIcon from "@/assets/uiIcons/CommentsIcon";
-import ShareIcon from "@/assets/uiIcons/ShareIcon";
-import SaveIcon from "@/assets/uiIcons/SaveIcon";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PostOptions from "@/components/layout/PostOptions";
 import { useTheme } from "@/context/ThemeContext.js";
 import Swapicon from "@/assets/icons/Swapicon";
 import { useTranslation } from "react-i18next";
+import PostInteractions from "./cards/PostInteractions";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import Skeleton from "@mui/material/Skeleton";
 
 interface SwapNotificationProps {
   data: {
@@ -61,32 +60,27 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
   data,
   onClick,
 }) => {
-  const [liked, setLiked] = useState(false);
-  const [shared, setShared] = useState(false);
-  const [saved, setSaved] = useState(false);
   const [opened, setOpened] = useState(false);
   const { t } = useTranslation();
   const { isNightMode } = useTheme();
+  const [isLoadingOffered, setIsLoadingOffered] = useState(true);
+  const [isLoadingObtained, setIsLoadingObtained] = useState(true);
 
-  useEffect(() => {
-    if (data?.postAnalitics?.postLiked) {
-      setLiked(true);
-    }
-    if (data?.postAnalitics?.postShared) {
-      setShared(true);
-    }
-    if (data?.postAnalitics?.postSaved) {
-      setSaved(true);
-    }
-  }, []);
+  const handleImageLoadOffered = () => {
+    setIsLoadingOffered(false); // Imagen de "offered" cargada
+  };
+
+  const handleImageLoadObtained = () => {
+    setIsLoadingObtained(false); // Imagen de "obtained" cargada
+  };
 
   return (
     <div
       className={`${
         isNightMode
           ? "text-white hover:md:bg-[#171717] md:border-white/10"
-          : "text-black hover:md:bg-white md:border-gray-500/1"
-      } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-2`}
+          : "text-black hover:md:bg-[#F7F7F7] md:border-gray-500/1"
+      } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-1`}
       onClick={onClick}
     >
       {/* Main Container for Post */}
@@ -96,14 +90,14 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
         {/* Users Data */}
         <div className="flex gap-2 items-center">
           <div className="flex p-1 border rounded-full border-2 border-[#0DBC73]">
-            <img
+            <LazyLoadImage
               src={data?.swapData?.offered?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square border border-2 ${
                 isNightMode ? "border-[#232323]" : "border-white"
               }`}
             />
-            <img
+            <LazyLoadImage
               src={data?.swapData?.obtained?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square ml-[-10px] border border-2 ${
@@ -151,16 +145,48 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
           {/* POST IMAGE */}
           <div className="col-span-12 grid grid-cols-12">
             <div className="col-span-12 w-full rounded-lg relative flex items-center justify-center gap-2">
-              <img
-                src={data?.swapData?.offered?.coverImg}
-                alt="post image"
-                className="aspect-square w-[50%] object-cover rounded-lg"
-              />
-              <img
-                src={data?.swapData?.obtained?.coverImg}
-                alt="post image"
-                className="aspect-square w-[50%] object-cover rounded-lg"
-              />
+              {/* Loading state for "Offered" image */}
+              <div className="relative w-[50%]">
+                {isLoadingOffered && (
+                  <Skeleton
+                    sx={{
+                      height: "100%",
+                      width: "100%",
+                      bgcolor: isNightMode ? "grey.900" : "grey.400",
+                      borderRadius: "5%",
+                    }}
+                    variant="rectangular"
+                    className="absolute inset-0"
+                  />
+                )}
+                <LazyLoadImage
+                  src={data?.swapData?.offered?.coverImg}
+                  className="aspect-square w-full object-cover rounded-lg"
+                  onLoad={handleImageLoadOffered}
+                />
+              </div>
+
+              {/* Loading state for "Obtained" image */}
+              <div className="relative w-[50%]">
+                {isLoadingObtained && (
+                  <Skeleton
+                    sx={{
+                      height: "100%",
+                      width: "100%",
+                      bgcolor: isNightMode ? "grey.900" : "grey.400",
+                      borderRadius: "5%",
+                    }}
+                    variant="rectangular"
+                    className="absolute inset-0"
+                  />
+                )}
+                <LazyLoadImage
+                  src={data?.swapData?.obtained?.coverImg}
+                  className="aspect-square w-full object-cover rounded-lg"
+                  onLoad={handleImageLoadObtained}
+                />
+              </div>
+
               {/* SWAP ICON */}
               <div
                 className={`rounded-full bg-[#02995D] ${
@@ -172,100 +198,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
             </div>
           </div>
         </div>
-
-        {/* POST ANALITICS */}
-        <div className="col-span-12 grid grid-cols-12">
-          <div className="col-span-1"></div>
-          {/* ANALITICS*/}
-          <div className="flex col-span-11 items-center justify-between">
-            <div className="flex gap-4">
-              <div
-                className={`${
-                  liked ? "opacity-100" : "opacity-50"
-                } flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-                onMouseEnter={() => setLiked(true)}
-                onMouseLeave={() => setLiked(data?.postAnalitics?.postLiked)}
-              >
-                <HeartIcon
-                  size={"1.5em"}
-                  colorFill={`#0DBC73`}
-                  colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
-                  isSelected={liked}
-                />
-                <p
-                  className={`${
-                    liked
-                      ? `text-[#0DBC73]`
-                      : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
-                  } font-bold`}
-                >
-                  {data?.postAnalitics?.likes}
-                </p>
-              </div>
-              <div
-                className={`opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-              >
-                <CommentsIcon
-                  size={"1.5em"}
-                  colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
-                />
-                <p
-                  className={`${
-                    isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
-                  } font-bold`}
-                >
-                  {data?.postAnalitics?.comments}
-                </p>
-              </div>
-              <div
-                className={`${
-                  shared ? "opacity-100" : "opacity-50"
-                } flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-                onMouseEnter={() => setShared(true)}
-                onMouseLeave={() => setShared(data?.postAnalitics?.postShared)}
-              >
-                <ShareIcon
-                  size={"1.5em"}
-                  colorFill={`#0DBC73`}
-                  colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
-                  isSelected={shared}
-                />
-                <p
-                  className={`${
-                    shared
-                      ? `text-[#0DBC73]`
-                      : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
-                  } font-bold`}
-                >
-                  {data?.postAnalitics?.shares}
-                </p>
-              </div>
-            </div>
-            <div
-              className={`${
-                saved ? "opacity-100" : "opacity-50"
-              } flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-              onMouseEnter={() => setSaved(true)}
-              onMouseLeave={() => setSaved(data?.postAnalitics?.postSaved)}
-            >
-              <SaveIcon
-                size={"1.5em"}
-                colorFill={`#0DBC73`}
-                colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
-                isSelected={saved}
-              />
-              <p
-                className={`${
-                  saved
-                    ? `text-[#0DBC73]`
-                    : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
-                } font-bold`}
-              >
-                {data?.postAnalitics?.saves}
-              </p>
-            </div>
-          </div>
-        </div>
+        <PostInteractions data={data} />
       </div>
       <hr
         className={`col-span-12 mt-4 md:hidden ${

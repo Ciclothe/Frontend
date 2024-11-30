@@ -36,7 +36,7 @@ const SearchBar: React.FC = () => {
     <div className="w-full lg:w-[80%] xl:w-[70%] flex items-center justify-center">
       <div
         className={`${
-          isNightMode ? "bg-[#171717] text-white" : "bg-white text-black"
+          isNightMode ? "bg-[#171717] text-white" : "bg-[#F7F7F7] text-black"
         } rounded-full w-full flex items-center justify-between`}
       >
         {/* ELEMENT SEARCH */}
