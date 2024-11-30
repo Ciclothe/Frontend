@@ -66,7 +66,7 @@ const NotificationBanner = () => {
           className={`flex justify-center items-center px-5 ${
             isNightMode
               ? "bg-[#0B0B0B] hover:bg-[#232323]"
-              : "bg-[#F0EFF4] hover:bg-[#E2E2E2]"
+              : "bg-[#ffffff] hover:bg-[#E2E2E2]"
           } py-3 font-bold text-[#1B6B44] rounded-b-xl cursor-pointer`}
         >
           <p>{t("Notification.SeeAllNotifications")}</p>

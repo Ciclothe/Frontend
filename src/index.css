@@ -19,16 +19,16 @@ body {
 
 .bodyNightMode {
   background-color: #0b0b0b;
-  color: #f0eff4;
+  color: #ffffff;
 }
 
 .bodyDayMode {
-  background-color: #f0eff4;
+  background-color: #ffffff;
   color: #0b0b0b;
 }
 
 .textLight {
-  color: #f0eff4;
+  color: #ffffff;
 }
 
 .textDark {
@@ -71,7 +71,7 @@ li {
 }
 
 .cardDayMode {
-  background-color: #f0eff4;
+  background-color: #ffffff;
   color: #213547;
 }
 

@@ -13,7 +13,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
 
   const isCentered = options.length === 2;
   const containerClasses = `flex items-center h-full w-full font-bold ${
-    isNightMode ? "text-white bg-[#0b0b0b]" : "text-black bg-[#f0eff4]"
+    isNightMode ? "text-white bg-[#0b0b0b]" : "text-black bg-[#ffffff]"
   } ${isCentered ? "justify-center" : "justify-start"}`;
 
   return (

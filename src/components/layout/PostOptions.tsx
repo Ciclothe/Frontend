@@ -7,8 +7,8 @@ import { mdiAlertBox, mdiCloseBox, mdiAccountOff } from "@mdi/js";
 
 interface PostOptionsProps {
   postId: number;
-  opened: boolean; // Recibe el estado de apertura
-  setOpened: (opened: boolean) => void; // Función para actualizar el estado de apertura
+  opened: boolean;
+  setOpened: (opened: boolean) => void;
 }
 
 const PostOptions: React.FC<PostOptionsProps> = ({ setOpened, opened }) => {

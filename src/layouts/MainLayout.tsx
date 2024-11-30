@@ -59,7 +59,7 @@ const MainLayout: FC = () => {
       {/* Header */}
       <div
         className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 fixed top-0 z-[2000] ${
-          isNightMode ? "bg-[#0b0b0b]" : "bg-[#f0eff4]"
+          isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
         } md:${
           showHeader ? "transform translate-y-0" : "transform -translate-y-full"
         }`}

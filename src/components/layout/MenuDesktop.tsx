@@ -25,8 +25,8 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         <FeedIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#f0eff4"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -38,7 +38,7 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         <SwipeIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -50,7 +50,7 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         <ExploreIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -62,7 +62,7 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         <EventsIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -74,8 +74,8 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
         <ChatsIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#f0eff4" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#f0eff4"}
+          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
