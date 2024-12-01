@@ -4,7 +4,6 @@ import { mdiBellOutline } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
-import SearchBar from "./SearchBar";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useUserData } from "@/context/UserDataContext";
 import ProfileImage from "@/components/ui/ProfilePic";
