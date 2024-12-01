@@ -1,8 +1,7 @@
 import PostCard from "./components/PostCard";
 import SwapNotification from "./components/SwapNotification";
 import TextCard from "./components/TextCard";
-import SectionSwitcher from "@/components/layout/SectionSwitcher";
-import { useOutletContext } from "react-router-dom";
+import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useEffect } from "react";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import { usePostButton } from "@/context/CreatePostActive";
@@ -407,20 +406,17 @@ const testPosts = {
   ],
 };
 
-const sectionOptions = [
+const options = [
   { name: "Following", value: 0 },
   { name: "Communities", value: 1 },
 ];
 
-interface MainLayoutContextType {
-  showHeader: boolean;
-}
-
 const FeedView = () => {
   const navigate = useNavigate();
   const { setShowPostButton } = usePostButton();
-  const { showHeader } = useOutletContext<MainLayoutContextType>();
+  const { setSectionOptions } = useSectionOptions();
   const { activeSection } = useActiveSection();
+  setSectionOptions(options);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -436,15 +432,8 @@ const FeedView = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div
-        className={`hidden md:flex w-full md:w-[70%] xl:w-[44%] ${
-          showHeader ? "fixed" : "fixed top-0"
-        } z-[1000]`}
-      >
-        <SectionSwitcher options={sectionOptions} />
-      </div>
-      <div className="md:mt-[4em] p-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-6 px-2">
+      <div className="py-4 flex flex-col gap-4">
         {(activeSection === 0
           ? testPosts.following
           : testPosts.communities

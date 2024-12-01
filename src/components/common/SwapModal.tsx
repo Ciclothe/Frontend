@@ -81,7 +81,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
   }, [selectedItems]);
 
   return (
-    <div className="left-0 bg-black bg-opacity-50 fixed top-0 h-screen w-full z-[2000] flex items-center justify-center">
+    <div className="p-4 md:p-0 left-0 bg-black bg-opacity-50 fixed top-0 h-screen w-full z-[2000] flex items-center justify-center">
       <ClickAwayListener
         onClickAway={(e) => {
           e.stopPropagation();
