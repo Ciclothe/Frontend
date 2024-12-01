@@ -59,11 +59,16 @@
     "SeeMore": "Voir plus"
   },
   "LocationSelector": {
-    "SelectLocation": "Sélectionnez un emplacement",
+    "SelectLocation": "Sélectionner un emplacement",
     "SearchACountry": "Rechercher un pays",
-    "UseCurrentLocation": "Utiliser l'emplacement actuel",
+    "UseCurrentLocation": "Utiliser la localisation actuelle",
     "SearchRadius": "Rayon de recherche",
-    "Apply": "Appliquer"
+    "Apply": "Appliquer",
+    "GeolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur.",
+    "GeolocationError": "Une erreur est survenue lors de l'obtention de votre localisation.",
+    "PermissionDenied": "L'autorisation d'accéder à votre localisation a été refusée.",
+    "EnableLocation": "Veuillez activer les services de localisation pour utiliser cette fonctionnalité.",
+    "PositionUnavailable": "Votre localisation n'a pas pu être déterminée."
   },
   "SectionSwitcher": {
     "Following": "Suivis",

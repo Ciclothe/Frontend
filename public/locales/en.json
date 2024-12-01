@@ -63,7 +63,12 @@
     "SearchACountry": "Search a country",
     "UseCurrentLocation": "Use current location",
     "SearchRadius": "Search radius",
-    "Apply": "Apply"
+    "Apply": "Apply",
+    "GeolocationNotSupported": "Geolocation is not supported by your browser.",
+    "GeolocationError": "There was an error getting your location.",
+    "PermissionDenied": "Permission to access your location was denied.",
+    "EnableLocation": "Please enable location services to use this feature.",
+    "PositionUnavailable": "Your location could not be determined."
   },
   "SectionSwitcher": {
     "Following": "Following",

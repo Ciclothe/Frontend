@@ -102,7 +102,11 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
   };
 
   const handleUseCurrentLocation = () => {
-    console.log("Solicitando ubicación actual...");
+    if (!navigator.geolocation) {
+      alert(t("LocationSelector.GeolocationNotSupported"));
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(
       (location) => {
         const { latitude, longitude } = location.coords;
@@ -111,7 +115,16 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
       },
       (error) => {
         console.error("Error obteniendo la ubicación: ", error);
-        alert(t("LocationSelector.GeolocationError"));
+
+        if (error.code === error.PERMISSION_DENIED) {
+          alert(
+            t("LocationSelector.PermissionDenied") +
+              "\n" +
+              t("LocationSelector.EnableLocation") // Ask user to enable location manually
+          );
+        } else {
+          alert(t("LocationSelector.GeolocationError"));
+        }
       },
       {
         enableHighAccuracy: true,

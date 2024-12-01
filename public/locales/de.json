@@ -59,11 +59,16 @@
     "SeeMore": "Mehr anzeigen"
   },
   "LocationSelector": {
-    "SelectLocation": "Wählen Sie einen Standort",
-    "SearchACountry": "Suchen Sie ein Land",
+    "SelectLocation": "Standort auswählen",
+    "SearchACountry": "Ein Land suchen",
     "UseCurrentLocation": "Aktuellen Standort verwenden",
     "SearchRadius": "Suchradius",
-    "Apply": "Anwenden"
+    "Apply": "Anwenden",
+    "GeolocationNotSupported": "Die Geolokalisierung wird von Ihrem Browser nicht unterstützt.",
+    "GeolocationError": "Es gab einen Fehler beim Abrufen Ihres Standorts.",
+    "PermissionDenied": "Die Berechtigung zum Zugriff auf Ihren Standort wurde verweigert.",
+    "EnableLocation": "Bitte aktivieren Sie die Standortdienste, um diese Funktion zu nutzen.",
+    "PositionUnavailable": "Ihr Standort konnte nicht ermittelt werden."
   },
   "SectionSwitcher": {
     "Following": "Folgen",
