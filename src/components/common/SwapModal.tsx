@@ -109,12 +109,12 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                       {selectedPost?.userData.profilePicture ? (
                         <img
                           src={selectedPost?.userData.profilePicture}
-                          className="hidden sm:block rounded-full h-[2.3em] w-[2.3em] object-cover"
+                          className="hidden md:block rounded-full h-[2.3em] w-[2.3em] object-cover"
                           alt="profile"
                         />
                       ) : (
                         <div
-                          className={`h-[2.3em] w-[2.3em] flex items-center justify-center ${
+                          className={`hidden md:flex h-[2.3em] w-[2.3em] items-center justify-center ${
                             isNightMode
                               ? "bg-white text-black"
                               : "bg-black text-white"
@@ -142,12 +142,12 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                           {user?.profilePhoto ? (
                             <img
                               src={user?.profilePhoto}
-                              className="hidden sm:block rounded-full h-[2.3em] w-[2.3em] object-cover"
+                              className="hidden md:block rounded-full h-[2.3em] w-[2.3em] object-cover"
                               alt="user profile"
                             />
                           ) : (
                             <div
-                              className={`h-[2.3em] w-[2.3em] flex items-center justify-center ${
+                              className={`hidden md:flex h-[2.3em] w-[2.3em] items-center justify-center ${
                                 isNightMode
                                   ? "bg-white text-black"
                                   : "bg-black text-white"
