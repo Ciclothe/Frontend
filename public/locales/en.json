@@ -58,6 +58,13 @@
     "Follow": "Follow",
     "SeeMore": "See More"
   },
+  "LocationSelector": {
+    "SelectLocation": "Select a location",
+    "SearchACountry": "Search a country",
+    "UseCurrentLocation": "Use current location",
+    "SearchRadius": "Search radius",
+    "Apply": "Apply"
+  },
   "SectionSwitcher": {
     "Following": "Following",
     "Communities": "Communities"
