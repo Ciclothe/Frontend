@@ -12,6 +12,9 @@ import { usePostButton } from "@/context/CreatePostActive";
 import { useLocation } from "react-router-dom";
 import SwapModal from "@/components/common/SwapModal";
 import { useSwap } from "@/context/SwapContext";
+import SearchBar from "@/components/layout/SearchBar";
+import SectionSwitcher from "@/components/layout/SectionSwitcher";
+import { useSectionOptions } from "@/context/SectionOptionsContext";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -20,16 +23,24 @@ const MainLayout: FC = () => {
   const { showPostButton } = usePostButton();
   const location = useLocation();
   const { showModal, selectedPost } = useSwap();
+  const { sectionOptions } = useSectionOptions();
+  const scrollThreshold = sectionOptions.length ? 70 : 100;
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
+
+    if (Math.abs(currentScrollY - scrollY) < scrollThreshold) {
+      return;
+    }
+
     if (currentScrollY > scrollY) {
       setShowHeader(false);
     } else {
       setShowHeader(true);
     }
+
     setScrollY(currentScrollY);
   };
 
@@ -42,61 +53,64 @@ const MainLayout: FC = () => {
   }, [location.pathname]);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout | null = null;
+
+    const throttledScroll = () => {
+      if (timeoutId) return;
+
+      timeoutId = setTimeout(() => {
+        handleScroll();
+        timeoutId = null;
+      }, 100);
+    };
+
     if (!location.pathname.includes("/post")) {
-      if (isMdOrLarger) {
-        window.addEventListener("scroll", handleScroll);
-      }
+      window.addEventListener("scroll", throttledScroll);
       return () => {
-        if (isMdOrLarger) {
-          window.removeEventListener("scroll", handleScroll);
-        }
+        window.removeEventListener("scroll", throttledScroll);
+        if (timeoutId) clearTimeout(timeoutId);
       };
     }
-  }, [scrollY, isMdOrLarger, location.pathname]);
+  }, [scrollY, location.pathname]);
 
   return (
-    <div className="w-full flex flex-col min-h-screen justify-between">
+    <div className="w-full flex flex-col xl:flex-row min-h-screen justify-between">
       {/* Header */}
-      <div
-        className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 fixed top-0 z-[2000] ${
-          isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
-        } md:${
-          showHeader ? "transform translate-y-0" : "transform -translate-y-full"
-        }`}
-        style={{
-          borderBottomWidth: "0.5px",
-          borderStyle: "solid",
-          borderColor: isNightMode
-            ? "rgba(255, 255, 255, 0.1)"
-            : "rgba(140, 140, 140, 0.1)",
-        }}
-      >
-        <Header />
-      </div>
-
-      <div
-        className={`flex relative ${
-          showHeader ? "flex-grow mt-[13em] md:mt-[7em]" : "h-full"
-        } w-full`}
-      >
-        {/* Create Post Button for Mobile */}
-        {showPostButton && (
-          <div
-            className={`${
-              isNightMode ? "text-black" : "text-white"
-            } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#02995D] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
-          >
-            <Icon path={mdiPlusBoxOutline} size={1.2} />
-          </div>
-        )}
-
-        {/* Sidebar Left */}
+      {showPostButton && (
         <div
-          className={`hidden md:block w-[30%] xl:w-[28%] fixed py-4 pl-[1em] lg:pl-[5em] ${
-            showHeader ? "" : "top-0"
+          className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[2000] xl:hidden ${
+            isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
           }`}
           style={{
-            height: `${showHeader ? "" : "100vh"}`,
+            borderBottomWidth: "0.5px",
+            borderStyle: "solid",
+            borderColor: isNightMode
+              ? "rgba(255, 255, 255, 0.1)"
+              : "rgba(140, 140, 140, 0.1)",
+          }}
+        >
+          <Header />
+        </div>
+      )}
+
+      {/* Create Post Button for Mobile */}
+      {showPostButton && (
+        <div
+          className={`${
+            isNightMode ? "text-black" : "text-white"
+          } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#02995D] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
+        >
+          <Icon path={mdiPlusBoxOutline} size={1.2} />
+        </div>
+      )}
+
+      <div className="flex w-full">
+        {/* Left Side */}
+        <div
+          className={`hidden md:block w-[30%] fixed ${
+            showPostButton ? "pt-[8em]" : "pt-[1em]"
+          } xl:pt-[0em] h-screen md:sticky md:top-0 xl:w-[28%] pl-[1em] lg:pl-[5em]`}
+          style={{
             borderRightWidth: "0.5px",
             borderStyle: "solid",
             borderColor: isNightMode
@@ -104,23 +118,59 @@ const MainLayout: FC = () => {
               : "rgba(140, 140, 140, 0.1)",
           }}
         >
-          <MenuDesktop showHeader={showHeader} />
+          <MenuDesktop />
         </div>
 
-        {/* Main Content */}
+        {/* Middle Side */}
         <div
-          className={`w-full md:ml-[1em] md:mr-[1em] md:w-[70%] xl:w-[44%] lg:mr-[0em] md:ml-[30%] xl:ml-[28%] xl:mr-[28%]`}
+          className={`${
+            showPostButton ? "md:mt-[7em]" : ""
+          } xl:mt-[0em] w-full md:w-[70%] xl:w-[44%] md:px-4`}
         >
-          <Outlet context={{ showHeader: isMdOrLarger ? showHeader : true }} />
+          {/* Search Bar and Section Switcher */}
+          {showPostButton && (
+            <div
+              className={`hidden fixed left-[30%] w-[70%] xl:w-[100%] px-4 xl:px-0 md:block xl:sticky xl:top-0 z-[1000] ${
+                isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+              } ${
+                isNightMode
+                  ? "border-t-[0.5px] border-solid border-[#FFFFFF1A]"
+                  : "border-t-[0.5px] border-solid border-[#8C8C8C1A]"
+              } xl:border-0`}
+            >
+              {/* Search Bar */}
+              <div
+                className={`sticky transition-all duration-300 ${
+                  showHeader
+                    ? `${sectionOptions.length ? "pt-[1.5em]" : "py-[1.5em]"}`
+                    : "hidden"
+                }`}
+              >
+                <SearchBar />
+              </div>
+
+              {/* Section Switcher */}
+              {sectionOptions && (
+                <div
+                  className={`hidden md:flex w-full ${
+                    showHeader ? "" : "xl:sticky top-0"
+                  }`}
+                >
+                  <SectionSwitcher options={sectionOptions} />
+                </div>
+              )}
+            </div>
+          )}
+          {/* Main Content */}
+          <div className={`${showPostButton ? "md:mt-[10em]" : ""} xl:mt-0`}>
+            <Outlet />
+          </div>
         </div>
 
-        {/* Sidebar Right */}
+        {/* Right Side */}
         <div
-          className={`hidden xl:flex w-[28%] fixed right-0 justify-end py-4 pr-[1em] lg:pr-[5em] ${
-            showHeader ? "" : "top-0"
-          } transition-all duration-300`}
+          className={`hidden xl:flex w-[28%] h-screen sticky top-0 justify-end pr-[1em] lg:pr-[5em]`}
           style={{
-            height: `${showHeader ? "calc(100vh - 10em)" : "100vh"}`,
             borderLeftWidth: "0.5px",
             borderStyle: "solid",
             borderColor: isNightMode
@@ -131,8 +181,10 @@ const MainLayout: FC = () => {
           <SidebarRight />
         </div>
       </div>
+
+      {/* Swap Modal */}
       {showModal && <SwapModal selectedPost={selectedPost} />}
-      {/* Sidebar Left Menu Mobile */}
+      {/* Menu Mobile */}
       {showPostButton && (
         <div className="flex md:hidden sticky bottom-0 z-[1000]">
           <MenuMobile />

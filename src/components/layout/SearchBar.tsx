@@ -44,7 +44,7 @@ const SearchBar: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchLocation(position[0], position[1]); // Obtén la ciudad y el país cuando cambie la posición
+    fetchLocation(position[0], position[1]);
   }, [position]);
 
   const handleLocationRangeChange = async (
@@ -52,21 +52,21 @@ const SearchBar: React.FC = () => {
     newRange: number
   ) => {
     try {
-      await fetchLocation(newPosition[0], newPosition[1]); // Actualiza ciudad y país
+      await fetchLocation(newPosition[0], newPosition[1]);
     } catch (error) {
       console.error("Error al actualizar ubicación:", error);
     }
     setPosition(newPosition);
     setRange(newRange);
-    setShowLocationSelector(false); // Cerrar el selector al cambiar la ubicación o el rango
+    setShowLocationSelector(false);
   };
 
   const handleLocationSelectorClose = () => {
-    setShowLocationSelector(false); // Cerrar el selector cuando el usuario lo cierre manualmente
+    setShowLocationSelector(false);
   };
 
   return (
-    <div className="w-full lg:w-[80%] xl:w-[70%] flex items-center justify-center">
+    <div className="w-full flex flex-col items-center justify-center">
       <div
         className={`${
           isNightMode ? "bg-[#171717] text-white" : "bg-[#F7F7F7] text-black"

@@ -9,12 +9,9 @@ import EventsIcon from "@/assets/uiIcons/EventsIcon";
 import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
 import Icon from "@mdi/react";
 import { mdiCog, mdiPlusBoxOutline } from "@mdi/js";
+import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 
-interface MenuDesktopProps {
-  showHeader: boolean;
-}
-
-const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
+const MenuDesktop = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
@@ -86,15 +83,22 @@ const MenuDesktop: React.FC<MenuDesktopProps> = ({ showHeader }) => {
 
   return (
     <div
-      className={`flex flex-col justify-between ${
+      className={`flex flex-col justify-between h-full pb-4 ${
         isNightMode ? "textLight" : "textDark"
       }`}
       style={{
-        height: `${showHeader ? "calc(100vh - 128px)" : "calc(100vh - 32px)"}`,
         overflowX: "hidden",
       }}
     >
       <div>
+        <div className="hidden xl:flex w-full py-5 h-[7em] items-center">
+          <Link to={`/`}>
+            <CiclotheLogotipo
+              color={isNightMode ? "white" : "black"}
+              size={"10em"}
+            />
+          </Link>
+        </div>
         {menuItems.map((item, index) => {
           const isActive =
             location.pathname === item.route ||
