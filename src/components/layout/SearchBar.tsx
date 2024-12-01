@@ -1,36 +1,69 @@
-/**
- * SearchBar component renders a search input field with an icon and a location display.
- * It uses the current theme and translation context.
- *
- * @component
- * @example
- * return (
- *   <SearchBar />
- * )
- *
- * @returns {JSX.Element} The rendered SearchBar component.
- *
- * @remarks
- * - The component uses `useTheme` to determine if night mode is enabled.
- * - The component uses `useTranslation` for internationalization.
- * - The search input field can be focused by clicking on the magnifying glass icon.
- * - The location display shows a hardcoded location "Valencia, Spn." and distance "2 km".
- *
- * @dependencies
- * - `useTheme` from "@/context/ThemeContext"
- * - `useTranslation` from "react-i18next"
- * - `Icon` from "@mdi/react"
- * - `mdiMagnify` and `mdiCrosshairsGps` from "@mdi/js"
- */
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiCrosshairsGps } from "@mdi/js";
 import { useTranslation } from "react-i18next";
+import LocationRangeSelector from "../common/LocationRangeSelector";
+import { useUser } from "@/context/UserContext.js";
+import axios from "axios";
 
 const SearchBar: React.FC = () => {
+  const { user } = useUser();
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
+
+  const [showLocationSelector, setShowLocationSelector] = useState(false);
+  const [position, setPosition] = useState<number[]>([39.4699, -0.3763]);
+  const [range, setRange] = useState<number>(5000);
+  const [location, setLocation] = useState<{ city: string; country: string }>({
+    city: user?.city || "Valencia",
+    country: user?.country || "Spain",
+  });
+
+  const mapboxToken =
+    "pk.eyJ1IjoiYWxlam9zcGluYXIiLCJhIjoiY20wa2lreDMxMTk5eDJrb2F0N3NtNHBkMyJ9.LV8h87QAtrtHZ2U2FP4V1g";
+
+  const fetchLocation = async (lat: number, lon: number) => {
+    try {
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lon},${lat}.json?access_token=${mapboxToken}`
+      );
+      const data = response.data.features[0];
+      if (data) {
+        const city =
+          data.context.find((item: any) => item.id.includes("place"))?.text ||
+          "Desconocida";
+        const country =
+          data.context.find((item: any) => item.id.includes("country"))?.text ||
+          "Desconocido";
+        setLocation({ city, country });
+      }
+    } catch (error) {
+      console.error("Error fetching location:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocation(position[0], position[1]); // Obtén la ciudad y el país cuando cambie la posición
+  }, [position]);
+
+  const handleLocationRangeChange = async (
+    newPosition: number[],
+    newRange: number
+  ) => {
+    try {
+      await fetchLocation(newPosition[0], newPosition[1]); // Actualiza ciudad y país
+    } catch (error) {
+      console.error("Error al actualizar ubicación:", error);
+    }
+    setPosition(newPosition);
+    setRange(newRange);
+    setShowLocationSelector(false); // Cerrar el selector al cambiar la ubicación o el rango
+  };
+
+  const handleLocationSelectorClose = () => {
+    setShowLocationSelector(false); // Cerrar el selector cuando el usuario lo cierre manualmente
+  };
 
   return (
     <div className="w-full lg:w-[80%] xl:w-[70%] flex items-center justify-center">
@@ -67,17 +100,32 @@ const SearchBar: React.FC = () => {
             } p-2`}
           />
         </div>
+
         {/* LOCATION SEARCH */}
-        <div className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-2 md:gap-6 px-4 py-[2px] rounded-full flex items-center">
+        <div
+          className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-2 md:gap-6 px-4 py-[2px] rounded-full flex items-center"
+          onClick={() => setShowLocationSelector(true)} // Mostrar el selector de ubicación al hacer clic
+        >
           <div className="flex flex-col whitespace-nowrap">
-            <h2 className="font-bold">Valencia, Spn.</h2>
-            <p className="mt-[-3px]">2 km</p>
+            <h2 className="font-bold max-w-[100px] md:max-w-[200px] truncate">
+              {location.city}, {location.country}
+            </h2>
+            <p className="mt-[-3px]">{(range / 1000).toFixed(1)} km</p>
           </div>
+
           <div>
             <Icon path={mdiCrosshairsGps} size={0.8} />
           </div>
         </div>
       </div>
+
+      {showLocationSelector && (
+        <LocationRangeSelector
+          location={location}
+          onLocationRangeChange={handleLocationRangeChange}
+          onClose={handleLocationSelectorClose}
+        />
+      )}
     </div>
   );
 };

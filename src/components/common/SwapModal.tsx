@@ -17,6 +17,7 @@ interface SwapModalProps {
 }
 
 const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
+  // TODO: Replace testPosts with actual data
   const testPosts = [
     {
       img: "https://cdn.wallapop.com/images/10420/h0/f8/__/c10420p1028635413/i5017113198.jpg?pictureSize=W640",
@@ -89,19 +90,19 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
       >
         <Box
           className={`w-fit rounded-xl ${
-            isNightMode ? "bg-[#0B0B0B] text-white" : "bg-white text-black"
+            isNightMode ? "bg-[#141414] text-white" : "bg-white text-black"
           }`}
         >
           {Object.keys(testPosts).length > 0 ? (
             <div>
               <div className="px-[1em] md:px-[3em] py-4">
-                <p className="font-bold">{t(`Swipe.SwapTitle`)}</p>
+                <p className="text-[1.2em] font-bold">{t(`Swipe.SwapTitle`)}</p>
               </div>
               <hr />
               <div className="px-[1em] py-[1em] md:px-[3em] md:py-[3em] w-[95vw] sm:w-[90vw] md:w-[80vw] lg:w-[60vw] xl:w-[40vw]">
                 <div
                   className={`rounded-xl ${
-                    isNightMode ? "bg-[#171717]" : "bg-[#F7F8FA]"
+                    isNightMode ? "bg-[#171717]" : "bg-[#FFFFFF]"
                   }`}
                 >
                   <div className="px-5 py-4 grid grid-cols-12">
