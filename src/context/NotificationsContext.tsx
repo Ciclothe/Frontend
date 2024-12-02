@@ -1,51 +1,71 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import API_CONSTANTS from '@/services/config';
-import { io } from 'socket.io-client';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import axios from "axios";
+import API_CONSTANTS from "@/services/config";
+import { io } from "socket.io-client";
 
 interface Notification {
-    id: number;
-    message: string;
-    read: boolean;
+  id: number;
+  message: string;
+  read: boolean;
 }
 
 interface NotificationsContextType {
-    notifications: Notification[];
+  notifications: Notification[];
 }
 
-const NotificationsContext = createContext<NotificationsContextType | undefined>(undefined);
+const NotificationsContext = createContext<
+  NotificationsContextType | undefined
+>(undefined);
 
-export const NotificationsProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-    const [notifications, setNotifications] = useState<Notification[]>([]);
+export const NotificationsProvider: React.FC<React.PropsWithChildren<{}>> = ({
+  children,
+}) => {
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
-    const socket = io(`${API_CONSTANTS.API_BASE_URL}/notifications`, {
-        withCredentials: true,
-        transports: ["websocket"],
-      });
-    
-      useEffect(() => {
-        socket.on("connect", () => {});
-    
-        
-    
-        socket.on("disconnect", () => {});
-    
-        return () => {
-          socket.disconnect();
-        };
-      }, [socket]);
+  const socket = io(`${API_CONSTANTS.API_BASE_URL}/notifications`, {
+    withCredentials: true,
+    transports: ["websocket"],
+  });
 
-    return (
-        <NotificationsContext.Provider value={{ notifications}}>
-            {children}
-        </NotificationsContext.Provider>
-    );
+  useEffect(() => {
+    const getUserNotifications = async () => {
+      try {
+        await axios
+          .get(`${API_CONSTANTS.API_BASE_URL}/notifications`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            setNotifications(res.data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserNotifications();
+  }, []);
+
+  useEffect(() => {
+    socket.on("connect", () => {});
+
+    socket.on("disconnect", () => {});
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
+
+  return (
+    <NotificationsContext.Provider value={{ notifications }}>
+      {children}
+    </NotificationsContext.Provider>
+  );
 };
 
 export const useNotifications = (): NotificationsContextType => {
-    const context = useContext(NotificationsContext);
-    if (!context) {
-        throw new Error('useNotifications must be used within a NotificationsProvider');
-    }
-    return context;
+  const context = useContext(NotificationsContext);
+  if (!context) {
+    throw new Error(
+      "useNotifications must be used within a NotificationsProvider"
+    );
+  }
+  return context;
 };
