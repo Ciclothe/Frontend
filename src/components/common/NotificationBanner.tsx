@@ -3,12 +3,17 @@ import { mdiPencilOutline } from "@mdi/js";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import io from "socket.io-client";
+import API_CONSTANTS from "@/services/config";
 
 const NotificationBanner = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
 
-  return (
+
+
+  return ( 
     <div
       className={`${
         isNightMode ? "cardNightMode" : "cardDayMode"
