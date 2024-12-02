@@ -63,7 +63,7 @@ const PostDetails = () => {
           <div
             className={`${
               isNightMode ? "bg-[#0B0B0B]" : "bg-[#ffffff]"
-            } col-span-12 p-4 sticky top-0 z-[1000]`}
+            } col-span-12 px-2 py-4 md:px-4 md:py-4 sticky top-0 z-[1000]`}
           >
             <button
               className={`${

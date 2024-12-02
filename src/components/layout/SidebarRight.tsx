@@ -1,5 +1,6 @@
+import { useState } from "react";
 import Icon from "@mdi/react";
-import { mdiMapMarker } from "@mdi/js";
+import { mdiMapMarker, mdiBellOutline } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { useUserData } from "@/context/UserDataContext";
@@ -7,19 +8,48 @@ import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import ProfileImage from "@/components/ui/ProfilePic";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import NotificationBanner from "@/components/common/NotificationBanner";
 
 const SidebarRight = () => {
-  const { profiles, loading, error } = useUserData();
+  const { user, profiles, loading, error } = useUserData();
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
   const skeletonItems = [1, 2, 3];
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications((prev: any) => !prev);
+  };
 
   return (
     <div
-      className={`relative w-[80%] h-fit ${
+      className={`relative w-[80%] h-screen ${
         isNightMode ? "text-white" : "text-black"
       }`}
     >
+      {/*HEADERS ACTIONS*/}
+      <div className="col-span-5 md:col-span-2 flex items-center justify-end h-[7em]">
+        <div className="flex items-center gap-4">
+          {/* NOTIFICATIONS */}
+          <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
+            <div className="relative">
+              <div onClick={toggleNotifications}>
+                <Icon
+                  path={mdiBellOutline}
+                  size={0.9}
+                  className="cursor-pointer"
+                />
+              </div>
+              {showNotifications && <NotificationBanner />}
+            </div>
+          </ClickAwayListener>
+          {/* PROFILE BUTTON */}
+          <div className="hidden md:block">
+            <ProfileImage profilePic={user?.profilePhoto} />
+          </div>
+        </div>
+      </div>
       <div className="flex justify-between">
         <p className="font-bold pb-3">
           {t("RecommendedCard.RecommendedProfiles")}
