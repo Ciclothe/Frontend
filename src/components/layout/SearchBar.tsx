@@ -5,6 +5,7 @@ import { mdiMagnify, mdiCrosshairsGps } from "@mdi/js";
 import { useTranslation } from "react-i18next";
 import LocationRangeSelector from "../common/LocationRangeSelector";
 import { useUser } from "@/context/UserContext.js";
+import { useSearch } from "@/context/SearchContext";
 import axios from "axios";
 
 const SearchBar: React.FC = () => {
@@ -12,6 +13,8 @@ const SearchBar: React.FC = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
 
+  const { isSearching, setIsSearching, searchText, setSearchText } =
+    useSearch();
   const [showLocationSelector, setShowLocationSelector] = useState(false);
   const [position, setPosition] = useState<number[]>([39.4699, -0.3763]);
   const [range, setRange] = useState<number>(5000);
@@ -47,6 +50,19 @@ const SearchBar: React.FC = () => {
     fetchLocation(position[0], position[1]);
   }, [position]);
 
+  const handleFocus = () => {
+    setIsSearching(true);
+  };
+
+  const handleBlur = () => {
+    setIsSearching(false);
+    setSearchText("");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
   const handleLocationRangeChange = async (
     newPosition: number[],
     newRange: number
@@ -66,7 +82,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="w-full flex items-center justify-center gap-2">
       <div
         className={`${
           isNightMode ? "bg-[#171717] text-white" : "bg-[#F7F7F7] text-black"
@@ -98,6 +114,9 @@ const SearchBar: React.FC = () => {
             className={`bg-transparent w-full outline-none rounded-full ${
               isNightMode ? "text-white" : "text-black"
             } p-2`}
+            onFocus={handleFocus}
+            onChange={handleInputChange}
+            value={searchText}
           />
         </div>
 
@@ -118,6 +137,12 @@ const SearchBar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {isSearching && (
+        <div onClick={() => handleBlur()} className="cursor-pointer">
+          <p className="text-[#0DBC73] font-bold">{t("Global.Cancel")}</p>
+        </div>
+      )}
 
       {showLocationSelector && (
         <LocationRangeSelector

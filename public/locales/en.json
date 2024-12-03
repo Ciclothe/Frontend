@@ -72,7 +72,9 @@
   },
   "SectionSwitcher": {
     "Following": "Following",
-    "Communities": "Communities"
+    "Communities": "Communities",
+    "Garment": "Garment",
+    "Events": "Events"
   },
   "Chat": {
     "Messages": "Messages",
