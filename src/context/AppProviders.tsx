@@ -8,6 +8,7 @@ import { ActiveSectionProvider } from "@/context/ActiveSectionContext";
 import { CreatePostActive } from "@/context/CreatePostActive";
 import { SwapProvider } from "@/context/SwapContext";
 import { SectionOptionsProvider } from "@/context/SectionOptionsContext";
+import { SearchProvider } from "@/context/SearchContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -16,19 +17,21 @@ interface AppProvidersProps {
 const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <I18nextProvider i18n={i18n}>
-      <SectionOptionsProvider>
-        <SwapProvider>
-          <CreatePostActive>
-            <ActiveSectionProvider>
-              <UserProvider>
-                <UserDataProvider>
-                  <ThemeProvider>{children}</ThemeProvider>
-                </UserDataProvider>
-              </UserProvider>
-            </ActiveSectionProvider>
-          </CreatePostActive>
-        </SwapProvider>
-      </SectionOptionsProvider>
+      <SearchProvider>
+        <SectionOptionsProvider>
+          <SwapProvider>
+            <CreatePostActive>
+              <ActiveSectionProvider>
+                <UserProvider>
+                  <UserDataProvider>
+                    <ThemeProvider>{children}</ThemeProvider>
+                  </UserDataProvider>
+                </UserProvider>
+              </ActiveSectionProvider>
+            </CreatePostActive>
+          </SwapProvider>
+        </SectionOptionsProvider>
+      </SearchProvider>
     </I18nextProvider>
   );
 };

@@ -26,7 +26,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
           }}
           className={`flex flex-col items-center h-full ${
             isCentered ? "px-10 w-[50%]" : "px-5"
-          } md:px-5 cursor-pointer ${
+          } md:px-0 mr-4 cursor-pointer ${
             activeSection === option.value
               ? "text-opacity-100"
               : "opacity-50 hover:opacity-100"

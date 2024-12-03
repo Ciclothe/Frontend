@@ -15,6 +15,8 @@ import { useSwap } from "@/context/SwapContext";
 import SearchBar from "@/components/layout/SearchBar";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
+import { useSearch } from "@/context/SearchContext";
+import SearchResults from "@/components/layout/SearchResults";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -25,6 +27,7 @@ const MainLayout: FC = () => {
   const { showModal, selectedPost } = useSwap();
   const { sectionOptions } = useSectionOptions();
   const scrollThreshold = sectionOptions.length ? 70 : 100;
+  const { isSearching, searchText } = useSearch();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -94,7 +97,7 @@ const MainLayout: FC = () => {
       )}
 
       {/* Create Post Button for Mobile */}
-      {showPostButton && (
+      {showPostButton && !isSearching && (
         <div
           className={`${
             isNightMode ? "text-black" : "text-white"
@@ -161,10 +164,15 @@ const MainLayout: FC = () => {
               )}
             </div>
           )}
-          {/* Main Content */}
-          <div className={`${showPostButton ? "md:mt-[10em]" : ""} xl:mt-0`}>
-            <Outlet />
-          </div>
+          {isSearching ? (
+            // Search Results
+            <SearchResults searchText={searchText} />
+          ) : (
+            // Main Content
+            <div className={`${showPostButton ? "md:mt-[10em]" : ""} xl:mt-0`}>
+              <Outlet />
+            </div>
+          )}
         </div>
 
         {/* Right Side */}

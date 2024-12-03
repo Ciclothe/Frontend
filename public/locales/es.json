@@ -72,7 +72,9 @@
   },
   "SectionSwitcher": {
     "Following": "Siguiendo",
-    "Communities": "Comunidades"
+    "Communities": "Comunidades",
+    "Garment": "Prenda",
+    "Events": "Eventos"
   },
   "Chat": {
     "Messages": "Mensajes",

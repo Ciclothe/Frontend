@@ -71,8 +71,10 @@
     "PositionUnavailable": "Votre localisation n'a pas pu être déterminée."
   },
   "SectionSwitcher": {
-    "Following": "Suivis",
-    "Communities": "Communautés"
+    "Following": "Suivi",
+    "Communities": "Communautés",
+    "Garment": "Vêtement",
+    "Events": "Événements"
   },
   "Chat": {
     "Messages": "Messages",

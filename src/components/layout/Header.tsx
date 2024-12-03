@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Icon from "@mdi/react";
-import { mdiBellOutline } from "@mdi/js";
+import { mdiBellOutline, mdiMagnify } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import CiclotheLogotipoMobile from "../../../public/CiclotheLogotipoMobile";
 import { Link } from "react-router-dom";
@@ -50,7 +50,14 @@ const Header = () => {
           </Link>
         </div>
         {/*HEADERS ACTIONS*/}
-        <div className="col-span-5 flex items-center justify-end">
+        <div className="col-span-5 flex items-center justify-end gap-4">
+          <div>
+            <Icon
+              path={mdiMagnify}
+              size={0.9}
+              className="cursor-pointer md:hidden"
+            />
+          </div>
           {/* NOTIFICATIONS */}
           <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
             <div className="relative">
