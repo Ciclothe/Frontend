@@ -8,72 +8,77 @@ import axios from "axios";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import API_CONSTANTS from "@/services/config";
+import { useSearchLocation } from "@/context/RangeLocationContext";
 
-interface LocationRangeSelectorProps {
-  location: {
-    city: string;
-    country: string;
-  };
-  onLocationRangeChange: (position: number[], range: number) => void;
-  onClose: () => void;
-}
-
-const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
-  location,
-  onLocationRangeChange,
-  onClose,
-}) => {
+const LocationRangeSelector = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
 
   const [position, setPosition] = useState<number[]>([]);
-  const [range, setRange] = useState<number>(5000);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
+  const { locationSearch, setLocation, range, setRange, setIsOpened } =
+    useSearchLocation();
 
   const mapRef = useRef<any>(null);
 
-  useEffect(() => {
-    const debounceSearch = setTimeout(async () => {
-      if (searchQuery.length > 2) {
-        try {
-          const response = await axios.get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchQuery}.json?access_token=${token}`
-          );
-          const results = response.data.features;
-          const filteredSuggestions = results.filter(
-            (result: any) =>
-              result.place_type.includes("place") ||
-              result.place_type.includes("locality")
-          );
-          setSuggestions(filteredSuggestions);
-        } catch (error) {
-          console.error("Error fetching location data: ", error);
+  // Fetch geocoding data from Mapbox
+  const fetchGeocoding = async (query: string) => {
+    try {
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          query
+        )}.json`,
+        {
+          params: {
+            access_token: token,
+            types: "place,locality,address,poi",
+            limit: 5,
+          },
         }
-      } else {
-        setSuggestions([]);
-      }
-    }, 500);
+      );
+      return response.data.features;
+    } catch (error) {
+      console.error("Error fetching geocoding data:", error);
+      return [];
+    }
+  };
 
-    return () => clearTimeout(debounceSearch);
-  }, [searchQuery]);
+  // Handle search input changes
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value.length > 2) {
+      const results = await fetchGeocoding(e.target.value);
+      setSuggestions(results);
+    } else {
+      setSuggestions([]);
+    }
+  };
 
-  useEffect(() => {
-    const originalStyle = window.getComputedStyle(document.body).overflow;
-    document.body.style.overflow = "hidden";
+  // Handle suggestion click
+  const handleSuggestionClick = (suggestion: any) => {
+    const { center, place_name } = suggestion;
+    const newPosition = [center[1], center[0]];
+    setPosition(newPosition);
+    setSearchQuery(place_name);
+    setSuggestions([]);
+    mapRef.current?.flyTo(newPosition, 13);
+  };
 
-    return () => {
-      document.body.style.overflow = originalStyle;
-    };
-  }, []);
+  // Handle range slider change
+  const handleRangeChange = (e: Event, newValue: number | number[]) => {
+    e.preventDefault();
+    setRange(newValue as number);
+  };
 
+  // Fetch user's location based on `location` prop or fallback to current location
   useEffect(() => {
     const fetchUserLocation = async () => {
-      if (location?.city && location?.country) {
+      if (locationSearch?.city && locationSearch?.country) {
         try {
           const response = await axios.get(
-            `https://api.mapbox.com/geocoding/v5/mapbox.places/${location.city},${location.country}.json?access_token=${token}`
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${locationSearch.city},${locationSearch.country}.json?access_token=${token}`
           );
           const { features } = response.data;
           if (features.length > 0) {
@@ -86,20 +91,15 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
           alert(t("LocationSelector.ErrorFetchingData"));
         }
       } else {
-        navigator.geolocation.getCurrentPosition((location) => {
-          const { latitude, longitude } = location.coords;
+        navigator.geolocation.getCurrentPosition((locationSearch) => {
+          const { latitude, longitude } = locationSearch.coords;
           setPosition([latitude, longitude]);
         });
       }
     };
 
     fetchUserLocation();
-  }, [location]);
-
-  const handleRangeChange = (e: Event, newValue: number | number[]) => {
-    e.preventDefault();
-    setRange(newValue as number);
-  };
+  }, [locationSearch]);
 
   const handleUseCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -108,19 +108,19 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
     }
 
     navigator.geolocation.getCurrentPosition(
-      (location) => {
-        const { latitude, longitude } = location.coords;
+      (locationSearch) => {
+        const { latitude, longitude } = locationSearch.coords;
         setPosition([latitude, longitude]);
         mapRef.current?.flyTo([latitude, longitude], 13);
       },
       (error) => {
-        console.error("Error obteniendo la ubicación: ", error);
+        console.error("Error obtaining location:", error);
 
         if (error.code === error.PERMISSION_DENIED) {
           alert(
             t("LocationSelector.PermissionDenied") +
               "\n" +
-              t("LocationSelector.EnableLocation") // Ask user to enable location manually
+              t("LocationSelector.EnableLocation")
           );
         } else {
           alert(t("LocationSelector.GeolocationError"));
@@ -134,53 +134,17 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
     );
   };
 
-  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    if (e.target.value.length > 2) {
-      try {
-        const response = await axios.get(
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?access_token=${token}`
-        );
-        const results = response.data.features;
-        const filteredSuggestions = results.filter(
-          (result: any) =>
-            result.place_type.includes("place") ||
-            result.place_type.includes("locality")
-        );
-        setSuggestions(filteredSuggestions);
-      } catch (error) {
-        console.error("Error fetching location data: ", error);
-      }
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSuggestionClick = (suggestion: any) => {
-    const { center, place_name } = suggestion;
-    const newPosition = [center[1], center[0]];
-    setPosition(newPosition);
-    setSuggestions([]);
-    setSearchQuery(place_name);
-
-    mapRef.current?.flyTo(newPosition, 13);
-  };
-
   const handleApply = () => {
-    onLocationRangeChange(position, range);
-    onClose();
-  };
-
-  const handleBackgroundClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    setLocation({ locationCityCountry: position, range });
   };
 
   return (
     <div
       className="fixed bg-black bg-opacity-50 top-0 h-screen w-full z-[2000] left-0 flex items-center justify-center"
-      onClick={handleBackgroundClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        setIsOpened(false);
+      }}
     >
       <div
         className={`${
@@ -235,11 +199,9 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
         <div className="w-full h-[300px] rounded-2xl">
           {position.length > 0 && (
             <MapContainer
-              aria-label={t("LocationSelector.Map")}
               center={position}
-              zoom={10}
-              scrollWheelZoom={true}
-              className="h-full w-full rounded-2xl"
+              zoom={13}
+              style={{ height: "100%", width: "100%" }}
               ref={mapRef}
               zoomControl={false}
             >
@@ -248,9 +210,9 @@ const LocationRangeSelector: React.FC<LocationRangeSelectorProps> = ({
                 center={position}
                 radius={range}
                 pathOptions={{
-                  color: "0DBC73",
+                  color: "#0DBC73",
                   fillColor: "#0DBC73",
-                  fillOpacity: 0.2,
+                  fillOpacity: 0.3,
                 }}
               />
             </MapContainer>

@@ -17,6 +17,8 @@ import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSearch } from "@/context/SearchContext";
 import SearchResults from "@/components/layout/SearchResults";
+import LocationRangeSelector from "@/components/common/LocationRangeSelector";
+import { useSearchLocation } from "@/context/RangeLocationContext";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -28,6 +30,7 @@ const MainLayout: FC = () => {
   const { sectionOptions } = useSectionOptions();
   const scrollThreshold = sectionOptions.length ? 70 : 100;
   const { isSearching, searchText } = useSearch();
+  const { isOpened } = useSearchLocation();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -81,7 +84,7 @@ const MainLayout: FC = () => {
       {/* Header */}
       {showPostButton && (
         <div
-          className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[2000] xl:hidden ${
+          className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[1000] xl:hidden ${
             isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
           }`}
           style={{
@@ -190,6 +193,7 @@ const MainLayout: FC = () => {
         </div>
       </div>
 
+      {isOpened && <LocationRangeSelector />}
       {/* Swap Modal */}
       {showModal && <SwapModal selectedPost={selectedPost} />}
       {/* Menu Mobile */}
