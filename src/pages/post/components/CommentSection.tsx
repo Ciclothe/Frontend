@@ -15,7 +15,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postData }) => {
   const [comment, setComment] = useState("");
   const commentInputRef = useRef<any>(null);
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   const handleEmojiClick = (emojiData: any) => {
     setComment((prevComment) => prevComment + emojiData.emoji);
@@ -56,7 +56,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postData }) => {
               height={"30em"}
               skinTonesDisabled={true}
               searchDisabled={true}
-              theme={isNightMode ? Theme.DARK : Theme.LIGHT}
+              theme={themeMode === "dark" ? Theme.DARK : Theme.LIGHT}
               reactionsDefaultOpen={false}
             />
           </div>
@@ -64,7 +64,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ postData }) => {
       </div>
       <hr
         className={`col-span-12 mt-4 md:mt-0 ${
-          isNightMode ? "border-white/10" : "border-gray-400/10"
+          themeMode === "dark" ? "border-white/10" : "border-gray-400/10"
         }`}
       />
       {/* Comments Section */}

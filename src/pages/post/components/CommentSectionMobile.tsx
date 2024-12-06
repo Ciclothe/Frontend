@@ -10,7 +10,7 @@ const CommentSectionMobile = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const commentInputRef = useRef<HTMLInputElement>(null);
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   const handleEmojiClick = (emoji: any) => {
     setComment((prev) => prev + emoji.emoji);
@@ -26,7 +26,7 @@ const CommentSectionMobile = () => {
   return (
     <div
       className={`md:hidden w-full justify-between items-center gap-1 mt-1 col-span-12 py-2 px-4 sticky bottom-0 z-[2000] ${
-        isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+        themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
       }`}
     >
       <div className="flex items-center py-2">
@@ -60,7 +60,7 @@ const CommentSectionMobile = () => {
               height={"30em"}
               skinTonesDisabled={true}
               searchDisabled={true}
-              theme={isNightMode ? Theme.DARK : Theme.LIGHT}
+              theme={themeMode === "dark" ? Theme.DARK : Theme.LIGHT}
               reactionsDefaultOpen={false}
             />
           </div>

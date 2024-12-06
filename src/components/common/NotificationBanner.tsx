@@ -5,18 +5,19 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const NotificationBanner = () => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
 
   return (
     <div
       className={`${
-        isNightMode ? "cardNightMode" : "cardDayMode"
+        themeMode === "dark" ? "cardNightMode" : "cardDayMode"
       } absolute right-0 mt-2 z-[100] rounded-xl min-w-[25em]`}
       style={{
-        boxShadow: isNightMode
-          ? "0px 0px 5px rgba(255,255,255,0.1)"
-          : "0px 0px 5px rgba(0,0,0,0.2)",
+        boxShadow:
+          themeMode === "dark"
+            ? "0px 0px 5px rgba(255,255,255,0.1)"
+            : "0px 0px 5px rgba(0,0,0,0.2)",
       }}
     >
       <div className="flex flex-col gap-1 px-3 pt-3">
@@ -39,7 +40,7 @@ const NotificationBanner = () => {
       </div>
       <hr
         className={`my-1 mx-3 opacity-5 ${
-          isNightMode ? "border-white" : "border-black"
+          themeMode === "dark" ? "border-white" : "border-black"
         }`}
       />
       <div className="px-3 py-3">
@@ -58,13 +59,13 @@ const NotificationBanner = () => {
       </div>
       <hr
         className={`my-1 mx-3 opacity-5 ${
-          isNightMode ? "border-white" : "border-black"
+          themeMode === "dark" ? "border-white" : "border-black"
         }`}
       />
       <Link to={`/messages`}>
         <div
           className={`flex justify-center items-center px-5 ${
-            isNightMode
+            themeMode === "dark"
               ? "bg-[#0B0B0B] hover:bg-[#232323]"
               : "bg-[#ffffff] hover:bg-[#E2E2E2]"
           } py-3 font-bold text-[#1B6B44] rounded-b-xl cursor-pointer`}

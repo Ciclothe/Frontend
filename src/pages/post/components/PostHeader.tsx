@@ -48,7 +48,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({ postData }) => {
         <LazyLoadImage
           src={postData?.userData?.profilePicture}
           alt="User pic"
-          className="rounded-full w-full w-auto h-7 aspect-square"
+          className="rounded-full w-full h-7 aspect-square"
         />
       </div>
       {/* USER DATA */}

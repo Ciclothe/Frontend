@@ -11,7 +11,7 @@ import API_CONSTANTS from "@/services/config";
 import { useSearchLocation } from "@/context/RangeLocationContext";
 
 const LocationRangeSelector = () => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
 
   const [position, setPosition] = useState<number[]>([]);
@@ -140,7 +140,9 @@ const LocationRangeSelector = () => {
 
   return (
     <div
-      className="fixed bg-black bg-opacity-50 top-0 h-screen w-full z-[2000] left-0 flex items-center justify-center"
+      className={`${
+        themeMode === "dark" ? "bg-[#ffffff]" : "bg-[#171717]"
+      } backdrop-effect bg-opacity-20 flex items-center justify-center`}
       onClick={(e) => {
         e.stopPropagation();
         setIsOpened(false);
@@ -148,7 +150,7 @@ const LocationRangeSelector = () => {
     >
       <div
         className={`${
-          isNightMode ? "bg-[#171717]" : "bg-[#FFFFFF]"
+          themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
         } rounded-xl p-6 w-[50rem] max-w-[90vw] flex flex-col gap-4 items-center justify-center`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -157,7 +159,7 @@ const LocationRangeSelector = () => {
         <div className="sm:flex gap-2 items-center w-full">
           <div
             className={`relative flex items-center gap-1 ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F7F7F7]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F7F7F7]"
             } rounded-full p-2 w-full sm:w-[50%]`}
           >
             <Icon path={mdiMagnify} size={0.8} className="opacity-50" />
@@ -174,7 +176,7 @@ const LocationRangeSelector = () => {
                   <li
                     key={suggestion.id}
                     className={`${
-                      isNightMode
+                      themeMode === "dark"
                         ? "bg-[#171717] hover:bg-[#292929]"
                         : "bg-[#F7F7F7] hover:bg-[#E9E9E9]"
                     } p-2 cursor-pointer`}
@@ -238,7 +240,9 @@ const LocationRangeSelector = () => {
         <button
           onClick={handleApply}
           className={`${
-            isNightMode ? "bg-[#F7F7F7] text-black" : "bg-[#171717] text-white "
+            themeMode === "dark"
+              ? "bg-[#F7F7F7] text-black"
+              : "bg-[#171717] text-white "
           } w-full py-2 px-4 rounded-lg font-bold`}
         >
           {t("LocationSelector.Apply")}

@@ -15,7 +15,7 @@ const PostContent: React.FC<PostContentProps> = ({
   foundUrl,
 }) => {
   const [isLoadVideoThumbnail, setIsLoadVideoThumbnail] = useState(true);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   return postData?.type !== "Text" ? (
     <div className="col-span-12 mx-4 mt-1">
@@ -39,7 +39,7 @@ const PostContent: React.FC<PostContentProps> = ({
               sx={{
                 width: "100%",
                 height: "100%",
-                bgcolor: isNightMode ? "grey.900" : "grey.400",
+                bgcolor: themeMode === "dark" ? "grey.900" : "grey.400",
                 borderRadius: "1%",
               }}
               variant="rectangular"

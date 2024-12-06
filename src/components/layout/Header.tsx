@@ -10,12 +10,14 @@ import ProfileImage from "@/components/ui/ProfilePic";
 import NotificationBanner from "@/components/common/NotificationBanner";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useSearch } from "@/context/SearchContext";
+import { useMobileMenu } from "@/context/MobileMenuContext";
 
 const Header = () => {
   const { user } = useUserData();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
   const { setIsSearching } = useSearch();
+  const { toggleMenu } = useMobileMenu();
 
   const sectionOptions = [
     { name: "Following", value: 0 },
@@ -30,14 +32,18 @@ const Header = () => {
     <>
       <div
         className={`${
-          isNightMode ? "text-white" : "text-black"
+          themeMode === "dark" ? "text-white" : "text-black"
         } grid grid-cols-12 md:gap-10`}
       >
         {/*APP LOGO*/}
         <div className="col-span-5 flex items-center">
           <div className="flex gap-4 z-[100]">
             {/* GRID VIEW BUTTON */}
-            <div className="xl:hidden">
+            <div className="block md:hidden" onClick={toggleMenu}>
+              <ProfileImage profilePic={user?.profilePhoto} />
+            </div>
+
+            <div className="hidden md:block xl:hidden">
               <ProfileImage profilePic={user?.profilePhoto} />
             </div>
           </div>
@@ -46,7 +52,7 @@ const Header = () => {
         <div className="col-span-2 flex items-center justify-center xl:hidden">
           <Link to={`/`}>
             <CiclotheLogotipoMobile
-              color={isNightMode ? "white" : "black"}
+              color={themeMode === "dark" ? "white" : "black"}
               size={"2em"}
             />
           </Link>

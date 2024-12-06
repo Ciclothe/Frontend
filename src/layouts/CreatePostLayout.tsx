@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import API_CONSTANTS from "@/services/config";
 import PostPreview from "@/pages/createPost/components/PostPreview";
-import ModeSwitch from "@/components/ui/ModeSwitch";
+import ModeSwitch from "@/components/ui/ThemeSwitch";
 import LanguageSwitch from "@/components/ui/LanguageSwitch";
 import CiclotheLogotipo from "../../public/CiclotheLogotipo";
 import Icon from "@mdi/react";
@@ -40,7 +40,7 @@ export const CreatePostLayout: FC<CreatePostLayoutProps> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { user } = useUser();
 
   const [alertVisible, setAlertVisible] = useState(false);
@@ -117,7 +117,9 @@ export const CreatePostLayout: FC<CreatePostLayoutProps> = ({
   return (
     <div
       className={`${
-        isNightMode ? "bg-[#121212] text-white" : "bg-[#F7F8FA] text-black"
+        themeMode === "dark"
+          ? "bg-[#121212] text-white"
+          : "bg-[#F7F8FA] text-black"
       } flex justify-center lg:justify-start min-h-screen relative overflow-auto`} // Ajusta el padding aquí
     >
       {/* ALERT MESSAGE */}
@@ -161,7 +163,6 @@ export const CreatePostLayout: FC<CreatePostLayoutProps> = ({
             {(currentStep === 3 || currentStep === 4 || currentStep === 5) && (
               <div className="flex lg:hidden mt-5">
                 <PostPreview
-                  isNightMode={isNightMode}
                   user={user}
                   postDetails={postDetails}
                   truncateText={(text, maxLength) =>
@@ -227,7 +228,6 @@ export const CreatePostLayout: FC<CreatePostLayoutProps> = ({
         <div className="relative">
           <div className="fixed top-0 right-0 h-screen hidden lg:flex lg:w-[50%] xl:w-[40%] pr-[6vw] items-center justify-center">
             <PostPreview
-              isNightMode={isNightMode}
               user={user}
               postDetails={postDetails}
               truncateText={(text, maxLength) =>

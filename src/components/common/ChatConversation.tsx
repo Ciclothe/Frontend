@@ -35,7 +35,7 @@ const formatMessageDate = (dateString: string) => {
 const ChatConversation: React.FC<ChatConversationProps> = ({
   isChatSelected,
 }) => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [newMessage, setNewMessage] = useState<string>("");
 
@@ -50,7 +50,9 @@ const ChatConversation: React.FC<ChatConversationProps> = ({
   return (
     <div
       className={`bg-transparent ${
-        isNightMode ? "md:bg-[#141414] text-white" : "md:bg-white text-black"
+        themeMode === "dark"
+          ? "md:bg-[#141414] text-white"
+          : "md:bg-white text-black"
       } chat-conversation flex flex-col justify-between rounded-xl h-[calc(100vh-7em)] md:h-[calc(100vh-10em)] `}
     >
       <header className="hidden md:flex p-4 items-center border-b border-gray-100">
@@ -115,7 +117,7 @@ const ChatConversation: React.FC<ChatConversationProps> = ({
                     </div>
                     <div
                       className={`message p-3 ${borderRadiusClass} ${
-                        isNightMode ? "bg-[#232323]" : "bg-[#F2F3F5]"
+                        themeMode === "dark" ? "bg-[#232323]" : "bg-[#F2F3F5]"
                       } w-fit max-w-[90%] md:max-w-[50%]`}
                     >
                       <div className="flex items-center">
@@ -171,13 +173,15 @@ const ChatConversation: React.FC<ChatConversationProps> = ({
             type="text"
             value={newMessage}
             className={`flex-grow mx-3 p-3 rounded-full w-full focus:outline-none ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F2F4]"
             }`}
             placeholder="Type something..."
           />
           <div
             className={`cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center justify-center p-2 rounded-full ${
-              isNightMode ? "bg-white text-black" : "bg-black text-white"
+              themeMode === "dark"
+                ? "bg-white text-black"
+                : "bg-black text-white"
             }`}
           >
             <Icon

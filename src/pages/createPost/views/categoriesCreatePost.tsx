@@ -20,7 +20,7 @@ function CategoriesGarment({
   selectedCategories: Categories;
   onSelectCategories: (condition: Categories) => void;
 }) {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
 
   const [genderOptions, setGenderOptions] = useState<any>([]);
@@ -188,7 +188,7 @@ function CategoriesGarment({
           <div
             key={index}
             className={`relative col-span-6 md:col-span-3 h-[10em] md:h-[13em] flex justify-center items-center rounded-md selectorOption flex-col text-center p-2 cursor-pointer border ${
-              isNightMode
+              themeMode === "dark"
                 ? "text-white bg-[#202020] border-[#4D4D4D] hover:bg-[#202020]"
                 : "text-black bg-[#e6e6e6] border-[#C2C2C2] hover:bg-[#e6e6e6]"
             } 
@@ -196,7 +196,9 @@ function CategoriesGarment({
               selectedCategories?.genre?.id === gender.id
                 ? "opacity-1"
                 : `bg-transparent text-gray-400 border-gray-300 ${
-                    isNightMode ? "hover:text-white" : "hover:text-black"
+                    themeMode === "dark"
+                      ? "hover:text-white"
+                      : "hover:text-black"
                   }`
             }`}
             onClick={() => handleGenderSelect(gender)}
@@ -219,7 +221,7 @@ function CategoriesGarment({
             <div
               onClick={() => setShowTypesOptions(true)}
               className={`cursor-pointer ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               } p-3 rounded-md mt-3 flex items-center justify-between`}
             >
               <p className="font-bold">
@@ -235,7 +237,7 @@ function CategoriesGarment({
               <ClickAwayListener onClickAway={() => setShowTypesOptions(false)}>
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -276,7 +278,7 @@ function CategoriesGarment({
             <div
               onClick={() => setShowCategoriesOptions(true)}
               className={`cursor-pointer ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               } p-3 rounded-md mt-3 flex items-center justify-between`}
             >
               <p className="font-bold">
@@ -295,7 +297,7 @@ function CategoriesGarment({
               >
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -337,7 +339,7 @@ function CategoriesGarment({
             {selectedCategories.genre && (
               <div
                 className={` ${
-                  isNightMode
+                  themeMode === "dark"
                     ? "bg-[#ECECEC] text-black"
                     : "bg-[#1C1C1C] text-white"
                 } rounded-full px-2 text-[0.9em] m-1`}
@@ -354,7 +356,7 @@ function CategoriesGarment({
             {selectedCategories.type && (
               <div
                 className={` ${
-                  isNightMode
+                  themeMode === "dark"
                     ? "bg-[#ECECEC] text-black"
                     : "bg-[#1C1C1C] text-white"
                 } rounded-full px-2 text-[0.9em] m-1`}
@@ -374,7 +376,7 @@ function CategoriesGarment({
             {selectedCategories.category && (
               <div
                 className={` ${
-                  isNightMode
+                  themeMode === "dark"
                     ? "bg-[#ECECEC] text-black"
                     : "bg-[#1C1C1C] text-white"
                 } rounded-full px-2 text-[0.9em] m-1`}

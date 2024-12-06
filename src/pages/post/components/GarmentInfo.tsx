@@ -8,7 +8,7 @@ type GarmentInfoProps = {
 };
 
 const GarmentInfo: React.FC<GarmentInfoProps> = ({ postData }) => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { setModalState } = useSwap();
 
   const showSwapModal = () => {
@@ -56,7 +56,7 @@ const GarmentInfo: React.FC<GarmentInfoProps> = ({ postData }) => {
       {/* Sticky Footer Button */}
       <div
         className={`${
-          isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+          themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
         } col-span-12 p-2 sticky bottom-0 z-[100] text-white`}
       >
         <button

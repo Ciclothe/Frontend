@@ -1,3 +1,45 @@
+/**
+ * FeedView component displays a feed of posts based on the active section.
+ * It uses mock data for posts and renders different types of post components
+ * such as PostCard, SwapNotification, and TextCard.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FeedView />
+ * )
+ *
+ * @remarks
+ * This component uses several context hooks to manage state:
+ * - `useSectionOptions` to set the section options.
+ * - `useActiveSection` to get the currently active section.
+ * - `usePostButton` to control the visibility of the post button.
+ *
+ * @returns {JSX.Element} The rendered FeedView component.
+ *
+ * @function
+ * @name FeedView
+ *
+ * @description
+ * The FeedView component initializes the section options and ensures the post button is shown.
+ * It also scrolls to the top of the page whenever the active section changes.
+ * The component maps through the posts in the active section and renders the appropriate post component
+ * based on the post type.
+ *
+ * @hook
+ * @name useNavigate
+ * @description
+ * The `useNavigate` hook from `react-router-dom` is used to navigate to the post detail page when a post is clicked.
+ *
+ * @param {Object} post - The post data to be redirected to.
+ * @param {string} post.userData.username - The username of the post author.
+ *
+ * @example
+ * const redirectToPost = (post) => {
+ *   const postData = encodeURIComponent(JSON.stringify(post));
+ *   navigate(`/post/${post?.userData?.username}`, { state: { postData } });
+ * };
+ */
 import PostCard from "./components/PostCard";
 import SwapNotification from "./components/SwapNotification";
 import TextCard from "./components/TextCard";
@@ -7,7 +49,7 @@ import { useActiveSection } from "@/context/ActiveSectionContext";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useNavigate } from "react-router-dom";
 
-// Combined test data
+// TODO: #63 Remove this mock data and use the real data from the API
 const testPosts = {
   following: [
     {
@@ -416,11 +458,14 @@ const FeedView = () => {
   const { setShowPostButton } = usePostButton();
   const { setSectionOptions } = useSectionOptions();
   const { activeSection } = useActiveSection();
-  setSectionOptions(options);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [activeSection]);
+
+  useEffect(() => {
+    setSectionOptions(options);
+  }, [setSectionOptions]);
 
   useEffect(() => {
     setShowPostButton(true);

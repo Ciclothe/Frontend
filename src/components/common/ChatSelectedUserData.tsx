@@ -16,7 +16,7 @@ interface ChatConversationProps {
 const ChatSelectedUserData: React.FC<ChatConversationProps> = ({
   isChatSelected,
 }) => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
 
   const userData = {
@@ -34,7 +34,7 @@ const ChatSelectedUserData: React.FC<ChatConversationProps> = ({
   return (
     <div
       className={`items-between h-full flex flex-col justify-between rounded-xl ${
-        isNightMode ? "text-white" : "text-black"
+        themeMode === "dark" ? "text-white" : "text-black"
       }`}
     >
       <div className="rounded-full object-cover flex flex-col items-center">
@@ -58,7 +58,7 @@ const ChatSelectedUserData: React.FC<ChatConversationProps> = ({
           </div>
           <div
             className={`${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F2F4]"
             } rounded-lg justify-center px-5 py-3`}
           >
             <p className="font-bold flex justify-center opacity-50">
@@ -72,7 +72,7 @@ const ChatSelectedUserData: React.FC<ChatConversationProps> = ({
         </div>
         <div
           className={`py-2 px-4 w-full rounded-md ${
-            isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+            themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F2F4]"
           }`}
         >
           <p>
@@ -87,7 +87,7 @@ const ChatSelectedUserData: React.FC<ChatConversationProps> = ({
           </div>
           <div
             className={`mt-5 w-full h-[12em] rounded-xl items-center flex justify-center ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F2F4]"
             }`}
           >
             <Icon path={mdiPanoramaVariant} size={3} className="opacity-10" />

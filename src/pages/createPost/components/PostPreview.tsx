@@ -9,6 +9,7 @@ import {
   mdiPoll,
   mdiShareVariant,
 } from "@mdi/js";
+import { useTheme } from "@/context/ThemeContext";
 
 interface UploadedFile {
   base64: string;
@@ -34,7 +35,6 @@ interface PostDetails {
 }
 
 interface PostPreviewProps {
-  isNightMode: boolean;
   user: User;
   postDetails: PostDetails;
   truncateText: (text: string, maxLength: number) => string;
@@ -66,12 +66,13 @@ const sizes = [
 ];
 
 const PostPreview: React.FC<PostPreviewProps> = ({
-  isNightMode,
   user,
   postDetails,
   truncateText,
   t,
 }) => {
+  const { themeMode } = useTheme();
+
   const condition = conditions.find(
     (condition) => condition.value === postDetails?.condition
   );
@@ -88,14 +89,16 @@ const PostPreview: React.FC<PostPreviewProps> = ({
     <>
       <div
         className={` ${
-          isNightMode ? "bg-[#232323] text-white" : "bg-[#F1F1F1] text-black"
+          themeMode === "dark"
+            ? "bg-[#232323] text-white"
+            : "bg-[#F1F1F1] text-black"
         } rounded-xl flex-col p-4 gap-4 flex w-full`}
         style={{ userSelect: "none" }}
       >
         {/* PREVIEW DESIGN */}
         <div
           className={`${
-            isNightMode ? "bg-[#121212]" : "bg-[#F7F8FA]"
+            themeMode === "dark" ? "bg-[#121212]" : "bg-[#F7F8FA]"
           } rounded-xl p-4 flex flex-col gap-2`}
         >
           {/* PREVIEW HEADER */}
@@ -103,7 +106,9 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             <div className="flex items-center gap-1">
               <div
                 className={`h-8 w-8 rounded-full flex items-center justify-center ${
-                  isNightMode ? "bg-white text-black" : "bg-black text-white"
+                  themeMode === "dark"
+                    ? "bg-white text-black"
+                    : "bg-black text-white"
                 }`}
               >
                 {user?.profilePhoto ? (
@@ -201,7 +206,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             </div>
             <div
               className={`flex items-center rounded-full ${
-                isNightMode
+                themeMode === "dark"
                   ? "bg-[#232323] border-[#232323]"
                   : "bg-[#F1F2F4] border-[#F1F2F4]"
               } px-[0.8em] w-fit py-[0.5em]`}
@@ -227,7 +232,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
             <div className="flex gap-2">
               <div
                 className={`${
-                  isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                  themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
                 } rounded-full py-1 px-3 w-fit`}
               >
                 <p className="text-[0.8em]">
@@ -236,7 +241,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
               </div>
               <div
                 className={`${
-                  isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                  themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
                 } rounded-full py-1 px-3 w-fit`}
               >
                 <p className="text-[0.8em]">
@@ -248,7 +253,7 @@ const PostPreview: React.FC<PostPreviewProps> = ({
               </div>
               <div
                 className={`${
-                  isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                  themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
                 } rounded-full py-1 px-3 w-fit`}
               >
                 <p className="text-[0.8em]">

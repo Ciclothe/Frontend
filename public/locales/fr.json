@@ -31,7 +31,12 @@
     "Ubication": "Emplacement",
     "Today": "Aujourd'hui",
     "AddComment": "Ajouter un commentaire...",
-    "Reply": "Répondre"
+    "Reply": "Répondre",
+    "SetUpProfile": "Configurer Profil",
+    "Saves": "Sauvegardes",
+    "MyActivity": "Mon activité",
+    "Theme": "Thème",
+    "LogOut": "Se déconnecter"
   },
   "UserProfileCard": {
     "createPost": "Créer un post"

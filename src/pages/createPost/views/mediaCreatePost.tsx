@@ -18,7 +18,7 @@ function ImageUploader({
   garmentMediaUploaded: UploadedFile[];
   onUploadedMedia: (media: UploadedFile[]) => void;
 }) {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   const MAX_IMAGES = 10;
   const MAX_SIZE_MB = 20;
@@ -125,7 +125,7 @@ function ImageUploader({
     <div className="mt-5">
       <div
         className={`${
-          isNightMode ? "bg-[#232323]" : "bg-[#EFF1EF]"
+          themeMode === "dark" ? "bg-[#232323]" : "bg-[#EFF1EF]"
         } rounded-lg py-[5em] flex items-center justify-center flex-col relative`}
       >
         <Icon path={mdiCloudUploadOutline} size={2} />
@@ -161,7 +161,7 @@ function ImageUploader({
             </div>
             <div
               className={`grid grid-cols-12 col-span-11 justify-between items-center ${
-                isNightMode ? "bg-[#232323]" : "bg-[#EFF1EF]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#EFF1EF]"
               } p-4 rounded-lg w-full gap-4`}
             >
               <div className="flex items-center gap-4 col-span-11">

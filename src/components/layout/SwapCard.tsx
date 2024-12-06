@@ -10,7 +10,7 @@ interface SwapCardProps {
 
 const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
   const { setModalState } = useSwap();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -38,7 +38,7 @@ const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
   return (
     <div
       className={`${
-        isNightMode
+        themeMode === "dark"
           ? "border-gray-50 border-opacity-20 xl:bg-opacity-50 text-white xl:text-white"
           : "border-black border-opacity-10 xl:bg-opacity-30 text-black xl:text-white"
       } ${

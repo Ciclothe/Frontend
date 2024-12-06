@@ -1,3 +1,40 @@
+/**
+ * SidebarRight component displays a sidebar on the right side of the screen.
+ * It includes user profile information, notifications, and recommended profiles.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SidebarRight />
+ * )
+ *
+ * @returns {JSX.Element} The rendered SidebarRight component.
+ *
+ * @remarks
+ * This component uses various contexts such as ThemeContext, UserDataContext, and SearchContext
+ * to manage theme, user data, and search functionality respectively.
+ *
+ * @dependencies
+ * - `useState` from React for managing local state.
+ * - `Icon` from @mdi/react for displaying Material Design icons.
+ * - `useTheme` from ThemeContext for accessing the current theme mode.
+ * - `useTranslation` from react-i18next for internationalization.
+ * - `useUserData` from UserDataContext for accessing user data.
+ * - `Skeleton`, `Box`, `Stack`, and `ClickAwayListener` from @mui/material for UI components.
+ * - `ProfileImage` for displaying user profile pictures.
+ * - `NotificationBanner` for displaying notifications.
+ * - `useSearch` from SearchContext for managing search state.
+ *
+ * @state {boolean} showNotifications - State to toggle the visibility of notifications.
+ *
+ * @function toggleNotifications - Toggles the visibility of the notifications banner.
+ *
+ * @event onClick - Resets search text and search state when the sidebar is clicked.
+ *
+ * @css
+ * - Uses Tailwind CSS classes for styling.
+ * - Conditional classes based on the theme mode (dark or light).
+ */
 import { useState } from "react";
 import Icon from "@mdi/react";
 import { mdiMapMarker, mdiBellOutline } from "@mdi/js";
@@ -14,7 +51,7 @@ import { useSearch } from "@/context/SearchContext";
 
 const SidebarRight = () => {
   const { user, profiles, loading, error } = useUserData();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const skeletonItems = [1, 2, 3];
   const [showNotifications, setShowNotifications] = useState(false);
@@ -27,7 +64,7 @@ const SidebarRight = () => {
   return (
     <div
       className={`relative w-[80%] h-screen ${
-        isNightMode ? "text-white" : "text-black"
+        themeMode === "dark" ? "text-white" : "text-black"
       }`}
       onClick={() => {
         setSearchText("");
@@ -93,7 +130,7 @@ const SidebarRight = () => {
                       width={40}
                       height={40}
                       sx={{
-                        bgcolor: isNightMode ? "grey.900" : "grey.100",
+                        bgcolor: themeMode === "dark" ? "grey.900" : "grey.100",
                         borderRadius: "50%",
                       }}
                     />
@@ -103,14 +140,16 @@ const SidebarRight = () => {
                         height={25}
                         width={60}
                         sx={{
-                          bgcolor: isNightMode ? "grey.900" : "grey.100",
+                          bgcolor:
+                            themeMode === "dark" ? "grey.900" : "grey.100",
                         }}
                       />
                       <Skeleton
                         height={20}
                         width={100}
                         sx={{
-                          bgcolor: isNightMode ? "grey.900" : "grey.100",
+                          bgcolor:
+                            themeMode === "dark" ? "grey.900" : "grey.100",
                         }}
                       />
                     </Stack>
@@ -120,7 +159,9 @@ const SidebarRight = () => {
                     variant="rounded"
                     width={100}
                     height={35}
-                    sx={{ bgcolor: isNightMode ? "grey.900" : "grey.100" }}
+                    sx={{
+                      bgcolor: themeMode === "dark" ? "grey.900" : "grey.100",
+                    }}
                   />
                 </Box>
               ))}
@@ -141,7 +182,7 @@ const SidebarRight = () => {
                       />
                       <p
                         className={`truncate ${
-                          isNightMode ? "text-white" : "text-black"
+                          themeMode === "dark" ? "text-white" : "text-black"
                         } text-opacity-50`}
                       >
                         {profile?.city}, {profile?.country}
@@ -152,14 +193,15 @@ const SidebarRight = () => {
                 <button
                   type="button"
                   className={`bg-none font-bold rounded-full px-4 border ${
-                    isNightMode
+                    themeMode === "dark"
                       ? "hover:bg-white hover:text-black"
                       : "hover:bg-black hover:text-white"
                   }`}
                   style={{
-                    borderColor: isNightMode
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(140, 140, 140, 0.1)",
+                    borderColor:
+                      themeMode === "dark"
+                        ? "rgba(255, 255, 255, 0.1)"
+                        : "rgba(140, 140, 140, 0.1)",
                   }}
                 >
                   {t("RecommendedCard.Follow")}

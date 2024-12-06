@@ -14,7 +14,7 @@ interface MenuItemProps {
     label: string;
     route: string;
   };
-  isNightMode: boolean;
+  themeMode: boolean;
   isActive: boolean;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
@@ -22,7 +22,7 @@ interface MenuItemProps {
 
 const MenuItem: React.FC<MenuItemProps> = ({
   item,
-  isNightMode,
+  themeMode,
   isActive,
   onMouseEnter,
   onMouseLeave,
@@ -31,9 +31,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
     <Link
       to={item.route}
       className={`flex items-center w-full justify-center text-[1.7em] font-bold ${
-        isActive
-          ? "text-[#0DBC73]"
-          : `${isNightMode ? "textLight" : "textDark"}`
+        isActive ? "text-[#0DBC73]" : `${themeMode ? "textLight" : "textDark"}`
       }`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -44,7 +42,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
 };
 
 const MenuMobile = () => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -54,10 +52,10 @@ const MenuMobile = () => {
       icon: (isActive: boolean) => (
         <FeedIcon
           size={"1em"}
-          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isFilled={true}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -69,8 +67,8 @@ const MenuMobile = () => {
         <ExploreIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -82,8 +80,8 @@ const MenuMobile = () => {
         <EventsIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -96,9 +94,9 @@ const MenuMobile = () => {
         <ChatsIcon
           size={"1em"}
           isFilled={true}
-          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
+          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -110,7 +108,7 @@ const MenuMobile = () => {
         <CommunitiesIcon
           size={"1em"}
           isActive={isActive}
-          colorSelected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
         />
       ),
       label: "Explore",
@@ -121,7 +119,7 @@ const MenuMobile = () => {
   return (
     <div
       className={`flex flex-col justify-between w-full ${
-        isNightMode
+        themeMode === "dark"
           ? "bg-[#0B0B0B] text-[#ffffff]"
           : "bg-[#ffffff] text-[#0B0B0B]"
       } py-4`}
@@ -130,9 +128,10 @@ const MenuMobile = () => {
         overflowY: "scroll",
         borderTopWidth: "0.5px",
         borderStyle: "solid",
-        borderColor: isNightMode
-          ? "rgba(255, 255, 255, 0.1)"
-          : "rgba(140, 140, 140, 0.1)",
+        borderColor:
+          themeMode === "dark"
+            ? "rgba(255, 255, 255, 0.1)"
+            : "rgba(140, 140, 140, 0.1)",
       }}
     >
       <div>
@@ -146,7 +145,7 @@ const MenuMobile = () => {
               <MenuItem
                 key={index}
                 item={{ ...item, label: t(`Menu.${item.label}`) }}
-                isNightMode={isNightMode}
+                themeMode={themeMode === "dark"}
                 isActive={hoveredIndex === index || isActive}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}

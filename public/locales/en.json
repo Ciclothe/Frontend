@@ -31,7 +31,12 @@
     "Ubication": "Ubication",
     "Today": "Today",
     "AddComment": "Add a comment...",
-    "Reply": "Reply"
+    "Reply": "Reply",
+    "SetUpProfile": "Set up Profile",
+    "Saves": "Saves",
+    "MyActivity": "My Activity",
+    "Theme": "Theme",
+    "LogOut": "Log Out"
   },
   "UserProfileCard": {
     "createPost": "Create Post"

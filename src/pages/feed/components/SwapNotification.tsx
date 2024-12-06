@@ -62,7 +62,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
 }) => {
   const [opened, setOpened] = useState(false);
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [isLoadingOffered, setIsLoadingOffered] = useState(true);
   const [isLoadingObtained, setIsLoadingObtained] = useState(true);
 
@@ -77,7 +77,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
   return (
     <div
       className={`${
-        isNightMode
+        themeMode === "dark"
           ? "text-white hover:md:bg-[#171717] md:border-white/10"
           : "text-black hover:md:bg-[#F7F7F7] md:border-gray-500/1"
       } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer	md:border md:border-1`}
@@ -94,14 +94,14 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
               src={data?.swapData?.offered?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square border border-2 ${
-                isNightMode ? "border-[#232323]" : "border-white"
+                themeMode === "dark" ? "border-[#232323]" : "border-white"
               }`}
             />
             <LazyLoadImage
               src={data?.swapData?.obtained?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square ml-[-10px] border border-2 ${
-                isNightMode ? "border-[#232323]" : "border-white"
+                themeMode === "dark" ? "border-[#232323]" : "border-white"
               }`}
             />
           </div>
@@ -137,7 +137,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
         <div className="col-span-1 h-full flex justify-center">
           <div
             className={`w-[1px] h-full mt-2 ${
-              isNightMode ? "bg-white/10" : "bg-gray-500/10"
+              themeMode === "dark" ? "bg-white/10" : "bg-gray-500/10"
             }`}
           ></div>
         </div>
@@ -152,7 +152,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
                     sx={{
                       height: "100%",
                       width: "100%",
-                      bgcolor: isNightMode ? "grey.900" : "grey.400",
+                      bgcolor: themeMode === "dark" ? "grey.900" : "grey.400",
                       borderRadius: "5%",
                     }}
                     variant="rectangular"
@@ -173,7 +173,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
                     sx={{
                       height: "100%",
                       width: "100%",
-                      bgcolor: isNightMode ? "grey.900" : "grey.400",
+                      bgcolor: themeMode === "dark" ? "grey.900" : "grey.400",
                       borderRadius: "5%",
                     }}
                     variant="rectangular"
@@ -190,7 +190,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
               {/* SWAP ICON */}
               <div
                 className={`rounded-full bg-[#0DBC73] ${
-                  isNightMode ? "bg-opacity-30" : "bg-opacity-10"
+                  themeMode === "dark" ? "bg-opacity-30" : "bg-opacity-10"
                 } backdrop-blur-md backdrop-brightness-50 absolute border border-[#0DBC73] p-2`}
               >
                 <Swapicon size={"1.5em"} color={"#0DBC73"} />
@@ -202,7 +202,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
       </div>
       <hr
         className={`col-span-12 mt-4 md:hidden ${
-          isNightMode ? "border-white/10" : "border-gray-500/1"
+          themeMode === "dark" ? "border-white/10" : "border-gray-500/1"
         }`}
       />
     </div>

@@ -40,6 +40,15 @@ body {
   flex-wrap: wrap;
 }
 
+.backdrop-effect {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2000;
+  backdrop-filter: blur(4px) brightness(0.4);
+}
+
 .MuiInputBase-root {
   height: 3em !important;
   background-color: #e3e3e3 !important;

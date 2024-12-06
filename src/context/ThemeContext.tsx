@@ -7,7 +7,7 @@ import React, {
 } from "react";
 
 interface ThemeContextProps {
-  isNightMode: boolean;
+  themeMode: "light" | "dark";
   toggleMode: () => void;
 }
 
@@ -16,14 +16,16 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isNightMode, setIsNightMode] = useState<boolean>(false);
+  const [themeMode, setThemeMode] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    setIsNightMode(mediaQuery.matches);
+    const systemMode = mediaQuery.matches ? "dark" : "light";
+    setThemeMode(systemMode);
 
     const handleChange = (e: MediaQueryListEvent) => {
-      setIsNightMode(e.matches);
+      const systemMode = e.matches ? "dark" : "light";
+      setThemeMode(systemMode);
     };
 
     mediaQuery.addEventListener("change", handleChange);
@@ -34,21 +36,21 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   }, []);
 
   useEffect(() => {
-    if (isNightMode) {
+    if (themeMode === "dark") {
       document.body.classList.add("bodyNightMode");
       document.body.classList.remove("bodyDayMode");
     } else {
       document.body.classList.add("bodyDayMode");
       document.body.classList.remove("bodyNightMode");
     }
-  }, [isNightMode]);
+  }, [themeMode]);
 
   const toggleMode = () => {
-    setIsNightMode((prev) => !prev);
+    setThemeMode((prevMode) => (prevMode === "dark" ? "light" : "dark"));
   };
 
   return (
-    <ThemeContext.Provider value={{ isNightMode, toggleMode }}>
+    <ThemeContext.Provider value={{ themeMode, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );
