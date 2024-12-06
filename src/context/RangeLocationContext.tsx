@@ -31,7 +31,7 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
   const [locationSearch, setLocationSearch] = useState<{
     city: number;
     country: number;
-  }>({ city: -75.56733, country: 6.250937 });
+  }>({ city: -0.37966, country: 39.47391 });
 
   const [range, setRange] = useState<number>(2000);
 
