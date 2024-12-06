@@ -71,11 +71,11 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
           />
           {/* SWAP ICON */}
           <div
-            className={`rounded-full bg-[#02995D] ${
+            className={`rounded-full bg-[#0DBC73] ${
               isNightMode ? "bg-opacity-30" : "bg-opacity-10"
-            } backdrop-blur-md backdrop-brightness-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-[#02995D] p-2`}
+            } backdrop-blur-md backdrop-brightness-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-[#0DBC73] p-2`}
           >
-            <Swapicon size={"1.5em"} color={"#02995D"} />
+            <Swapicon size={"1.5em"} color={"#0DBC73"} />
           </div>
           <LazyLoadImage
             src={postData?.swapData?.obtained?.coverImg}

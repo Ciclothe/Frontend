@@ -69,7 +69,7 @@ const SearchBar: React.FC = () => {
 
         {/* LOCATION SEARCH */}
         <div
-          className="bg-[#02995D] text-[#02995D] border-[#02995D] bg-opacity-10 border-2 h-full gap-2 md:gap-6 px-4 py-[2px] rounded-full flex items-center cursor-pointer"
+          className="bg-[#0DBC73] text-[#0DBC73] border-[#0DBC73] bg-opacity-10 border-2 h-full gap-2 md:gap-6 px-4 py-[2px] rounded-full flex items-center cursor-pointer"
           onClick={() => setIsOpened(true)} // Actualiza el estado para abrir el modal
         >
           <div className="flex flex-col whitespace-nowrap">

@@ -77,12 +77,12 @@ const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
           </div>
         </div>
       </div>
-      <div
+      <button
         className={`${
           showDetails
             ? "flex xl:opacity-100 xl:translate-y-0 w-full"
             : "xl:hidden flex xl:opacity-0 xl:-translate-y-2 xl:w-[0em]"
-        }  bg-[#02995D] rounded-lg py-2 text-white cursor-pointer items-center justify-center gap-2 xl:transition-all xl:duration-300 xl:transform`}
+        } bg-[#0DBC73] w-full py-2 gap-2 rounded-lg flex items-center justify-center`}
         onClick={(e) => {
           e.stopPropagation();
           showSwapModal();
@@ -90,7 +90,7 @@ const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
       >
         <SwapIcon size={"1em"} color={"white"} />
         Swap
-      </div>
+      </button>
     </div>
   );
 };

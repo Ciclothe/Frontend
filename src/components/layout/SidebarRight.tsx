@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import ProfileImage from "@/components/ui/ProfilePic";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import NotificationBanner from "@/components/common/NotificationBanner";
+import { useSearch } from "@/context/SearchContext";
 
 const SidebarRight = () => {
   const { user, profiles, loading, error } = useUserData();
@@ -17,6 +18,7 @@ const SidebarRight = () => {
   const { t } = useTranslation();
   const skeletonItems = [1, 2, 3];
   const [showNotifications, setShowNotifications] = useState(false);
+  const { setIsSearching, setSearchText } = useSearch();
 
   const toggleNotifications = () => {
     setShowNotifications((prev: any) => !prev);
@@ -27,6 +29,10 @@ const SidebarRight = () => {
       className={`relative w-[80%] h-screen ${
         isNightMode ? "text-white" : "text-black"
       }`}
+      onClick={() => {
+        setSearchText("");
+        setIsSearching(false);
+      }}
     >
       {/*HEADERS ACTIONS*/}
       <div className="col-span-5 md:col-span-2 flex items-center justify-end h-[7em]">

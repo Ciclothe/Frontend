@@ -152,9 +152,8 @@ const LocationRangeSelector = () => {
         } rounded-xl p-6 w-[50rem] max-w-[90vw] flex flex-col gap-4 items-center justify-center`}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-[1.em] font-bold">
-          {t("LocationSelector.SelectLocation")}
-        </h2>
+        <h2 className="font-bold">{t("LocationSelector.SelectLocation")}</h2>
+
         <div className="sm:flex gap-2 items-center w-full">
           <div
             className={`relative flex items-center gap-1 ${

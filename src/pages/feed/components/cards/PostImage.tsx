@@ -109,11 +109,11 @@ const PostImage: React.FC<PostImageProps> = ({ data }) => {
 
                       {/* SWAP ICON */}
                       <div
-                        className={`rounded-full bg-[#02995D] ${
+                        className={`rounded-full bg-[#0DBC73] ${
                           isNightMode ? "bg-opacity-30" : "bg-opacity-10"
-                        } backdrop-blur-md absolute backdrop-brightness-50 border border-[#02995D] p-2`}
+                        } backdrop-blur-md absolute backdrop-brightness-50 border border-[#0DBC73] p-2`}
                       >
-                        <Swapicon size="1em" color="#02995D" />
+                        <Swapicon size="1em" color="#0DBC73" />
                       </div>
                     </div>
                   </div>

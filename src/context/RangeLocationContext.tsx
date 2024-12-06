@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from "react";
 import axios from "axios";
+import API_CONSTANTS from "@/services/config";
 
 interface SearchContextProps {
   isOpened: boolean;
@@ -32,11 +33,9 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
     city: number;
     country: number;
   }>({ city: -0.37966, country: 39.47391 });
+  const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
 
   const [range, setRange] = useState<number>(2000);
-
-  const mapboxToken =
-    "pk.eyJ1IjoiYWxlam9zcGluYXIiLCJhIjoiY20wa2lreDMxMTk5eDJrb2F0N3NtNHBkMyJ9.LV8h87QAtrtHZ2U2FP4V1g";
 
   useEffect(() => {
     fetchLocation(locationSearch.city, locationSearch.country);
@@ -45,7 +44,7 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
   const fetchLocation = async (lat: number, lon: number) => {
     try {
       const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lon}.json?access_token=${mapboxToken}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lon}.json?access_token=${token}`
       );
 
       const data = response.data.features[0];

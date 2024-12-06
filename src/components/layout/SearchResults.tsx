@@ -1,3 +1,20 @@
+/**
+ * SearchResults component displays search results based on the provided search text and active section.
+ *
+ * @component
+ * @param {string} searchText - The text to search for within the active section's data.
+ *
+ * @returns {JSX.Element} A list of search results or a message indicating no results were found.
+ *
+ * @example
+ * <SearchResults searchText="example" />
+ *
+ * @remarks
+ * The component uses the `useActiveSection` hook to determine the active section and the `useSectionOptions` hook to set the section options.
+ * The search results are filtered based on the search text and the active section's data.
+ *
+ * @todo Replace the static data with real data fetched from an API.
+ */
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import React, { useEffect, useState } from "react";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
@@ -13,7 +30,7 @@ const options = [
   { name: "Communities", value: 3 },
 ];
 
-// TODO: Real data should be fetched from an API
+// TODO: #56 Replace the static data with real data fetched from an API
 const data = {
   garment: [
     "Zapatos",
@@ -89,10 +106,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchText }) => {
 
     setSearchResults(filteredResults);
   }, [searchText, activeSection]);
-
-  useEffect(() => {
-    console.log(`Active section: ${activeSection}`);
-  }, [activeSection]);
 
   return (
     <div className="overflow-y-scroll md:mt-[9em] xl:mt-[0px]">
