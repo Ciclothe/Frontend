@@ -29,20 +29,20 @@ const Alert: React.FC<AlertProps> = ({
       />
     ),
     // TODO: Add SuccessIcon and ErrorIcon icons
-    // success: (
-    //   <SuccessIcon
-    //     size={"6em"}
-    //     primaryColor={"#4CAF50"}
-    //     secondaryOpacity={"10%"}
-    //   />
-    // ),
-    // error: (
-    //   <ErrorIcon
-    //     size={"6em"}
-    //     primaryColor={"#F44336"}
-    //     secondaryOpacity={"10%"}
-    //   />
-    // ),
+    success: (
+      <InfoIcon
+        size={"6em"}
+        primaryColor={"#4CAF50"}
+        secondaryOpacity={"10%"}
+      />
+    ),
+    error: (
+      <InfoIcon
+        size={"6em"}
+        primaryColor={"#F44336"}
+        secondaryOpacity={"10%"}
+      />
+    ),
   };
 
   return (
