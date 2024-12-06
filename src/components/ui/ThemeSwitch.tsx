@@ -4,7 +4,7 @@
  *
  * @component
  * @example
- * // Usage example:
+ * Usage example:
  * <ModeSwitch />
  *
  * @returns {JSX.Element} The rendered component.
