@@ -10,14 +10,14 @@ import { mdiPlusBoxOutline, mdiMagnify } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useLocation } from "react-router-dom";
-import SwapModal from "@/components/common/SwapModal";
+import SwapModal from "@/components/modals/SwapModal";
 import { useSwap } from "@/context/SwapContext";
 import SearchBar from "@/components/layout/SearchBar";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSearch } from "@/context/SearchContext";
 import SearchResults from "@/components/layout/SearchResults";
-import LocationRangeSelector from "@/components/common/LocationRangeSelector";
+import LocationRangeSelector from "@/components/modals/LocationSelectorModal";
 import { useSearchLocation } from "@/context/RangeLocationContext";
 import { useTranslation } from "react-i18next";
 
@@ -118,7 +118,7 @@ const MainLayout: FC = () => {
         <div
           className={`${
             isNightMode ? "text-black" : "text-white"
-          } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#02995D] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
+          } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#0DBC73] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
         >
           <Icon path={mdiPlusBoxOutline} size={1.2} />
         </div>

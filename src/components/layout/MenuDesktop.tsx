@@ -10,11 +10,13 @@ import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
 import Icon from "@mdi/react";
 import { mdiCog, mdiPlusBoxOutline } from "@mdi/js";
 import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
+import { useSearch } from "@/context/SearchContext";
 
 const MenuDesktop = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
+  const { setIsSearching, setSearchText } = useSearch();
 
   const menuItems = [
     {
@@ -89,6 +91,10 @@ const MenuDesktop = () => {
       style={{
         overflowX: "hidden",
       }}
+      onClick={() => {
+        setSearchText("");
+        setIsSearching(false);
+      }}
     >
       <div>
         <div className="hidden xl:flex w-full py-5 h-[7em] items-center">
@@ -134,7 +140,7 @@ const MenuDesktop = () => {
         <div
           className={`${
             isNightMode ? "hover:text-black" : "hover:text-white"
-          } hidden md:flex bg-[#02995D] text-[#02995D] border-[#02995D] hover:bg-opacity-100 border-2 border bg-opacity-10 flex items-center rounded-full py-3 w-fit px-10 justify-center gap-2 mt-4 cursor-pointer`}
+          } hidden md:flex bg-[#0DBC73] text-[#0DBC73] border-[#0DBC73] hover:bg-opacity-100 border-2 border bg-opacity-10 flex items-center rounded-full py-3 w-fit px-10 justify-center gap-2 mt-4 cursor-pointer`}
         >
           <Icon path={mdiPlusBoxOutline} size={0.7} />
           <p className="hidden md:flex font-bold">{t("Global.CreatePost")}</p>

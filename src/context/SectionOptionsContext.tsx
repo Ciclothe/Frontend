@@ -21,7 +21,6 @@ export const SectionOptionsProvider = ({
 }) => {
   const [sectionOptions, setSectionOptions] = useState<SectionOption[]>([]);
 
-  console.log(sectionOptions);
   return (
     <SectionOptionsContext.Provider
       value={{ sectionOptions, setSectionOptions }}

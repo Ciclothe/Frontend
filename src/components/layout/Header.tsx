@@ -56,7 +56,7 @@ const Header = () => {
           <div onClick={() => setIsSearching(true)}>
             <Icon
               path={mdiMagnify}
-              size={0.9}
+              size={1}
               className="cursor-pointer md:hidden"
             />
           </div>
@@ -66,7 +66,7 @@ const Header = () => {
               <div onClick={toggleNotifications}>
                 <Icon
                   path={mdiBellOutline}
-                  size={0.9}
+                  size={1}
                   className="cursor-pointer"
                 />
               </div>

@@ -189,11 +189,11 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
 
               {/* SWAP ICON */}
               <div
-                className={`rounded-full bg-[#02995D] ${
+                className={`rounded-full bg-[#0DBC73] ${
                   isNightMode ? "bg-opacity-30" : "bg-opacity-10"
-                } backdrop-blur-md backdrop-brightness-50 absolute border border-[#02995D] p-2`}
+                } backdrop-blur-md backdrop-brightness-50 absolute border border-[#0DBC73] p-2`}
               >
-                <Swapicon size={"1.5em"} color={"#02995D"} />
+                <Swapicon size={"1.5em"} color={"#0DBC73"} />
               </div>
             </div>
           </div>

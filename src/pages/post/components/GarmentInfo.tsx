@@ -56,18 +56,18 @@ const GarmentInfo: React.FC<GarmentInfoProps> = ({ postData }) => {
       {/* Sticky Footer Button */}
       <div
         className={`${
-          isNightMode ? "bg-[#0b0b0b] text-black" : "bg-[#ffffff] text-white"
-        } col-span-12 p-2 sticky bottom-0 z-[100]`}
+          isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+        } col-span-12 p-2 sticky bottom-0 z-[100] text-white`}
       >
         <button
-          className="bg-[#02995D] w-full py-2 gap-2 rounded-lg flex items-center justify-center"
+          className="bg-[#0DBC73] w-full py-2 gap-2 rounded-lg flex items-center justify-center"
           onClick={(e) => {
             e.stopPropagation();
             showSwapModal();
           }}
         >
           {/* Swap Icon */}
-          <Swapicon size={"1em"} color={isNightMode ? "black" : "white"} />
+          <Swapicon size={"1em"} color={"white"} />
           <p className="font-bold">Swap</p>
         </button>
       </div>
