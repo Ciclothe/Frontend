@@ -75,7 +75,7 @@ function GarmentDescription({
   onCreateDescription: (description: Description) => void;
 }) {
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [showBrandOptions, setShowBrandOptions] = useState(false);
   const [showSizesOptions, setShowSizeOptions] = useState(false);
   const [showColorOptions, setShowColorOptions] = useState(false);
@@ -250,7 +250,9 @@ function GarmentDescription({
   };
 
   return (
-    <div className={`w-full ${isNightMode ? "text-white" : "text-black"}`}>
+    <div
+      className={`w-full ${themeMode === "dark" ? "text-white" : "text-black"}`}
+    >
       <div className="grid grid-cols-12 gap-2 mt-5">
         {/* TITLE */}
         <div className="col-span-12 md:col-span-8">
@@ -268,7 +270,7 @@ function GarmentDescription({
               name="title"
               id="title"
               className={`inputText ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
               required
             />
@@ -293,7 +295,7 @@ function GarmentDescription({
               name="usedTime"
               id="usedTime"
               className={`inputText ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
               min="0"
               required
@@ -318,7 +320,7 @@ function GarmentDescription({
                 >
                   <div
                     className={`dropdown ${
-                      isNightMode ? "night-mode" : "day-mode"
+                      themeMode === "dark" ? "night-mode" : "day-mode"
                     }`}
                   >
                     <div
@@ -370,7 +372,7 @@ function GarmentDescription({
               name="description"
               id="description"
               className={`p-3 w-full rounded-md mt-2 min-h-[10em] ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
               required
             />
@@ -389,7 +391,7 @@ function GarmentDescription({
               id="brand"
               placeholder={t("CreatePost.TypeBrand")}
               className={`inputText ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
               required
             />
@@ -397,7 +399,7 @@ function GarmentDescription({
               <ClickAwayListener onClickAway={() => setShowBrandOptions(false)}>
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -436,13 +438,13 @@ function GarmentDescription({
             <div
               onClick={() => setShowSizeOptions(true)}
               className={`cursor-pointer ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               } rounded-md flex items-center justify-between inputText`}
             >
               <p
                 className={`${
                   garmentDescription?.size
-                    ? `${isNightMode ? "text-white" : "text-black"}`
+                    ? `${themeMode === "dark" ? "text-white" : "text-black"}`
                     : "text-[#9CA3AF]"
                 }`}
               >
@@ -458,7 +460,7 @@ function GarmentDescription({
               <ClickAwayListener onClickAway={() => setShowSizeOptions(false)}>
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -507,7 +509,7 @@ function GarmentDescription({
               id="color"
               placeholder={t("CreatePost.TypeMainColor")}
               className={`inputText ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
               required
             />
@@ -516,7 +518,7 @@ function GarmentDescription({
               <ClickAwayListener onClickAway={() => setShowColorOptions(false)}>
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -560,13 +562,13 @@ function GarmentDescription({
               onClick={() => setShowMaterialsOptions(true)}
               id="materials"
               className={`inputText my-5 flex items-center justify-between ${
-                isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
               }`}
             >
               <p
                 className={`${
                   garmentDescription.materials.length > 0
-                    ? `${isNightMode ? "text-white" : "text-black"}`
+                    ? `${themeMode === "dark" ? "text-white" : "text-black"}`
                     : "text-[#9CA3AF]"
                 } whitespace-nowrap overflow-hidden text-ellipsis`}
                 style={{ maxWidth: "100%" }}
@@ -586,7 +588,7 @@ function GarmentDescription({
               >
                 <div
                   className={`dropdown ${
-                    isNightMode ? "night-mode" : "day-mode"
+                    themeMode === "dark" ? "night-mode" : "day-mode"
                   }`}
                 >
                   <div
@@ -611,7 +613,7 @@ function GarmentDescription({
                                 selected.value === material.value
                             )
                               ? "bg-[#1B6B44]"
-                              : isNightMode
+                              : themeMode === "dark"
                               ? "bg-[#0E0E0E]"
                               : "bg-[#F1F2F4]"
                           }`}

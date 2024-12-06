@@ -7,13 +7,13 @@ interface SectionSwitcherProps {
 }
 
 const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const { activeSection, setActiveSection } = useActiveSection();
 
   const isCentered = options.length === 2;
   const containerClasses = `flex items-center h-full w-full font-bold ${
-    isNightMode ? "text-white bg-[#0b0b0b]" : "text-black bg-[#ffffff]"
+    themeMode === "dark" ? "text-white bg-[#0b0b0b]" : "text-black bg-[#ffffff]"
   } ${isCentered ? "justify-center" : "justify-start"}`;
 
   return (

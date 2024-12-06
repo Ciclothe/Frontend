@@ -10,7 +10,7 @@ type PostImageProps = {
 
 const PostImage: React.FC<PostImageProps> = ({ postData }) => {
   const [isLoadingPostImg, setIsLoadingPostImg] = useState(true);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   const imageOrientationClass =
     postData?.imageOrientation === "landscapes"
@@ -28,7 +28,7 @@ const PostImage: React.FC<PostImageProps> = ({ postData }) => {
             sx={{
               width: "100%",
               height: "100%",
-              bgcolor: isNightMode ? "grey.900" : "grey.400",
+              bgcolor: themeMode === "dark" ? "grey.900" : "grey.400",
             }}
             variant="rectangular"
             className="absolute inset-0"
@@ -47,7 +47,7 @@ const PostImage: React.FC<PostImageProps> = ({ postData }) => {
         {postData?.type === "OutfitShowcase" && (
           <div
             className={`p-2 ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
             } rounded-lg absolute bottom-2 left-1/2 transform -translate-x-1/2 z-10`}
           >
             <div className="flex gap-2 items-center justify-center">
@@ -72,7 +72,7 @@ const PostImage: React.FC<PostImageProps> = ({ postData }) => {
               {/* Swap Icon */}
               <div
                 className={`rounded-full bg-[#0DBC73] ${
-                  isNightMode ? "bg-opacity-30" : "bg-opacity-10"
+                  themeMode === "dark" ? "bg-opacity-30" : "bg-opacity-10"
                 } backdrop-blur-md absolute backdrop-brightness-50 border border-[#0DBC73] p-2`}
               >
                 <Swapicon size="1em" color="#0DBC73" />

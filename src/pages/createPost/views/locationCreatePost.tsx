@@ -32,7 +32,7 @@ function GarmentDescription({
 }) {
   const { t } = useTranslation();
   const { user } = useUser();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState<any>("success");
@@ -136,7 +136,11 @@ function GarmentDescription({
   };
 
   return (
-    <div className={`w-full ${isNightMode ? "text-white" : "text-black"} `}>
+    <div
+      className={`w-full ${
+        themeMode === "dark" ? "text-white" : "text-black"
+      } `}
+    >
       {/* ALERT MESSAGE */}
       {alertVisible && (
         <div className="fixed top-5 left-5 z-10">
@@ -152,7 +156,7 @@ function GarmentDescription({
           <p className="font-bold my-4">{t("CreatePost.GarmentLocation")}</p>
           <div
             className={`flex flex-col gap-4 ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
             } rounded-md p-4`}
           >
             <div className="flex items-center justify-between">
@@ -184,7 +188,7 @@ function GarmentDescription({
                   id="city"
                   onChange={handleInputChange}
                   className={`inputText ${
-                    isNightMode ? "bg-[#191919]" : "bg-[#E0E0E0]"
+                    themeMode === "dark" ? "bg-[#191919]" : "bg-[#E0E0E0]"
                   }`}
                   required
                 />
@@ -200,7 +204,7 @@ function GarmentDescription({
                   id="country"
                   onChange={handleInputChange}
                   className={`inputText ${
-                    isNightMode ? "bg-[#191919]" : "bg-[#E0E0E0]"
+                    themeMode === "dark" ? "bg-[#191919]" : "bg-[#E0E0E0]"
                   }`}
                   required
                 />
@@ -225,7 +229,7 @@ function GarmentDescription({
                 name="tag"
                 id="tag"
                 className={`px-3 w-full rounded-md py-3 mt-2 ${
-                  isNightMode ? "bg-[#232323]" : "bg-[#F1F1F1]"
+                  themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F1F1]"
                 }`}
                 required
               />

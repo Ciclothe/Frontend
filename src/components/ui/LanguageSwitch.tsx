@@ -1,3 +1,16 @@
+/**
+ * LanguageSwitch component allows users to switch between different languages.
+ * It displays a dropdown menu with language options and updates the selected language.
+ *
+ * @component
+ * @param {boolean} onlyFlag - If true, only the flag icon is displayed without the language code.
+ * @param {string} position - The position of the dropdown menu relative to the button.
+ *
+ * @example
+ * <LanguageSwitch onlyFlag={false} position="left" />
+ *
+ * @returns {JSX.Element} The LanguageSwitch component.
+ */
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import spainIcon from "../../../public/CountriesIcons/espana.png";
@@ -24,7 +37,7 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
   position,
 }) => {
   const { i18n } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<any>(
     languages.find((lang) => lang.code === i18n.language) || languages[0]
@@ -52,18 +65,20 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
 
   return (
     <div
-      className={`dropdown relative ${isNightMode ? "night-mode" : "day-mode"}`}
+      className={`dropdown relative ${
+        themeMode === "dark" ? "night-mode" : "day-mode"
+      }`}
     >
       <button
         onClick={toggleMenu}
         className={`dropdown-toggle flex items-center py-1 px-2 font-bold ${
-          isNightMode ? "bg-[#232323]" : "bg-[#FFFFFF]"
+          themeMode === "dark" ? "bg-[#171717]" : "bg-[#F7F7F7]"
         } rounded-full`}
       >
         <img
           src={selectedLanguage.icon}
           alt={selectedLanguage.name}
-          className="w-[1.2em] h-[1.2em]"
+          className="w-[1em] aspect-aquare"
         />
         {!onlyFlag && <p className="ml-2">{selectedLanguage.ISO6392}</p>}
       </button>
@@ -71,7 +86,7 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
         <ClickAwayListener onClickAway={() => setIsOpen(false)}>
           <div
             className={`dropdown-menu min-w-auto mt-2 ${position}-0`}
-            style={{ zIndex: 95 }}
+            style={{ zIndex: 100 }}
           >
             {languages.map((language) => (
               <div
@@ -92,7 +107,7 @@ const LanguageSwitch: React.FC<LanguageSwitchProps> = ({
                 <img
                   src={language.icon}
                   alt={language.name}
-                  className="w-[1.2em] h-[1.2em] mr-2"
+                  className="w-[1em] aspect-aquare mr-2"
                 />
                 <p className="ml-2 font-bold">{language.name}</p>
                 {language.code !== "fr" && <hr className="mx-2" />}

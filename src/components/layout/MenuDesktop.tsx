@@ -1,3 +1,26 @@
+/**
+ * MenuDesktop component renders a sidebar menu for desktop view.
+ * It includes navigation links to different sections of the application
+ * such as Feed, Swipe, Explore, Events, and Chats. It also includes a
+ * button for creating a new post and a settings link.
+ *
+ * The component uses the current theme mode (dark or light) to adjust
+ * the colors of the icons and text. It also uses the current location
+ * to highlight the active menu item.
+ *
+ * The component relies on several context providers:
+ * - ThemeContext: to get the current theme mode.
+ * - TranslationContext: to get the translation function.
+ * - SearchContext: to reset the search state when the menu is clicked.
+ *
+ * @component
+ * @example
+ * return (
+ *   <MenuDesktop />
+ * )
+ *
+ * @returns {JSX.Element} The rendered MenuDesktop component.
+ */
 import React from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
@@ -13,7 +36,7 @@ import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
 import { useSearch } from "@/context/SearchContext";
 
 const MenuDesktop = () => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
   const { setIsSearching, setSearchText } = useSearch();
@@ -24,8 +47,8 @@ const MenuDesktop = () => {
         <FeedIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -37,7 +60,7 @@ const MenuDesktop = () => {
         <SwipeIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -49,7 +72,7 @@ const MenuDesktop = () => {
         <ExploreIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -61,7 +84,7 @@ const MenuDesktop = () => {
         <EventsIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           isSelected={isActive}
         />
       ),
@@ -73,8 +96,8 @@ const MenuDesktop = () => {
         <ChatsIcon
           size={"1em"}
           colorSelected={"#0DBC73"}
-          colorUnselected={isNightMode ? "#ffffff" : "#0a0a0a"}
-          colorStroke={isNightMode ? "#0a0a0a" : "#ffffff"}
+          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
           isSelected={isActive}
         />
       ),
@@ -86,7 +109,7 @@ const MenuDesktop = () => {
   return (
     <div
       className={`flex flex-col justify-between h-full pb-4 ${
-        isNightMode ? "textLight" : "textDark"
+        themeMode === "dark" ? "textLight" : "textDark"
       }`}
       style={{
         overflowX: "hidden",
@@ -100,7 +123,7 @@ const MenuDesktop = () => {
         <div className="hidden xl:flex w-full py-5 h-[7em] items-center">
           <Link to={`/`}>
             <CiclotheLogotipo
-              color={isNightMode ? "white" : "black"}
+              color={themeMode === "dark" ? "white" : "black"}
               size={"10em"}
             />
           </Link>
@@ -125,7 +148,7 @@ const MenuDesktop = () => {
                 currentIsActive
                   ? "text-[#0DBC73] hover:text-[#0DBC73]"
                   : `${
-                      isNightMode ? "textLight" : "textDark"
+                      themeMode === "dark" ? "textLight" : "textDark"
                     } hover:text-[#0DBC73]`
               }`}
               onMouseEnter={handleMouseEnter}
@@ -139,7 +162,7 @@ const MenuDesktop = () => {
         {/*CREATE POST BUTTON DESKTOP*/}
         <div
           className={`${
-            isNightMode ? "hover:text-black" : "hover:text-white"
+            themeMode === "dark" ? "hover:text-black" : "hover:text-white"
           } hidden md:flex bg-[#0DBC73] text-[#0DBC73] border-[#0DBC73] hover:bg-opacity-100 border-2 border bg-opacity-10 flex items-center rounded-full py-3 w-fit px-10 justify-center gap-2 mt-4 cursor-pointer`}
         >
           <Icon path={mdiPlusBoxOutline} size={0.7} />

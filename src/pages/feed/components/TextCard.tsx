@@ -42,7 +42,7 @@ interface TextCardProps {
 
 const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
   const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   useEffect(() => {
     setVideoThumbnail(null);
@@ -68,7 +68,7 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
     <>
       <div
         className={`${
-          isNightMode
+          themeMode === "dark"
             ? "text-white hover:md:bg-[#171717] md:border-white/10"
             : "text-black hover:md:bg-[#F7F7F7] md:border-gray-500/1"
         } grid grid-cols-12 rounded-xl md:p-4 gap-2 cursor-pointer md:border md:border-1`}
@@ -85,7 +85,7 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
           <div className="col-span-1 h-full flex justify-center mt-4">
             <div
               className={`w-[1px] h-full mt-2 ${
-                isNightMode ? "bg-white/10" : "bg-gray-500/10"
+                themeMode === "dark" ? "bg-white/10" : "bg-gray-500/10"
               }`}
             ></div>
           </div>
@@ -132,7 +132,7 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
 
         <hr
           className={`col-span-12 mt-4 md:hidden ${
-            isNightMode ? "border-white/10" : "border-gray-500/1"
+            themeMode === "dark" ? "border-white/10" : "border-gray-500/1"
           }`}
         />
       </div>

@@ -22,7 +22,7 @@ const ImageCarousel = ({
   isPostDetails,
 }: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -65,7 +65,7 @@ const ImageCarousel = ({
           />
           <div
             className={`${
-              isNightMode ? "bg-opacity-20" : "bg-opacity-10"
+              themeMode === "dark" ? "bg-opacity-20" : "bg-opacity-10"
             } absolute right-2 top-2 text-[#0DBC73] gap-2 px-2 py-1 flex items-center rounded-full bg-[#0DBC73] backdrop-blur-md backdrop-brightness-[60%] border border-[#0DBC73]`}
           >
             <SwipeIcon

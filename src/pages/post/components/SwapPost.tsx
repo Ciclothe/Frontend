@@ -13,7 +13,7 @@ type SwapPostProps = {
 
 const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [opened, setOpened] = useState(false);
 
   return (
@@ -26,14 +26,14 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
               src={postData?.swapData?.offered?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square border border-2 ${
-                isNightMode ? "border-[#232323]" : "border-white"
+                themeMode === "dark" ? "border-[#232323]" : "border-white"
               }`}
             />
             <LazyLoadImage
               src={postData?.swapData?.obtained?.profilePicture}
               alt="User pic"
               className={`rounded-full h-7 aspect-square ml-[-10px] border border-2 ${
-                isNightMode ? "border-[#232323]" : "border-white"
+                themeMode === "dark" ? "border-[#232323]" : "border-white"
               }`}
             />
           </div>
@@ -72,7 +72,7 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
           {/* SWAP ICON */}
           <div
             className={`rounded-full bg-[#0DBC73] ${
-              isNightMode ? "bg-opacity-30" : "bg-opacity-10"
+              themeMode === "dark" ? "bg-opacity-30" : "bg-opacity-10"
             } backdrop-blur-md backdrop-brightness-50 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border border-[#0DBC73] p-2`}
           >
             <Swapicon size={"1.5em"} color={"#0DBC73"} />

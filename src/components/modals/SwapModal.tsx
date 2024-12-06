@@ -73,7 +73,7 @@ import React, { useEffect, useState } from "react";
 import Swapicon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
-import { mdiMenuDown, mdiCheckBold, mdiAccount } from "@mdi/js";
+import { mdiMenuDown, mdiCheckBold } from "@mdi/js";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import HangerDayMode from "@/assets/imgs/HangerDayMode.png";
 import HangerNightMode from "@/assets/imgs/HangerNightMode.png";
@@ -81,6 +81,7 @@ import { useTranslation } from "react-i18next";
 import { useUser } from "@/context/UserContext.js";
 import { useSwap } from "@/context/SwapContext";
 import Alert from "@/components/common/Alert";
+import ProfileImage from "@/components/ui/ProfilePic";
 
 interface SwapModalProps {
   selectedPost: any;
@@ -107,7 +108,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
     },
   ];
   const { t } = useTranslation();
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { user } = useUser();
   const [showPosts, setShowPosts] = useState(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -152,7 +153,9 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
 
   return (
     <div
-      className="fixed bg-black bg-opacity-50 top-0 h-screen w-full z-[2000] left-0 flex items-center justify-center"
+      className={`${
+        themeMode === "dark" ? "bg-[#ffffff]" : "bg-[#171717]"
+      } backdrop-effect bg-opacity-20 flex items-center justify-center`}
       onClick={(e) => {
         e.stopPropagation();
         setModalState(false);
@@ -160,7 +163,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
     >
       <div
         className={`${
-          isNightMode ? "bg-[#171717]" : "bg-[#FFFFFF]"
+          themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
         } rounded-xl p-6 w-fit max-w-[90vw] lg:max-w-[70vw] xl:max-w-[50vw] flex flex-col gap-4 items-center justify-center`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -172,28 +175,16 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
             <div>
               <div
                 className={`rounded-xl ${
-                  isNightMode ? "bg-[#171717]" : "bg-[#FFFFFF]"
+                  themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
                 }`}
               >
                 <div className="px-5 py-4 grid grid-cols-12">
                   <div className="flex items-center col-span-5 sm:col-span-4">
-                    {selectedPost?.userData.profilePicture ? (
-                      <img
-                        src={selectedPost?.userData.profilePicture}
-                        className="hidden md:block rounded-full h-[2.3em] w-[2.3em] object-cover"
-                        alt="profile"
+                    <div className="hidden md:block">
+                      <ProfileImage
+                        profilePic={selectedPost?.userData.profilePicture}
                       />
-                    ) : (
-                      <div
-                        className={`hidden md:flex h-[2.3em] w-[2.3em] items-center justify-center ${
-                          isNightMode
-                            ? "bg-white text-black"
-                            : "bg-black text-white"
-                        } rounded-full`}
-                      >
-                        <Icon path={mdiAccount} size={0.7} />
-                      </div>
-                    )}
+                    </div>
                     <p className="font-bold text-[#0DBC73] sm:ml-3">
                       @{selectedPost?.userData?.username}
                     </p>
@@ -210,23 +201,9 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                       }}
                     >
                       <div className="flex items-center">
-                        {user?.profilePhoto ? (
-                          <img
-                            src={user?.profilePhoto}
-                            className="hidden md:block rounded-full aspect-square object-cover"
-                            alt="user profile"
-                          />
-                        ) : (
-                          <div
-                            className={`hidden md:flex h-[2.3em] w-[2.3em] items-center justify-center ${
-                              isNightMode
-                                ? "bg-white text-black"
-                                : "bg-black text-white"
-                            } rounded-full`}
-                          >
-                            <Icon path={mdiAccount} size={0.7} />
-                          </div>
-                        )}
+                        <div className="hidden md:block">
+                          <ProfileImage profilePic={user?.profilePhoto} />
+                        </div>
                         <p className="font-bold text-[#0DBC73] sm:ml-3">
                           @{user?.userName}
                         </p>
@@ -244,7 +221,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                       >
                         <div
                           className={`dropdown  ${
-                            isNightMode ? "night-mode" : "day-mode"
+                            themeMode === "dark" ? "night-mode" : "day-mode"
                           }`}
                         >
                           <div
@@ -291,7 +268,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                                   className={`${
                                     selectedItems.includes(index)
                                       ? "bg-[#0DBC73]"
-                                      : isNightMode
+                                      : themeMode === "dark"
                                       ? "bg-[#0E0E0E]"
                                       : "bg-[#F1F2F4]"
                                   } h-4 w-4 rounded flex justify-center items-center`}
@@ -344,11 +321,15 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                     ) : (
                       <div
                         className={`flex flex-col items-center justify-center h-full rounded-xl aspect-square ${
-                          isNightMode ? "bg-[#0E0E0E]" : "bg-[#F3F3F3]"
+                          themeMode === "dark" ? "bg-[#0E0E0E]" : "bg-[#F3F3F3]"
                         }`}
                       >
                         <img
-                          src={isNightMode ? HangerNightMode : HangerDayMode}
+                          src={
+                            themeMode === "dark"
+                              ? HangerNightMode
+                              : HangerDayMode
+                          }
                           className="w-[60%]"
                         />
                       </div>
@@ -357,7 +338,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                 </div>
                 <div
                   className={`rounded-b-xl px-5 py-3 grid grid-cols-12 ${
-                    isNightMode ? "bg-[#0E0E0E]" : "bg-[#F3F3F3]"
+                    themeMode === "dark" ? "bg-[#0E0E0E]" : "bg-[#F3F3F3]"
                   }`}
                 >
                   <div className="col-span-4 flex justify-center items-center">
@@ -416,7 +397,9 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                 <button
                   type="button"
                   className={`font-bold w-full ${
-                    isNightMode ? "hover:bg-[#232323]" : "hover:bg-[#F1F2F4]"
+                    themeMode === "dark"
+                      ? "hover:bg-[#232323]"
+                      : "hover:bg-[#F1F2F4]"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();

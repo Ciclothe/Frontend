@@ -1,3 +1,39 @@
+/**
+ * MainLayout component that serves as the primary layout for the application.
+ * It includes the header, sidebars, and main content area, and handles
+ * responsive design for different screen sizes.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ *
+ * @example
+ * <MainLayout />
+ *
+ * @remarks
+ * This component uses various contexts and hooks to manage theme, post button visibility,
+ * search functionality, and location-based features. It also handles scroll events to
+ * show or hide the header based on the scroll position.
+ *
+ * @hook {useTheme} - Retrieves the current theme (night mode or day mode).
+ * @hook {usePostButton} - Determines if the post button should be shown.
+ * @hook {useLocation} - Provides the current location object.
+ * @hook {useSwap} - Manages the state for the swap modal.
+ * @hook {useSectionOptions} - Retrieves the section options for the section switcher.
+ * @hook {useSearch} - Manages the search state and functionality.
+ * @hook {useSearchLocation} - Manages the state for the location range selector.
+ * @hook {useTranslation} - Provides translation functions.
+ * @hook {useMediaQuery} - Determines if the screen size matches the given media query.
+ *
+ * @state {boolean} showHeader - State to control the visibility of the header.
+ * @state {number} scrollY - State to track the vertical scroll position.
+ *
+ * @function handleScroll - Handles the scroll event to show or hide the header based on the scroll position.
+ * @function handleInputChange - Handles the change event for the search input field.
+ * @function handleBlur - Handles the blur event for the search input field.
+ *
+ * @effect Updates the visibility of the header based on the current location path.
+ * @effect Adds and removes the scroll event listener to handle throttled scroll events.
+ */
 import { FC, useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import MenuDesktop from "@/components/layout/MenuDesktop";
@@ -20,11 +56,12 @@ import SearchResults from "@/components/layout/SearchResults";
 import LocationRangeSelector from "@/components/modals/LocationSelectorModal";
 import { useSearchLocation } from "@/context/RangeLocationContext";
 import { useTranslation } from "react-i18next";
+import LateralMenuMobile from "@/components/layout/LateralMenuMobile";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [scrollY, setScrollY] = useState(0);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { showPostButton } = usePostButton();
   const location = useLocation();
   const { showModal, selectedPost } = useSwap();
@@ -92,43 +129,49 @@ const MainLayout: FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col xl:flex-row min-h-screen justify-between">
+    <div className="w-full flex flex-col xl:flex-row min-h-screen justify-between relative">
       {/* Header */}
       {showPostButton && (
         <div
           className={`${
             isSearching ? "hidden md:flex" : ""
           }  w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[1000] xl:hidden ${
-            isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+            themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
           }`}
           style={{
             borderBottomWidth: "0.5px",
             borderStyle: "solid",
-            borderColor: isNightMode
-              ? "rgba(255, 255, 255, 0.1)"
-              : "rgba(140, 140, 140, 0.1)",
+            borderColor:
+              themeMode === "dark"
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(140, 140, 140, 0.1)",
           }}
         >
           <Header />
         </div>
       )}
 
+      {/* Lateral Menu Mobile */}
+      {!isSearching && <LateralMenuMobile />}
+
       {/* Create Post Button for Mobile */}
       {showPostButton && !isSearching && (
         <div
           className={`${
-            isNightMode ? "text-black" : "text-white"
+            themeMode === "dark" ? "text-black" : "text-white"
           } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#0DBC73] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
         >
           <Icon path={mdiPlusBoxOutline} size={1.2} />
         </div>
       )}
 
+      {/* Main Content */}
       <div
         className={`${
           isSearching ? "block p-4 md:p-0 md:flex" : "flex"
         } w-full`}
       >
+        {/* Search Bar Mobile */}
         {isSearching && (
           <div className="flex flex-col gap-2 md:hidden">
             <div className="flex items-center gap-2">
@@ -160,9 +203,10 @@ const MainLayout: FC = () => {
           style={{
             borderRightWidth: "0.5px",
             borderStyle: "solid",
-            borderColor: isNightMode
-              ? "rgba(255, 255, 255, 0.1)"
-              : "rgba(140, 140, 140, 0.1)",
+            borderColor:
+              themeMode === "dark"
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(140, 140, 140, 0.1)",
           }}
         >
           <MenuDesktop />
@@ -178,9 +222,9 @@ const MainLayout: FC = () => {
           {showPostButton && (
             <div
               className={`hidden fixed left-[30%] w-[70%] xl:w-[100%] px-4 xl:px-0 md:block xl:sticky xl:top-0 z-[1000] ${
-                isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+                themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
               } ${
-                isNightMode
+                themeMode === "dark"
                   ? "border-t-[0.5px] border-solid border-[#FFFFFF1A]"
                   : "border-t-[0.5px] border-solid border-[#8C8C8C1A]"
               } xl:border-0`}
@@ -225,15 +269,17 @@ const MainLayout: FC = () => {
           style={{
             borderLeftWidth: "0.5px",
             borderStyle: "solid",
-            borderColor: isNightMode
-              ? "rgba(255, 255, 255, 0.1)"
-              : "rgba(140, 140, 140, 0.1)",
+            borderColor:
+              themeMode === "dark"
+                ? "rgba(255, 255, 255, 0.1)"
+                : "rgba(140, 140, 140, 0.1)",
           }}
         >
           <SidebarRight />
         </div>
       </div>
 
+      {/* Location Range Selector Modal */}
       {isOpened && <LocationRangeSelector />}
       {/* Swap Modal */}
       {showModal && <SwapModal selectedPost={selectedPost} />}

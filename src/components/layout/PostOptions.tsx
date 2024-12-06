@@ -12,7 +12,7 @@ interface PostOptionsProps {
 }
 
 const PostOptions: React.FC<PostOptionsProps> = ({ setOpened, opened }) => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -32,7 +32,9 @@ const PostOptions: React.FC<PostOptionsProps> = ({ setOpened, opened }) => {
       {showPostOptions && (
         <ClickAwayListener onClickAway={() => setOpened(false)}>
           <div
-            className={`dropdown ${isNightMode ? "night-mode" : "day-mode"}`}
+            className={`dropdown ${
+              themeMode === "dark" ? "night-mode" : "day-mode"
+            }`}
           >
             <div className="dropdown-menu absolute right-0 mt-2 min-w-48 rounded-md z-50">
               {postOptions.map((option, index) => (

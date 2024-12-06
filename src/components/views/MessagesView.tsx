@@ -22,7 +22,7 @@ interface Chat {
 }
 
 function MessagesView() {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const { t } = useTranslation();
   const [isChatSelected, setIsChatSelected] = useState<Chat | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -104,12 +104,12 @@ function MessagesView() {
   return (
     <div
       className={`${
-        isNightMode ? "text-white" : "text-black"
+        themeMode === "dark" ? "text-white" : "text-black"
       } bg-transparent px-2 md:bg-transparent flex md:mt-5 lg:mt-0 w-[100%] h-[calc(100vh-7em)] md:h-[calc(100vh-10em)]`}
     >
       <div
         className={`border-r md:border-none bg-transparent ${
-          isNightMode ? "md:bg-[#141414]" : "md:bg-white"
+          themeMode === "dark" ? "md:bg-[#141414]" : "md:bg-white"
         } md:rounded-xl p-3 w-fit md:w-[30%] xl:w-[20%]`}
       >
         <div className="hidden md:flex items-center mb-3">
@@ -120,7 +120,7 @@ function MessagesView() {
           <input
             type="text"
             className={`p-2 rounded-lg w-full mt-5 ${
-              isNightMode ? "bg-[#232323]" : "bg-[#F1F2F4]"
+              themeMode === "dark" ? "bg-[#232323]" : "bg-[#F1F2F4]"
             }`}
             placeholder={t("Global.Search")}
             value={searchTerm}
@@ -140,7 +140,7 @@ function MessagesView() {
                     !user.readed
                       ? "opacity-100"
                       : "opacity-70 hover:opacity-100"
-                  } ${isNightMode ? "text-white" : "text-black"}`}
+                  } ${themeMode === "dark" ? "text-white" : "text-black"}`}
                   onClick={() => setIsChatSelected(user)}
                 >
                   <div className="flex items-center justify-between max-w-[100%]">
@@ -181,7 +181,11 @@ function MessagesView() {
             <div className="py-10 flex flex-col justify-center items-center px-5">
               <div className="w-[7em]">
                 <img
-                  src={isNightMode ? NoMessagesNightMode : NoMessagesDayMode}
+                  src={
+                    themeMode === "dark"
+                      ? NoMessagesNightMode
+                      : NoMessagesDayMode
+                  }
                   alt="No messages"
                 />
               </div>
@@ -209,7 +213,9 @@ function MessagesView() {
           <div className="h-full flex flex-col items-center justify-center">
             <div className="w-[15em]">
               <img
-                src={isNightMode ? NoChatsImgNightMode : NoChatsImgDayMode}
+                src={
+                  themeMode === "dark" ? NoChatsImgNightMode : NoChatsImgDayMode
+                }
                 alt="No chat selected"
               />
             </div>
@@ -220,7 +226,7 @@ function MessagesView() {
         )}
       </div>
       <div
-        className={`${isNightMode ? "bg-[#141414]" : "bg-white"} ${
+        className={`${themeMode === "dark" ? "bg-[#141414]" : "bg-white"} ${
           !isChatSelected
             ? "hidden"
             : "hidden lg:block lg:w-[30%] xl:w-[20%] rounded-xl p-3"

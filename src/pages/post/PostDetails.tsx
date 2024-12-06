@@ -16,7 +16,7 @@ import PostContent from "./components/PostContent";
 import PostHeader from "./components/PostHeader";
 
 const PostDetails = () => {
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
   const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
   const [foundUrl, setFoundUrl] = useState<string | any>(null);
   const { setShowPostButton } = usePostButton();
@@ -57,17 +57,17 @@ const PostDetails = () => {
         {/* Main Container for Post */}
         <div
           className={`${
-            isNightMode ? "text-white" : "text-black"
+            themeMode === "dark" ? "text-white" : "text-black"
           } grid grid-cols-12 ${postData?.type !== "Swap" ? "md:mb-4" : ""}`}
         >
           <div
             className={`${
-              isNightMode ? "bg-[#0B0B0B]" : "bg-[#ffffff]"
+              themeMode === "dark" ? "bg-[#0B0B0B]" : "bg-[#ffffff]"
             } col-span-12 px-2 py-4 md:px-4 md:py-4 sticky top-0 z-[1000]`}
           >
             <button
               className={`${
-                isNightMode ? "bg-[#232323]" : "bg-[#F7F7F7]"
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F7F7F7]"
               } p-2 flex items-center justify-center rounded-full aspect-square w-8 h-8`}
               onClick={() => window.history.back()}
             >
@@ -99,7 +99,7 @@ const PostDetails = () => {
                   />
                   <div
                     className={`${
-                      isNightMode
+                      themeMode === "dark"
                         ? "bg-black bg-opacity-50"
                         : "bg-white bg-opacity-80"
                     } absolute h-full w-full backdrop-brightness-50 backdrop-blur-md rounded-xl`}

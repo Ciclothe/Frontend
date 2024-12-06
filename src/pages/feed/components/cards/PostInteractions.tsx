@@ -17,7 +17,7 @@ const PostInteractions: React.FC<PostInteractionsProps> = ({
   const [liked, setLiked] = useState(data?.postAnalitics?.postLiked);
   const [shared, setShared] = useState(data?.postAnalitics?.postShared);
   const [saved, setSaved] = useState(data?.postAnalitics?.postSaved);
-  const { isNightMode } = useTheme();
+  const { themeMode } = useTheme();
 
   return (
     <div className="col-span-12 grid grid-cols-12">
@@ -39,14 +39,16 @@ const PostInteractions: React.FC<PostInteractionsProps> = ({
             <HeartIcon
               size={"1.5em"}
               colorFill={`#0DBC73`}
-              colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
+              colorStroke={`${themeMode === "dark" ? "#F1F1F1" : "#232323"}`}
               isSelected={liked}
             />
             <p
               className={`${
                 liked
                   ? "text-[#0DBC73]"
-                  : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
+                  : `${
+                      themeMode === "dark" ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                    }`
               } font-bold`}
             >
               {data?.postAnalitics?.likes}
@@ -57,11 +59,11 @@ const PostInteractions: React.FC<PostInteractionsProps> = ({
           <div className="opacity-50 flex items-center justify-center cursor-pointer rounded-lg gap-1">
             <CommentsIcon
               size={"1.5em"}
-              colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
+              colorStroke={`${themeMode === "dark" ? "#F1F1F1" : "#232323"}`}
             />
             <p
               className={`${
-                isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                themeMode === "dark" ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
               } font-bold`}
             >
               {data?.postAnalitics?.comments}
@@ -79,14 +81,16 @@ const PostInteractions: React.FC<PostInteractionsProps> = ({
             <ShareIcon
               size={"1.5em"}
               colorFill={`#0DBC73`}
-              colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
+              colorStroke={`${themeMode === "dark" ? "#F1F1F1" : "#232323"}`}
               isSelected={shared}
             />
             <p
               className={`${
                 shared
                   ? "text-[#0DBC73]"
-                  : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
+                  : `${
+                      themeMode === "dark" ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                    }`
               } font-bold`}
             >
               {data?.postAnalitics?.shares}
@@ -105,14 +109,16 @@ const PostInteractions: React.FC<PostInteractionsProps> = ({
           <SaveIcon
             size={"1.5em"}
             colorFill={`#0DBC73`}
-            colorStroke={`${isNightMode ? "#F1F1F1" : "#232323"}`}
+            colorStroke={`${themeMode === "dark" ? "#F1F1F1" : "#232323"}`}
             isSelected={saved}
           />
           <p
             className={`${
               saved
                 ? "text-[#0DBC73]"
-                : `${isNightMode ? "text-[#F1F1F1]" : "text-[#3A3A3A]"}`
+                : `${
+                    themeMode === "dark" ? "text-[#F1F1F1]" : "text-[#3A3A3A]"
+                  }`
             } font-bold`}
           >
             {data?.postAnalitics?.saves}
