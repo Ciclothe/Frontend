@@ -4,20 +4,11 @@ import Icon from "@mdi/react";
 import { mdiMagnify, mdiCrosshairsGps } from "@mdi/js";
 import { useTranslation } from "react-i18next";
 import { useSearch } from "@/context/SearchContext";
-import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSearchLocation } from "@/context/RangeLocationContext";
-
-const options = [
-  { name: "Garment", value: 0 },
-  { name: "Events", value: 1 },
-  { name: "Communities", value: 2 },
-];
 
 const SearchBar: React.FC = () => {
   const { isNightMode } = useTheme();
   const { t } = useTranslation();
-  const { setSectionOptions } = useSectionOptions();
-  setSectionOptions(options);
 
   const { isSearching, setIsSearching, searchText, setSearchText } =
     useSearch();

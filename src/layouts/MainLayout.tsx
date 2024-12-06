@@ -6,7 +6,7 @@ import SidebarRight from "@/components/layout/SidebarRight";
 import Header from "@/components/layout/Header";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
-import { mdiPlusBoxOutline } from "@mdi/js";
+import { mdiPlusBoxOutline, mdiMagnify } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useLocation } from "react-router-dom";
@@ -19,6 +19,7 @@ import { useSearch } from "@/context/SearchContext";
 import SearchResults from "@/components/layout/SearchResults";
 import LocationRangeSelector from "@/components/common/LocationRangeSelector";
 import { useSearchLocation } from "@/context/RangeLocationContext";
+import { useTranslation } from "react-i18next";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -29,8 +30,10 @@ const MainLayout: FC = () => {
   const { showModal, selectedPost } = useSwap();
   const { sectionOptions } = useSectionOptions();
   const scrollThreshold = sectionOptions.length ? 70 : 100;
-  const { isSearching, searchText } = useSearch();
+  const { isSearching, searchText, setSearchText, setIsSearching } =
+    useSearch();
   const { isOpened } = useSearchLocation();
+  const { t } = useTranslation();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
 
@@ -79,12 +82,23 @@ const MainLayout: FC = () => {
     }
   }, [scrollY, location.pathname]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const handleBlur = () => {
+    setIsSearching(false);
+    setSearchText("");
+  };
+
   return (
     <div className="w-full flex flex-col xl:flex-row min-h-screen justify-between">
       {/* Header */}
       {showPostButton && (
         <div
-          className={`w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[1000] xl:hidden ${
+          className={`${
+            isSearching ? "hidden md:flex" : ""
+          }  w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[1000] xl:hidden ${
             isNightMode ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
           }`}
           style={{
@@ -110,7 +124,34 @@ const MainLayout: FC = () => {
         </div>
       )}
 
-      <div className="flex w-full">
+      <div
+        className={`${
+          isSearching ? "block p-4 md:p-0 md:flex" : "flex"
+        } w-full`}
+      >
+        {isSearching && (
+          <div className="flex flex-col gap-2 md:hidden">
+            <div className="flex items-center gap-2">
+              <Icon
+                path={mdiMagnify}
+                size={1.2}
+                className="cursor-pointer opacity-50"
+              />
+              <input
+                type="text"
+                className="w-full p-2 bg-transparent  outline-none rounded-full"
+                placeholder={t("Global.SearchHolder")}
+                value={searchText}
+                onChange={handleInputChange}
+              />
+              <div onClick={() => handleBlur()} className="cursor-pointer">
+                <p className="text-[#0DBC73] font-bold">{t("Global.Cancel")}</p>
+              </div>
+            </div>
+            <SectionSwitcher options={sectionOptions} />
+          </div>
+        )}
+
         {/* Left Side */}
         <div
           className={`hidden md:block w-[30%] fixed ${

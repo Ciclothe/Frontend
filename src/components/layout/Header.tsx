@@ -9,11 +9,13 @@ import { useUserData } from "@/context/UserDataContext";
 import ProfileImage from "@/components/ui/ProfilePic";
 import NotificationBanner from "@/components/common/NotificationBanner";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
+import { useSearch } from "@/context/SearchContext";
 
 const Header = () => {
   const { user } = useUserData();
   const { isNightMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
+  const { setIsSearching } = useSearch();
 
   const sectionOptions = [
     { name: "Following", value: 0 },
@@ -51,7 +53,7 @@ const Header = () => {
         </div>
         {/*HEADERS ACTIONS*/}
         <div className="col-span-5 flex items-center justify-end gap-4">
-          <div>
+          <div onClick={() => setIsSearching(true)}>
             <Icon
               path={mdiMagnify}
               size={0.9}
