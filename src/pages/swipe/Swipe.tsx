@@ -157,7 +157,7 @@ function SwipeView() {
             drag
             style={{ opacity, rotate, x, y }}
             dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-            className="absolute w-auto aspect-[4/5] rounded-xl flex flex-col top-0 h-full z-[1000] bg-black bg-opacity-50"
+            className="absolute w-auto aspect-[4/5] rounded-xl flex flex-col top-0 h-full max-w-full z-[1000] bg-black bg-opacity-50"
             onDragEnd={handleDragEndTutorial}
           >
             <div className="flex h-full text-white">
@@ -317,7 +317,7 @@ const Card = ({
 
   return (
     <motion.div
-      className={`z-10 h-full w-auto aspect-[4/5] grid origin-bottom rounded-xl overflow-hidden relative hover:cursor-grab active:cursor-grabbing`}
+      className={`z-10 h-full max-w-full aspect-[4/5] grid origin-bottom rounded-xl overflow-hidden relative hover:cursor-grab active:cursor-grabbing`}
       style={{
         gridRow: 1,
         gridColumn: 1,
