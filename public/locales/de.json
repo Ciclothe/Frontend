@@ -36,7 +36,11 @@
     "Saves": "Gespeichert",
     "MyActivity": "Meine Aktivität",
     "Theme": "Thema",
-    "LogOut": "Abmelden"
+    "LogOut": "Abmelden",
+    "Discard": "Verwerfen",
+    "Swap": "Tauschen",
+    "Send": "Senden",
+    "Message": "Nachricht"
   },
   "UserProfileCard": {
     "createPost": "Beitrag erstellen"
@@ -54,7 +58,7 @@
   "Menu": {
     "Feed": "Startseite",
     "Explore": "Erkunden",
-    "Swipe": "Tauschen",
+    "Swipesx  ": "Tauschen",
     "Events": "Veranstaltungen",
     "Chats": "Chats"
   },

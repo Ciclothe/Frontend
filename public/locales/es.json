@@ -36,7 +36,11 @@
     "Saves": "Guardados",
     "MyActivity": "Mi actividad",
     "Theme": "Tema",
-    "LogOut": "Cerrar sesión"
+    "LogOut": "Cerrar sesión",
+    "Discard": "Descartar",
+    "Swap": "Intercambiar",
+    "Send": "Enviar",
+    "Message": "Mensaje"
   },
   "UserProfileCard": {
     "createPost": "Crear publicación"
@@ -54,7 +58,7 @@
   "Menu": {
     "Feed": "Inicio",
     "Explore": "Explorar",
-    "Swipe": "Intercambiar",
+    "Swipes": "Intercambiar",
     "Events": "Eventos",
     "Chats": "Chats"
   },

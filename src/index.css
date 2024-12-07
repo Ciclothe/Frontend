@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://p.typekit.net/p.css?s=1&k=efl3uwd&ht=tk&f=52.175.51586&a=126711539&app=typekit&e=css");
 
 body {
   margin: 0;
@@ -13,13 +14,27 @@ body {
 
 @media (max-width: 767px) {
   body {
-    font-size: 14px;
+    font-size: 16px;
   }
 }
 
 .bodyNightMode {
   background-color: #0b0b0b;
   color: #ffffff;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background-size: cover;
+}
+
+.action-btn {
+  border-radius: 50%;
+  padding: 10px;
+  border: 2px solid;
+  cursor: pointer;
 }
 
 .bodyDayMode {

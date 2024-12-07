@@ -56,6 +56,7 @@ const SidebarRight = () => {
   const skeletonItems = [1, 2, 3];
   const [showNotifications, setShowNotifications] = useState(false);
   const { setIsSearching, setSearchText } = useSearch();
+  const isLoadingOrError = error || loading || !profiles?.length;
 
   const toggleNotifications = () => {
     setShowNotifications((prev: any) => !prev);
@@ -105,7 +106,7 @@ const SidebarRight = () => {
           ))}
       </div>
       <div>
-        {error || loading || profiles?.length == 0 ? (
+        {isLoadingOrError ? (
           <div>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {skeletonItems.map((_, index) => (
@@ -168,7 +169,8 @@ const SidebarRight = () => {
             </Box>
           </div>
         ) : (
-          profiles?.slice(0, 4).map((profile) => (
+          Array.isArray(profiles) &&
+          profiles.slice(0, 4).map((profile) => (
             <div key={profile?.id} className="py-2">
               <div className="flex justify-between">
                 <div className="flex items-center mr-2 max-w-full truncate">

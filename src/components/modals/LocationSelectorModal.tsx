@@ -134,7 +134,28 @@ const LocationRangeSelector = () => {
     );
   };
 
-  const handleApply = () => {
+  const handleApply = async () => {
+    try {
+      const response = await fetch(
+        `${API_CONSTANTS.API_BASE_URL}/search/publications?search=concert&latitude=${position[0]}&longitude=${position[1]}&radius=${range}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Error al cargar usuario");
+      }
+      const data = await response.json();
+      // TODO: Save response data to context
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+
     setLocation({ locationCityCountry: position, range });
   };
 

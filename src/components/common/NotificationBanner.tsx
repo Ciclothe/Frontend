@@ -1,6 +1,27 @@
+/**
+ * NotificationBanner component displays a notification banner with a list of notifications.
+ * It uses the current theme mode and translation context to render the content appropriately.
+ *
+ * @component
+ * @example
+ * Usage example:
+ * <NotificationBanner />
+ *
+ * @returns {JSX.Element} The rendered notification banner component.
+ *
+ * @remarks
+ * This component uses the following external libraries:
+ * - `@mdi/react` for rendering Material Design Icons.
+ * - `react-i18next` for internationalization and translations.
+ * - `react-router-dom` for navigation links.
+ *
+ * @see {@link https://materialdesignicons.com/} for Material Design Icons.
+ * @see {@link https://react.i18next.com/} for react-i18next documentation.
+ * @see {@link https://reactrouter.com/} for React Router documentation.
+ */
 import Icon from "@mdi/react";
 import { mdiPencilOutline } from "@mdi/js";
-import { useTheme } from "../../context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -12,7 +33,7 @@ const NotificationBanner = () => {
     <div
       className={`${
         themeMode === "dark" ? "cardNightMode" : "cardDayMode"
-      } absolute right-0 mt-2 z-[100] rounded-xl min-w-[25em]`}
+      } absolute right-0 mt-2 z-[1000] rounded-xl min-w-[25em]`}
       style={{
         boxShadow:
           themeMode === "dark"
