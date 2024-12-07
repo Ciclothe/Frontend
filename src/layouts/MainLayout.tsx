@@ -177,12 +177,14 @@ const MainLayout: FC = () => {
         {/* Barra de búsqueda móvil */}
         {isSearching && (
           <div className="flex flex-col gap-2 md:hidden w-full px-2 pt-2">
-            <div className="flex items-center gap-2 w-full">
-              <Icon
-                path={mdiMagnify}
-                size={1.2}
-                className="cursor-pointer opacity-50"
-              />
+            <div className="flex items-center  w-full">
+              <div>
+                <Icon
+                  path={mdiMagnify}
+                  size={1.2}
+                  className="cursor-pointer opacity-50"
+                />
+              </div>
               <input
                 type="text"
                 className="w-full p-2 bg-transparent outline-none rounded-full"
