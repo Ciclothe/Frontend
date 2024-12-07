@@ -111,13 +111,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchText }) => {
   }, [searchText, activeSection]);
 
   return (
-    <div className="overflow-y-scroll md:mt-[9em] xl:mt-[0px]">
+    <div className="overflow-y-scroll px-2 md:px-0 mt-[0em] md:mt-[9em] xl:mt-[0em]">
       {searchResults.length > 0 ? (
         <ul>
           {searchResults.map((result, index) => (
             <li
               key={index}
-              className="py-3 rounded-lg opacity-50 hover:opacity-100 cursor-pointer"
+              className="py-3 rounded-lg opacity-70 hover:opacity-100 hover:text-[#0DBC73] hover:font-bold cursor-pointer"
             >
               <p className="text-[1.1em]">{result}</p>
             </li>

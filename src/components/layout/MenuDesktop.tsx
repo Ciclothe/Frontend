@@ -48,7 +48,15 @@ const MenuDesktop = () => {
           size={"1em"}
           colorSelected={"#0DBC73"}
           colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
-          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
+          colorStroke={
+            themeMode === "dark"
+              ? isActive
+                ? "#0a0a0a"
+                : "#ffffff"
+              : isActive
+              ? "#ffffff"
+              : "#0a0a0a"
+          }
           isSelected={isActive}
         />
       ),

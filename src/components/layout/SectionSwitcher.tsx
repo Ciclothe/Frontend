@@ -12,7 +12,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
   const { activeSection, setActiveSection } = useActiveSection();
 
   const isCentered = options.length === 2;
-  const containerClasses = `flex items-center h-full w-full font-bold ${
+  const containerClasses = `flex items-center h-fit w-full font-bold ${
     themeMode === "dark" ? "text-white bg-[#0b0b0b]" : "text-black bg-[#ffffff]"
   } ${isCentered ? "justify-center" : "justify-start"}`;
 
@@ -36,7 +36,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
             {t(`SectionSwitcher.${option.name}`)}
           </p>
           <div
-            className={`h-[2px] md:h-[4px] w-full bg-[#0DBC73] rounded-full transition-all duration-300 ${
+            className={`h-[4px] mb-[-0.15em] md:h-[4px] w-full bg-[#0DBC73] rounded-full transition-all duration-300 ${
               activeSection === option.value ? "opacity-100" : "opacity-0"
             }`}
           ></div>

@@ -12,6 +12,7 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useSearch } from "@/context/SearchContext";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
+import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 
 const Header = () => {
   const { user } = useUserData();
@@ -20,6 +21,7 @@ const Header = () => {
   const { setIsSearching } = useSearch();
   const { toggleMenu } = useMobileMenu();
   const { sectionOptions } = useSectionOptions();
+  const { setHasScroll } = useLayoutScroll();
 
   const toggleNotifications = () => {
     setShowNotifications((prev) => !prev);
@@ -56,10 +58,14 @@ const Header = () => {
         </div>
         {/*HEADERS ACTIONS*/}
         <div className="col-span-5 flex items-center justify-end gap-4">
-          <div onClick={() => setIsSearching(true)}>
+          <div
+            onClick={() => {
+              setIsSearching(true), setHasScroll(true);
+            }}
+          >
             <Icon
               path={mdiMagnify}
-              size={1}
+              size={1.2}
               className="cursor-pointer md:hidden"
             />
           </div>
@@ -69,7 +75,7 @@ const Header = () => {
               <div onClick={toggleNotifications}>
                 <Icon
                   path={mdiBellOutline}
-                  size={1}
+                  size={1.1}
                   className="cursor-pointer"
                 />
               </div>
@@ -78,9 +84,11 @@ const Header = () => {
           </ClickAwayListener>
         </div>
       </div>
-      <div className="md:hidden col-span-12">
-        <SectionSwitcher options={sectionOptions} />
-      </div>
+      {sectionOptions.length > 0 && (
+        <div className="md:hidden col-span-12">
+          <SectionSwitcher options={sectionOptions} />
+        </div>
+      )}
     </>
   );
 };

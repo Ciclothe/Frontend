@@ -36,7 +36,11 @@
     "Saves": "Saves",
     "MyActivity": "My Activity",
     "Theme": "Theme",
-    "LogOut": "Log Out"
+    "LogOut": "Log Out",
+    "Discard": "Discard",
+    "Swap": "Swap",
+    "Send": "Send",
+    "Message": "Message"
   },
   "UserProfileCard": {
     "createPost": "Create Post"

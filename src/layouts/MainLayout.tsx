@@ -132,25 +132,24 @@ const MainLayout: FC = () => {
 
   return (
     <div
-      className={`${
-        hasScroll ? "" : "h-screen max-h-screen"
-      } w-full flex flex-col xl:flex-row min-h-screen justify-between relative`}
+      className={`w-full flex flex-col xl:flex-row justify-between relative ${
+        hasScroll ? "" : "h-screen max-h-screen min-h-screen"
+      }`}
     >
       {/* Header */}
       {showPostButton && (
         <div
-          className={`${
+          className={`w-full px-[1em] lg:px-[5em] md:py-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[2000] xl:hidden ${
             isSearching ? "hidden md:flex" : ""
-          }  w-full pb-0 px-[1em] lg:px-[5em] md:pb-[2em] pt-[2em] flex flex-col gap-4 sticky top-0 md:fixed z-[1000] xl:hidden ${
-            themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+          } ${themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"} ${
+            sectionOptions.length ? "pt-[1em]" : "py-[1em]"
           }`}
           style={{
-            borderBottomWidth: "0.5px",
-            borderStyle: "solid",
-            borderColor:
+            borderBottom: `0.5px solid ${
               themeMode === "dark"
                 ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(140, 140, 140, 0.1)",
+                : "rgba(140, 140, 140, 0.1)"
+            }`,
           }}
         >
           <Header />
@@ -161,11 +160,11 @@ const MainLayout: FC = () => {
       {!isSearching && <LateralMenuMobile />}
 
       {/* Create Post Button for Mobile */}
-      {showPostButton && !isSearching && (
+      {showPostButton && !isSearching && hasScroll && (
         <div
-          className={`${
+          className={`fixed z-[1000] right-2 bottom-20 md:hidden flex items-center rounded-full p-3 bg-[#0DBC73] ${
             themeMode === "dark" ? "text-black" : "text-white"
-          } fixed z-[1000] right-2 bottom-20 md:hidden bg-[#0DBC73] flex items-center rounded-full p-3 h-fit w-fit justify-center`}
+          }`}
         >
           <Icon path={mdiPlusBoxOutline} size={1.2} />
         </div>
@@ -173,14 +172,12 @@ const MainLayout: FC = () => {
 
       {/* Main Content */}
       <div
-        className={`${
-          isSearching ? "block p-4 md:p-0 md:flex" : "flex"
-        } w-full`}
+        className={`w-full md:flex ${hasScroll ? "" : "flex-grow xl:h-screen"}`}
       >
-        {/* Search Bar Mobile */}
+        {/* Barra de búsqueda móvil */}
         {isSearching && (
-          <div className="flex flex-col gap-2 md:hidden">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 md:hidden w-full px-2 pt-2">
+            <div className="flex items-center gap-2 w-full">
               <Icon
                 path={mdiMagnify}
                 size={1.2}
@@ -188,115 +185,99 @@ const MainLayout: FC = () => {
               />
               <input
                 type="text"
-                className="w-full p-2 bg-transparent  outline-none rounded-full"
+                className="w-full p-2 bg-transparent outline-none rounded-full"
                 placeholder={t("Global.SearchHolder")}
                 value={searchText}
                 onChange={handleInputChange}
               />
-              <div onClick={() => handleBlur()} className="cursor-pointer">
-                <p className="text-[#0DBC73] font-bold">{t("Global.Cancel")}</p>
-              </div>
+              <p
+                className="text-[#0DBC73] font-bold cursor-pointer"
+                onClick={handleBlur}
+              >
+                {t("Global.Cancel")}
+              </p>
             </div>
             <SectionSwitcher options={sectionOptions} />
           </div>
         )}
 
-        {/* Left Side */}
+        {/* Columna izquierda */}
         <div
           className={`hidden md:block w-[30%] fixed ${
             showPostButton ? "pt-[8em]" : "pt-[1em]"
-          } xl:pt-[0em] h-screen md:sticky md:top-0 xl:w-[28%] pl-[1em] lg:pl-[5em]`}
+          } xl:pt-0 h-screen md:sticky md:top-0 xl:w-[28%] pl-[1em] lg:pl-[5em]`}
           style={{
-            borderRightWidth: "0.5px",
-            borderStyle: "solid",
-            borderColor:
+            borderRight: `0.5px solid ${
               themeMode === "dark"
                 ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(140, 140, 140, 0.1)",
+                : "rgba(140, 140, 140, 0.1)"
+            }`,
           }}
         >
           <MenuDesktop />
         </div>
 
-        {/* Middle Side */}
+        {/* Columna central */}
         <div
           className={`${
-            hasScroll
-              ? showPostButton
-                ? "md:mt-[7em]"
-                : ""
-              : "flex flex-col h-full md:pt-[7em] xl:pt-[0em] xl:h-screen"
-          } xl:mt-[0em] w-full md:w-[70%] xl:w-[44%] md:px-4`}
+            showPostButton ? "md:pt-[7em]" : ""
+          } flex flex-col h-full  xl:pt-0 w-full md:w-[70%] xl:w-[44%] md:px-4`}
         >
-          {/* Search Bar and Section Switcher */}
           {showPostButton && (
             <div
-              className={`hidden fixed left-[30%] w-[70%] xl:w-[100%] px-4 xl:px-0 md:block xl:sticky xl:top-0 z-[1000] ${
+              className={`hidden md:block fixed left-[30%] w-[70%] xl:w-full px-4 xl:px-0 xl:sticky xl:top-0 z-[1000] ${
                 themeMode === "dark"
-                  ? "bg-[#0b0b0b] border-t-[0.5px] border-solid border-[#FFFFFF1A]"
-                  : "bg-[#ffffff] border-t-[0.5px] border-solid border-[#8C8C8C1A]"
+                  ? "bg-[#0b0b0b] border-t-[0.5px] border-[#FFFFFF1A]"
+                  : "bg-[#ffffff] border-t-[0.5px] border-[#8C8C8C1A]"
               } xl:border-0`}
             >
-              {/* Search Bar */}
               <div
-                className={`sticky transition-all duration-300 ${
-                  showHeader
-                    ? `${sectionOptions.length ? "pt-[1.5em]" : "py-[1.5em]"}`
-                    : "hidden"
-                } ${hasScroll ? "" : "hidden xl:block"} `}
+                className={`sticky transition-all
+                  ${showHeader ? "pt-[1.5em]" : "hidden"}
+                  ${hasScroll ? "" : "hidden xl:block"}
+                `}
               >
                 <SearchBar />
               </div>
-
-              {/* Section Switcher */}
-              {sectionOptions && (
-                <div
-                  className={`hidden md:flex w-full bg-red-500 ${
-                    showHeader ? "" : "xl:sticky top-0"
-                  }`}
-                >
-                  <SectionSwitcher options={sectionOptions} />
-                </div>
-              )}
+              {sectionOptions && <SectionSwitcher options={sectionOptions} />}
             </div>
           )}
           {isSearching ? (
-            // Search Results
             <SearchResults searchText={searchText} />
           ) : (
-            // Main Content
             <div
               className={`${
-                showPostButton ? (hasScroll ? "md:mt-[10em]" : "flex-grow") : ""
-              } xl:mt-0 `}
+                hasScroll
+                  ? showPostButton
+                    ? "md:mt-[9em] xl:mt-[0em]"
+                    : ""
+                  : ""
+              } flex-grow`}
             >
               <Outlet />
             </div>
           )}
         </div>
 
-        {/* Right Side */}
+        {/* Columna derecha */}
         <div
-          className={`hidden xl:flex w-[28%] h-screen sticky top-0 justify-end pr-[1em] lg:pr-[5em]`}
+          className="hidden xl:flex w-[28%] h-screen sticky top-0 justify-end pr-[1em] lg:pr-[5em] z-[2000]"
           style={{
-            borderLeftWidth: "0.5px",
-            borderStyle: "solid",
-            borderColor:
+            borderLeft: `0.5px solid ${
               themeMode === "dark"
                 ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(140, 140, 140, 0.1)",
+                : "rgba(140, 140, 140, 0.1)"
+            }`,
           }}
         >
           <SidebarRight />
         </div>
       </div>
 
-      {/* Location Range Selector Modal */}
+      {/* Modals */}
       {isOpened && <LocationRangeSelector />}
-      {/* Swap Modal */}
       {showModal && <SwapModal selectedPost={selectedPost} />}
-      {/* Menu Mobile */}
-      {showPostButton && (
+      {showPostButton && !isSearching && (
         <div className="flex md:hidden sticky bottom-0 z-[1000]">
           <MenuMobile />
         </div>
