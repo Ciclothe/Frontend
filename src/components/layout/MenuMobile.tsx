@@ -6,7 +6,7 @@ import FeedIcon from "@/assets/uiIcons/Feedicon";
 import CommunitiesIcon from "@/assets/uiIcons/CommunitiesIcon";
 import ExploreIcon from "@/assets/uiIcons/ExploreIcon";
 import EventsIcon from "@/assets/uiIcons/EventsIcon";
-import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
+import SwipeIcon from "@/assets/uiIcons/SwipeIcon";
 
 interface MenuItemProps {
   item: {
@@ -91,8 +91,8 @@ const MenuMobile = () => {
 
     {
       icon: (isActive: boolean) => (
-        <ChatsIcon
-          size={"1em"}
+        <SwipeIcon
+          size={"0.9em"}
           isFilled={true}
           colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
           colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
@@ -100,8 +100,8 @@ const MenuMobile = () => {
           isSelected={isActive}
         />
       ),
-      label: "Chats",
-      route: "/chats",
+      label: "Swipes",
+      route: "/Swipes",
     },
     {
       icon: (isActive: boolean) => (

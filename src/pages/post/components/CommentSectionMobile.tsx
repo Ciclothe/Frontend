@@ -25,7 +25,7 @@ const CommentSectionMobile = () => {
 
   return (
     <div
-      className={`md:hidden w-full justify-between items-center gap-1 mt-1 col-span-12 py-2 px-4 sticky bottom-0 z-[2000] ${
+      className={`md:hidden w-full justify-between items-center gap-1 col-span-12 py-2 px-4 sticky bottom-0 z-[2000] ${
         themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
       }`}
     >

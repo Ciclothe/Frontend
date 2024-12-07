@@ -78,7 +78,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchText }) => {
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const { activeSection } = useActiveSection();
   const { setSectionOptions } = useSectionOptions();
-  setSectionOptions(options);
+
+  useEffect(() => {
+    setSectionOptions(options);
+  }, [setSectionOptions]);
 
   // Update search results when the search text changes
   useEffect(() => {

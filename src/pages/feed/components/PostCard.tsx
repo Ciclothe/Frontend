@@ -79,7 +79,7 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
             <img
               src={data?.userData?.profilePicture}
               alt="User pic"
-              className="rounded-full w-full sm:w-auto sm:h-7 aspect-square"
+              className="rounded-full w-auto h-auto sm:w-7 sm:h-7 object-cover aspect-square"
             />
           </div>
           <div className="col-span-1 h-full flex justify-center mt-4">

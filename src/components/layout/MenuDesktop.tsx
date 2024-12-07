@@ -64,8 +64,8 @@ const MenuDesktop = () => {
           isSelected={isActive}
         />
       ),
-      label: "Swipe",
-      route: "/swipe",
+      label: "Swipes",
+      route: "/swipes",
     },
     {
       icon: (isActive: boolean) => (

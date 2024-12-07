@@ -48,6 +48,7 @@ import { useEffect } from "react";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useNavigate } from "react-router-dom";
+import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 
 // TODO: #63 Remove this mock data and use the real data from the API
 const testPosts = {
@@ -458,6 +459,7 @@ const FeedView = () => {
   const { setShowPostButton } = usePostButton();
   const { setSectionOptions } = useSectionOptions();
   const { activeSection } = useActiveSection();
+  const { setHasScroll } = useLayoutScroll();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -468,6 +470,7 @@ const FeedView = () => {
   }, [setSectionOptions]);
 
   useEffect(() => {
+    setHasScroll(true);
     setShowPostButton(true);
   }, []);
 

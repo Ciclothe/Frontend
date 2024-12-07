@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Authentication from "@/components/views/authentication";
 import FeedView from "@/pages/feed/Feed";
+import SwipeView from "@/pages/swipe/Swipe";
 import ResetPassword from "@/components/views/resetPassword";
 import AddProduct from "@/pages/createPost/CreatePost";
 import MessagesView from "@/components/views/MessagesView";
@@ -16,6 +17,7 @@ function RoutesViews() {
       <Route element={<MainLayout />}>
         <Route path="/" element={<FeedView />} />
         <Route path="/feed" element={<FeedView />} />
+        <Route path="/swipes" element={<SwipeView />} />
         <Route path="/post/:username" element={<PostDetails />} />
       </Route>
 

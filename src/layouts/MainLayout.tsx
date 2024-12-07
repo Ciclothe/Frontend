@@ -57,6 +57,7 @@ import LocationRangeSelector from "@/components/modals/LocationSelectorModal";
 import { useSearchLocation } from "@/context/RangeLocationContext";
 import { useTranslation } from "react-i18next";
 import LateralMenuMobile from "@/components/layout/LateralMenuMobile";
+import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -73,6 +74,7 @@ const MainLayout: FC = () => {
   const { t } = useTranslation();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
+  const { hasScroll } = useLayoutScroll();
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
@@ -129,7 +131,11 @@ const MainLayout: FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col xl:flex-row min-h-screen justify-between relative">
+    <div
+      className={`${
+        hasScroll ? "" : "h-screen max-h-screen"
+      } w-full flex flex-col xl:flex-row min-h-screen justify-between relative`}
+    >
       {/* Header */}
       {showPostButton && (
         <div
@@ -215,18 +221,20 @@ const MainLayout: FC = () => {
         {/* Middle Side */}
         <div
           className={`${
-            showPostButton ? "md:mt-[7em]" : ""
+            hasScroll
+              ? showPostButton
+                ? "md:mt-[7em]"
+                : ""
+              : "flex flex-col h-full md:pt-[7em] xl:pt-[0em] xl:h-screen"
           } xl:mt-[0em] w-full md:w-[70%] xl:w-[44%] md:px-4`}
         >
           {/* Search Bar and Section Switcher */}
           {showPostButton && (
             <div
               className={`hidden fixed left-[30%] w-[70%] xl:w-[100%] px-4 xl:px-0 md:block xl:sticky xl:top-0 z-[1000] ${
-                themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
-              } ${
                 themeMode === "dark"
-                  ? "border-t-[0.5px] border-solid border-[#FFFFFF1A]"
-                  : "border-t-[0.5px] border-solid border-[#8C8C8C1A]"
+                  ? "bg-[#0b0b0b] border-t-[0.5px] border-solid border-[#FFFFFF1A]"
+                  : "bg-[#ffffff] border-t-[0.5px] border-solid border-[#8C8C8C1A]"
               } xl:border-0`}
             >
               {/* Search Bar */}
@@ -235,7 +243,7 @@ const MainLayout: FC = () => {
                   showHeader
                     ? `${sectionOptions.length ? "pt-[1.5em]" : "py-[1.5em]"}`
                     : "hidden"
-                }`}
+                } ${hasScroll ? "" : "hidden xl:block"} `}
               >
                 <SearchBar />
               </div>
@@ -243,7 +251,7 @@ const MainLayout: FC = () => {
               {/* Section Switcher */}
               {sectionOptions && (
                 <div
-                  className={`hidden md:flex w-full ${
+                  className={`hidden md:flex w-full bg-red-500 ${
                     showHeader ? "" : "xl:sticky top-0"
                   }`}
                 >
@@ -257,7 +265,11 @@ const MainLayout: FC = () => {
             <SearchResults searchText={searchText} />
           ) : (
             // Main Content
-            <div className={`${showPostButton ? "md:mt-[10em]" : ""} xl:mt-0`}>
+            <div
+              className={`${
+                showPostButton ? (hasScroll ? "md:mt-[10em]" : "flex-grow") : ""
+              } xl:mt-0 `}
+            >
               <Outlet />
             </div>
           )}

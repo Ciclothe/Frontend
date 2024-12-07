@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import Icon from "@mdi/react";
-import { mdiCogOutline, mdiBookmarkOutline, mdiHeartOutline } from "@mdi/js";
+import {
+  mdiCogOutline,
+  mdiBookmarkOutline,
+  mdiHeartOutline,
+  mdiChatProcessingOutline,
+} from "@mdi/js";
 import { useUser } from "@/context/UserContext.js";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useTranslation } from "react-i18next";
@@ -114,6 +119,10 @@ const LateralMenuMobile = () => {
             <div className="flex gap-4 items-center">
               <Icon path={mdiHeartOutline} size={1} />
               <p className="font-bold text-[1.2em]">{t("Global.MyActivity")}</p>
+            </div>
+            <div className="flex gap-4 items-center">
+              <Icon path={mdiChatProcessingOutline} size={1} />
+              <p className="font-bold text-[1.2em]">{t("Chat.Messages")}</p>
             </div>
           </div>
         </div>

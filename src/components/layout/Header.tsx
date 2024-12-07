@@ -11,6 +11,7 @@ import NotificationBanner from "@/components/common/NotificationBanner";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { useSearch } from "@/context/SearchContext";
 import { useMobileMenu } from "@/context/MobileMenuContext";
+import { useSectionOptions } from "@/context/SectionOptionsContext";
 
 const Header = () => {
   const { user } = useUserData();
@@ -18,11 +19,7 @@ const Header = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const { setIsSearching } = useSearch();
   const { toggleMenu } = useMobileMenu();
-
-  const sectionOptions = [
-    { name: "Following", value: 0 },
-    { name: "Communities", value: 1 },
-  ];
+  const { sectionOptions } = useSectionOptions();
 
   const toggleNotifications = () => {
     setShowNotifications((prev) => !prev);

@@ -20,6 +20,7 @@ import { SectionOptionsProvider } from "@/context/SectionOptionsContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { SearchLocationProvider } from "@/context/RangeLocationContext";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
+import { LayoutScrollProvider } from "@/context/LayoutScrollContext ";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -29,23 +30,25 @@ const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <I18nextProvider i18n={i18n}>
       <MobileMenuProvider>
-        <SearchProvider>
-          <SearchLocationProvider>
-            <SectionOptionsProvider>
-              <SwapProvider>
-                <CreatePostActive>
-                  <ActiveSectionProvider>
-                    <UserProvider>
-                      <UserDataProvider>
-                        <ThemeProvider>{children}</ThemeProvider>
-                      </UserDataProvider>
-                    </UserProvider>
-                  </ActiveSectionProvider>
-                </CreatePostActive>
-              </SwapProvider>
-            </SectionOptionsProvider>
-          </SearchLocationProvider>
-        </SearchProvider>
+        <LayoutScrollProvider>
+          <SearchProvider>
+            <SearchLocationProvider>
+              <SectionOptionsProvider>
+                <SwapProvider>
+                  <CreatePostActive>
+                    <ActiveSectionProvider>
+                      <UserProvider>
+                        <UserDataProvider>
+                          <ThemeProvider>{children}</ThemeProvider>
+                        </UserDataProvider>
+                      </UserProvider>
+                    </ActiveSectionProvider>
+                  </CreatePostActive>
+                </SwapProvider>
+              </SectionOptionsProvider>
+            </SearchLocationProvider>
+          </SearchProvider>
+        </LayoutScrollProvider>
       </MobileMenuProvider>
     </I18nextProvider>
   );
