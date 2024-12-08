@@ -24,6 +24,7 @@ import { mdiPencilOutline } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import NotificationsList from "./NotificationsList";
 
 const NotificationBanner = () => {
   const { themeMode } = useTheme();
@@ -64,20 +65,7 @@ const NotificationBanner = () => {
           themeMode === "dark" ? "border-white" : "border-black"
         }`}
       />
-      <div className="px-3 py-3">
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            <div className="h-8 w-8 rounded-full bg-red-500 flex-shrink-0"></div>
-            <p>
-              <span className="text-[#1B6B44] font-bold">@Juanita</span>{" "}
-              <span className="opacity-50">
-                {t("Notification.NewPostMessage")}
-              </span>
-            </p>
-          </div>
-          <div className="rounded-full h-2 w-2 bg-[#1B6B44] flex-shrink-0"></div>
-        </div>
-      </div>
+      <NotificationsList />
       <hr
         className={`my-1 mx-3 opacity-5 ${
           themeMode === "dark" ? "border-white" : "border-black"

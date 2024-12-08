@@ -32,7 +32,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
               : "opacity-50 hover:opacity-100"
           }`}
         >
-          <p className="align-middle font-bold pb-[1em] md:pt-[1em] md:text-[1.1em]">
+          <p className="align-middle font-bold pb-[0.5em] md:pt-[1em] md:text-[1.1em]">
             {t(`SectionSwitcher.${option.name}`)}
           </p>
           <div

@@ -42,7 +42,7 @@ import SidebarRight from "@/components/layout/SidebarRight";
 import Header from "@/components/layout/Header";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
-import { mdiPlusBoxOutline, mdiMagnify } from "@mdi/js";
+import { mdiPlusBoxOutline } from "@mdi/js";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useLocation } from "react-router-dom";
@@ -55,9 +55,10 @@ import { useSearch } from "@/context/SearchContext";
 import SearchResults from "@/components/layout/SearchResults";
 import LocationRangeSelector from "@/components/modals/LocationSelectorModal";
 import { useSearchLocation } from "@/context/RangeLocationContext";
-import { useTranslation } from "react-i18next";
 import LateralMenuMobile from "@/components/layout/LateralMenuMobile";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import DynamicViewMobile from "@/components/common/DynamicViewMobile";
+import { useDynamicView } from "@/context/DynamicViewContext";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -68,10 +69,9 @@ const MainLayout: FC = () => {
   const { showModal, selectedPost } = useSwap();
   const { sectionOptions } = useSectionOptions();
   const scrollThreshold = sectionOptions.length ? 70 : 100;
-  const { isSearching, searchText, setSearchText, setIsSearching } =
-    useSearch();
+  const { isSearching, searchText } = useSearch();
   const { isOpened } = useSearchLocation();
-  const { t } = useTranslation();
+  const { showDynamicView } = useDynamicView();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
   const { hasScroll } = useLayoutScroll();
@@ -121,15 +121,6 @@ const MainLayout: FC = () => {
     }
   }, [scrollY, location.pathname]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
-  const handleBlur = () => {
-    setIsSearching(false);
-    setSearchText("");
-  };
-
   return (
     <div
       className={`w-full flex flex-col xl:flex-row justify-between relative ${
@@ -174,35 +165,6 @@ const MainLayout: FC = () => {
       <div
         className={`w-full md:flex ${hasScroll ? "" : "flex-grow xl:h-screen"}`}
       >
-        {/* Barra de búsqueda móvil */}
-        {isSearching && (
-          <div className="flex flex-col gap-2 md:hidden w-full px-2 pt-2">
-            <div className="flex items-center  w-full">
-              <div>
-                <Icon
-                  path={mdiMagnify}
-                  size={1.2}
-                  className="cursor-pointer opacity-50"
-                />
-              </div>
-              <input
-                type="text"
-                className="w-full p-2 bg-transparent outline-none rounded-full"
-                placeholder={t("Global.SearchHolder")}
-                value={searchText}
-                onChange={handleInputChange}
-              />
-              <p
-                className="text-[#0DBC73] font-bold cursor-pointer"
-                onClick={handleBlur}
-              >
-                {t("Global.Cancel")}
-              </p>
-            </div>
-            <SectionSwitcher options={sectionOptions} />
-          </div>
-        )}
-
         {/* Columna izquierda */}
         <div
           className={`hidden md:block w-[30%] fixed ${
@@ -247,17 +209,24 @@ const MainLayout: FC = () => {
           {isSearching ? (
             <SearchResults searchText={searchText} />
           ) : (
-            <div
-              className={`${
-                hasScroll
-                  ? showPostButton
-                    ? "md:mt-[9em] xl:mt-[0em]"
-                    : ""
-                  : ""
-              } flex-grow`}
-            >
-              <Outlet />
-            </div>
+            <>
+              {/* Dynamic View Mobile */}
+              {showDynamicView ? (
+                <DynamicViewMobile />
+              ) : (
+                <div
+                  className={`${
+                    hasScroll
+                      ? showPostButton
+                        ? "md:mt-[9em] xl:mt-[0em]"
+                        : ""
+                      : ""
+                  } flex-grow`}
+                >
+                  <Outlet />
+                </div>
+              )}
+            </>
           )}
         </div>
 
