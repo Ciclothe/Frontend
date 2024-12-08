@@ -84,7 +84,9 @@
     "Communities": "Gemeinschaften",
     "Garment": "Kleidungsstück",
     "Events": "Veranstaltungen",
-    "Accounts": "Konten"
+    "Accounts": "Konten",
+    "Today": "Heute",
+    "All": "Alle"
   },
   "Chat": {
     "Messages": "Nachrichten",

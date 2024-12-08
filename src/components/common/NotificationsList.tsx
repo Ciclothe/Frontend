@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import ProfileImage from "../ui/ProfilePic";
+import { useTheme } from "@/context/ThemeContext";
 
 const notifications = [
   {
@@ -103,24 +104,29 @@ const Notification = ({
   isReaded: boolean;
   date: Date;
 }) => {
+  const { themeMode } = useTheme();
+
   return (
-    <div className="mt-4 p-2">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-center">
-          {/* Avatar */}
-          <ProfileImage profilePic={profilePic} height="2em" />
-          {/* Message */}
-          <p>
-            <span className="text-[#0DBC73] font-bold">@{username}</span>{" "}
-            <span className="opacity-50">{message}</span>
-          </p>
-        </div>{" "}
-        {/* New Notification Indicator */}
-        {isReaded && (
-          <div className="rounded-full h-2 w-2 bg-[#0DBC73] flex-shrink-0"></div>
-        )}
+    <>
+      <div className="py-4 md:py-3">
+        <div className="flex justify-between items-center">
+          <div className="flex gap-2 items-center">
+            {/* Avatar */}
+            <ProfileImage profilePic={profilePic} />
+            {/* Message */}
+            <p>
+              <span className="text-[#0DBC73] font-bold">@{username}</span>{" "}
+              <span className="opacity-50">{message}</span>
+            </p>
+          </div>{" "}
+          {/* New Notification Indicator */}
+          {isReaded && (
+            <div className="rounded-full h-2 w-2 bg-[#0DBC73] flex-shrink-0"></div>
+          )}
+        </div>
       </div>
-    </div>
+      <hr className={`${themeMode === "dark" ? "opacity-10" : "opacity-50"}`} />
+    </>
   );
 };
 
@@ -141,7 +147,7 @@ const NotificationsList = () => {
   });
 
   return (
-    <div className="md:max-h-[15em] md:overflow-auto">
+    <div className="md:max-h-[15em] md:overflow-auto mt-4 md:mt-0 px-4">
       {filteredNotifications.map((notification, index) => (
         <Notification
           key={index}

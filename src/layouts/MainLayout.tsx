@@ -153,11 +153,17 @@ const MainLayout: FC = () => {
       {/* Create Post Button for Mobile */}
       {showPostButton && !isSearching && hasScroll && (
         <div
-          className={`fixed z-[1000] left-2 bottom-20 md:hidden flex items-center rounded-full p-3 bg-[#0DBC73] ${
-            themeMode === "dark" ? "text-black" : "text-white"
-          }`}
+          className={`fixed z-[1000] right-2 bottom-20 md:hidden flex items-center justify-center 
+                rounded-full p-3 border-2 bg-[#0DBC73]/25 backdrop-blur-[5px] 
+                backdrop-brightness-90 border-[#0DBC73] ${
+                  themeMode === "dark" ? "text-black" : "text-white"
+                }`}
         >
-          <Icon path={mdiPlusBoxOutline} size={1.2} />
+          <Icon
+            path={mdiPlusBoxOutline}
+            size={1.5}
+            className="text-[#0DBC73]"
+          />
         </div>
       )}
 

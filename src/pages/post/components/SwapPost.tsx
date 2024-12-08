@@ -18,9 +18,9 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
 
   return (
     <>
-      <div className="col-span-12 flex items-center justify-between gap-4 mx-4">
+      <div className="col-span-12 max-w-full flex items-center justify-between gap-4 mx-4">
         {/* Users Data */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center flex-1 overflow-hidden">
           <div className="flex p-1 border rounded-full border-2 border-[#0DBC73]">
             <LazyLoadImage
               src={postData?.swapData?.offered?.profilePicture}
@@ -37,8 +37,8 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
               }`}
             />
           </div>
-          <div className="font-bold truncate flex-1">
-            <p>
+          <div className="font-bold truncate flex-1 min-w-0">
+            <p className="truncate">
               <span className="text-[#0DBC73]">
                 @{postData?.swapData?.offered?.userName}
               </span>{" "}
@@ -50,7 +50,7 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
           </div>
         </div>
         <div
-          className="col-span-1 flex justify-end relative cursor-pointer"
+          className="flex justify-end relative cursor-pointer"
           onClick={() => setOpened(!opened)}
         >
           <Icon path={mdiDotsVertical} size={0.8} />
@@ -61,6 +61,7 @@ const SwapPost: React.FC<SwapPostProps> = ({ postData }) => {
           />
         </div>
       </div>
+
       {/* POST IMAGE */}
       <div className="col-span-12 grid grid-cols-12 m-4">
         <div className="col-span-12 grid grid-cols-12 relative gap-2 flex items-center justify-center">

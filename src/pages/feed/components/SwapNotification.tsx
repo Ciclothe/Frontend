@@ -86,9 +86,9 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
       {/* Main Container for Post */}
 
       {/* USERS DATA */}
-      <div className="col-span-12 flex items-center justify-between gap-4">
+      <div className="col-span-12 flex items-center justify-between gap-4 max-w-full ">
         {/* Users Data */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center flex-1 overflow-hidden">
           <div className="flex p-1 border rounded-full border-2 border-[#0DBC73]">
             <LazyLoadImage
               src={data?.swapData?.offered?.profilePicture}
@@ -118,7 +118,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
           </div>
         </div>
         <div
-          className="col-span-1 flex justify-end relative cursor-pointer"
+          className="flex justify-end relative cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             setOpened(!opened);

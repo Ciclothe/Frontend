@@ -44,7 +44,7 @@ const NotificationBanner = () => {
     >
       <div className="flex flex-col gap-1 px-3 pt-3">
         <div className="flex justify-between items-center">
-          <p className="font-bold text-[1.5em]">
+          <p className="font-bold text-[1.3em]">
             {t("Notification.Notifications")}
           </p>
           <Icon path={mdiPencilOutline} size={0.7} />
@@ -61,13 +61,13 @@ const NotificationBanner = () => {
         <p className="font-bold">{t("Global.Today")}</p>
       </div>
       <hr
-        className={`my-1 mx-3 opacity-5 ${
+        className={`my-1 mx-3 opacity-10 ${
           themeMode === "dark" ? "border-white" : "border-black"
         }`}
       />
       <NotificationsList />
       <hr
-        className={`my-1 mx-3 opacity-5 ${
+        className={`my-1 mx-3 opacity-10 ${
           themeMode === "dark" ? "border-white" : "border-black"
         }`}
       />
