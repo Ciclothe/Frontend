@@ -153,7 +153,7 @@ const MainLayout: FC = () => {
       {/* Create Post Button for Mobile */}
       {showPostButton && !isSearching && hasScroll && (
         <div
-          className={`fixed z-[1000] right-2 bottom-20 md:hidden flex items-center rounded-full p-3 bg-[#0DBC73] ${
+          className={`fixed z-[1000] left-2 bottom-20 md:hidden flex items-center rounded-full p-3 bg-[#0DBC73] ${
             themeMode === "dark" ? "text-black" : "text-white"
           }`}
         >
