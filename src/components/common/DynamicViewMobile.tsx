@@ -1,5 +1,28 @@
+/**
+ * DynamicViewMobile component renders a dynamic view for mobile devices.
+ * It displays either a notifications list or search results based on the current view type.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} The rendered component.
+ *
+ * @example
+ * <DynamicViewMobile />
+ *
+ * @remarks
+ * This component uses various contexts such as SearchContext, SectionOptionsContext, ThemeContext, and DynamicViewContext
+ * to manage state and behavior. It also utilizes the `react-i18next` library for translations.
+ *
+ * @function handleInputChange
+ * Handles the change event for the search input field.
+ *
+ * @param {React.ChangeEvent<HTMLInputElement>} e - The change event object.
+ *
+ * @function handleBlur
+ * Handles the blur event for the search input field, resetting the search state.
+ */
 import { Icon } from "@mdi/react";
-import { mdiPencilOutline, mdiMagnify, mdiArrowLeft } from "@mdi/js";
+import { mdiPencilOutline, mdiMagnify, mdiChevronLeft } from "@mdi/js";
 import SectionSwitcher from "@/components/layout/SectionSwitcher";
 import { useSearch } from "@/context/SearchContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
@@ -31,30 +54,41 @@ const DynamicViewMobile = () => {
     <div
       className={`${
         themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
-      } absolute top-0 z-[2000] min-h-screen w-full`}
+      } absolute top-0 z-[2000] min-h-screen w-full md:hidden`}
     >
       {/* HEADER */}
-      <div className="flex flex-col gap-2 md:hidden w-full px-4 pt-4 sticky top-0">
+      <div
+        className={`${
+          themeMode === "dark" ? "bg-[#0b0b0b]" : "bg-[#ffffff]"
+        } flex flex-col gap-2 md:hidden w-full px-4 pt-4 sticky top-0 z-[10]`}
+      >
         {/* DINAMIC HEADER */}
         {type === "pageView" ? (
           <div>
-            <div className="flex justify-between items-centers">
+            <div>
               <div
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-1 cursor-pointer"
                 onClick={() => setShowDynamicView(false)}
               >
-                <Icon path={mdiArrowLeft} size={1} />
-                <p className="font-bold text-[1.3em]">Notifications</p>
+                <Icon path={mdiChevronLeft} size={1} />
+                <p>{t("Global.Back")}</p>
               </div>
-              <div className="flex items-center">
-                <Icon path={mdiPencilOutline} size={0.8} />
+              <div className="flex justify-between items-center">
+                <p className="font-bold text-[1.3em] mt-4">
+                  {t("Notification.Notifications")}
+                </p>
+                <div className="flex items-center">
+                  <Icon path={mdiPencilOutline} size={1} />
+                </div>
               </div>
             </div>
             <div>
               <p>
-                <span className="opacity-50">You have </span>
-                <span className="text-[#0DBC73]">3 notifications</span>{" "}
-                <span className="opacity-50">today</span>
+                <span className="opacity-50">{t("Notification.YouHave")} </span>
+                <span className="text-[#0DBC73]">
+                  3 {t("Notification.notifications")}
+                </span>{" "}
+                <span className="opacity-50"> {t("Notification.Today")}</span>
               </p>
             </div>
           </div>
@@ -82,8 +116,10 @@ const DynamicViewMobile = () => {
             </p>
           </div>
         )}
-        {/* SECTION SWITCHER */}
-        <SectionSwitcher options={sectionOptions} />
+        <div className="mt-4">
+          {/* SECTION SWITCHER */}
+          <SectionSwitcher options={sectionOptions} />
+        </div>
       </div>
       {type === "pageView" ? (
         <NotificationsList />

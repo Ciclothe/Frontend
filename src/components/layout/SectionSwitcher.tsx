@@ -17,14 +17,23 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
   } ${isCentered ? "justify-center" : "justify-start"}`;
 
   return (
-    <div className={containerClasses}>
+    <div
+      className={`${containerClasses} overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide`}
+      style={{
+        borderBottom: `0.5px solid ${
+          themeMode === "dark"
+            ? "rgba(255, 255, 255, 0.1)"
+            : "rgba(140, 140, 140, 0.1)"
+        }`,
+      }}
+    >
       {options.map((option, index) => (
         <div
           key={index}
           onClick={() => {
             setActiveSection(option.value);
           }}
-          className={`flex flex-col items-center h-full ${
+          className={`inline-flex flex-col items-center h-full ${
             isCentered ? "px-10 w-[50%]" : ""
           } md:px-0 mr-4 cursor-pointer ${
             activeSection === option.value
