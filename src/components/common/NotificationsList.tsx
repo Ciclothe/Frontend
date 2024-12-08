@@ -147,7 +147,7 @@ const NotificationsList = () => {
   });
 
   return (
-    <div className="md:max-h-[15em] md:overflow-auto mt-4 md:mt-0 px-4">
+    <div className="md:max-h-[15em] md:overflow-auto px-4">
       {filteredNotifications.map((notification, index) => (
         <Notification
           key={index}

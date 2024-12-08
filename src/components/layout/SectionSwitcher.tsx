@@ -5,7 +5,6 @@ import { useActiveSection } from "@/context/ActiveSectionContext";
 interface SectionSwitcherProps {
   options: { name: string; value: number }[];
 }
-
 const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
   const { themeMode } = useTheme();
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
 
   return (
     <div
-      className={`${containerClasses} overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-hide`}
+      className={`${containerClasses}`}
       style={{
         borderBottom: `0.5px solid ${
           themeMode === "dark"
@@ -27,30 +26,37 @@ const SectionSwitcher = ({ options }: SectionSwitcherProps) => {
         }`,
       }}
     >
-      {options.map((option, index) => (
-        <div
-          key={index}
-          onClick={() => {
-            setActiveSection(option.value);
-          }}
-          className={`inline-flex flex-col items-center h-full ${
-            isCentered ? "px-10 w-[50%]" : ""
-          } md:px-0 mr-4 cursor-pointer ${
-            activeSection === option.value
-              ? "text-opacity-100"
-              : "opacity-50 hover:opacity-100"
-          }`}
-        >
-          <p className="align-middle font-bold pb-[0.5em] md:pt-[1em] md:text-[1.1em]">
-            {t(`SectionSwitcher.${option.name}`)}
-          </p>
+      <div
+        className="flex overflow-x-auto w-full no-scrollbar scroll-snap-x"
+        style={{
+          scrollSnapType: "x mandatory",
+        }}
+      >
+        {options.map((option, index) => (
           <div
-            className={`h-[4px] mb-[-0.15em] md:h-[4px] w-full bg-[#0DBC73] rounded-full transition-all duration-300 ${
-              activeSection === option.value ? "opacity-100" : "opacity-0"
+            key={index}
+            onClick={() => {
+              setActiveSection(option.value);
+            }}
+            className={`inline-flex flex-col items-center h-full ${
+              isCentered ? "px-10 w-[50%]" : ""
+            } md:px-0 mr-4 cursor-pointer ${
+              activeSection === option.value
+                ? "text-opacity-100"
+                : "opacity-50 hover:opacity-100"
             }`}
-          ></div>
-        </div>
-      ))}
+          >
+            <p className="align-middle font-bold pb-[0.5em] md:pt-[1em] md:text-[1.1em]">
+              {t(`SectionSwitcher.${option.name}`)}
+            </p>
+            <div
+              className={`h-[4px] md:h-[4px] w-full bg-[#0DBC73] z-[2000] rounded-full transition-all duration-300 ${
+                activeSection === option.value ? "opacity-100" : "opacity-0"
+              }`}
+            ></div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
