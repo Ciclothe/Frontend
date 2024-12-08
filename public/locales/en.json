@@ -84,7 +84,9 @@
     "Communities": "Communities",
     "Garment": "Garment",
     "Events": "Events",
-    "Accounts": "Accounts"
+    "Accounts": "Accounts",
+    "Today": "Today",
+    "All": "All"
   },
   "Chat": {
     "Messages": "Messages",

@@ -21,6 +21,7 @@ import { SearchProvider } from "@/context/SearchContext";
 import { SearchLocationProvider } from "@/context/RangeLocationContext";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import { LayoutScrollProvider } from "@/context/LayoutScrollContext ";
+import { DynamicViewProvider } from "@/context/DynamicViewContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -30,25 +31,27 @@ const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <I18nextProvider i18n={i18n}>
       <MobileMenuProvider>
-        <LayoutScrollProvider>
-          <SearchProvider>
-            <SearchLocationProvider>
-              <SectionOptionsProvider>
-                <SwapProvider>
-                  <CreatePostActive>
-                    <ActiveSectionProvider>
-                      <UserProvider>
-                        <UserDataProvider>
-                          <ThemeProvider>{children}</ThemeProvider>
-                        </UserDataProvider>
-                      </UserProvider>
-                    </ActiveSectionProvider>
-                  </CreatePostActive>
-                </SwapProvider>
-              </SectionOptionsProvider>
-            </SearchLocationProvider>
-          </SearchProvider>
-        </LayoutScrollProvider>
+        <DynamicViewProvider>
+          <LayoutScrollProvider>
+            <SearchProvider>
+              <SearchLocationProvider>
+                <SectionOptionsProvider>
+                  <SwapProvider>
+                    <CreatePostActive>
+                      <ActiveSectionProvider>
+                        <UserProvider>
+                          <UserDataProvider>
+                            <ThemeProvider>{children}</ThemeProvider>
+                          </UserDataProvider>
+                        </UserProvider>
+                      </ActiveSectionProvider>
+                    </CreatePostActive>
+                  </SwapProvider>
+                </SectionOptionsProvider>
+              </SearchLocationProvider>
+            </SearchProvider>
+          </LayoutScrollProvider>
+        </DynamicViewProvider>
       </MobileMenuProvider>
     </I18nextProvider>
   );

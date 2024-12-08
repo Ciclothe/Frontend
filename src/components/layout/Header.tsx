@@ -9,22 +9,26 @@ import { useUserData } from "@/context/UserDataContext";
 import ProfileImage from "@/components/ui/ProfilePic";
 import NotificationBanner from "@/components/common/NotificationBanner";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-import { useSearch } from "@/context/SearchContext";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
-import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useDynamicView } from "@/context/DynamicViewContext";
 
 const Header = () => {
   const { user } = useUserData();
   const { themeMode } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
-  const { setIsSearching } = useSearch();
   const { toggleMenu } = useMobileMenu();
   const { sectionOptions } = useSectionOptions();
-  const { setHasScroll } = useLayoutScroll();
+  const { setShowDynamicView, setType } = useDynamicView();
 
   const toggleNotifications = () => {
-    setShowNotifications((prev) => !prev);
+    setShowDynamicView(true);
+    setType("pageView");
+  };
+
+  const toggleSeacrh = () => {
+    setShowDynamicView(true);
+    setType("search");
   };
 
   return (
@@ -58,11 +62,7 @@ const Header = () => {
         </div>
         {/*HEADERS ACTIONS*/}
         <div className="col-span-5 flex items-center justify-end gap-4">
-          <div
-            onClick={() => {
-              setIsSearching(true), setHasScroll(true);
-            }}
-          >
+          <div onClick={toggleSeacrh}>
             <Icon
               path={mdiMagnify}
               size={1.2}
