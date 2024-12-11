@@ -22,6 +22,7 @@ import { SearchLocationProvider } from "@/context/RangeLocationContext";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import { LayoutScrollProvider } from "@/context/LayoutScrollContext ";
 import { DynamicViewProvider } from "@/context/DynamicViewContext";
+import { SidebarRightProvider } from "@/context/SidebarRightContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -31,27 +32,29 @@ const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <I18nextProvider i18n={i18n}>
       <MobileMenuProvider>
-        <DynamicViewProvider>
-          <LayoutScrollProvider>
-            <SearchProvider>
-              <SearchLocationProvider>
-                <SectionOptionsProvider>
-                  <SwapProvider>
-                    <CreatePostActive>
-                      <ActiveSectionProvider>
-                        <UserProvider>
-                          <UserDataProvider>
-                            <ThemeProvider>{children}</ThemeProvider>
-                          </UserDataProvider>
-                        </UserProvider>
-                      </ActiveSectionProvider>
-                    </CreatePostActive>
-                  </SwapProvider>
-                </SectionOptionsProvider>
-              </SearchLocationProvider>
-            </SearchProvider>
-          </LayoutScrollProvider>
-        </DynamicViewProvider>
+        <SidebarRightProvider>
+          <DynamicViewProvider>
+            <LayoutScrollProvider>
+              <SearchProvider>
+                <SearchLocationProvider>
+                  <SectionOptionsProvider>
+                    <SwapProvider>
+                      <CreatePostActive>
+                        <ActiveSectionProvider>
+                          <UserProvider>
+                            <UserDataProvider>
+                              <ThemeProvider>{children}</ThemeProvider>
+                            </UserDataProvider>
+                          </UserProvider>
+                        </ActiveSectionProvider>
+                      </CreatePostActive>
+                    </SwapProvider>
+                  </SectionOptionsProvider>
+                </SearchLocationProvider>
+              </SearchProvider>
+            </LayoutScrollProvider>
+          </DynamicViewProvider>
+        </SidebarRightProvider>
       </MobileMenuProvider>
     </I18nextProvider>
   );

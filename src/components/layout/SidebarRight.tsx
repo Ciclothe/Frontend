@@ -35,9 +35,8 @@
  * - Uses Tailwind CSS classes for styling.
  * - Conditional classes based on the theme mode (dark or light).
  */
-import { useState } from "react";
 import Icon from "@mdi/react";
-import { mdiMapMarker, mdiBellOutline } from "@mdi/js";
+import { mdiMapMarker } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { useUserData } from "@/context/UserDataContext";
@@ -45,22 +44,16 @@ import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import ProfileImage from "@/components/ui/ProfilePic";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import NotificationBanner from "@/components/common/NotificationBanner";
+import HeaderActionDesktop from "@/components/common/HeaderActionDesktop";
 import { useSearch } from "@/context/SearchContext";
 
 const SidebarRight = () => {
-  const { user, profiles, loading, error } = useUserData();
+  const { profiles, loading, error } = useUserData();
   const { themeMode } = useTheme();
   const { t } = useTranslation();
   const skeletonItems = [1, 2, 3];
-  const [showNotifications, setShowNotifications] = useState(false);
   const { setIsSearching, setSearchText } = useSearch();
   const isLoadingOrError = error || loading || !profiles?.length;
-
-  const toggleNotifications = () => {
-    setShowNotifications((prev: any) => !prev);
-  };
 
   return (
     <div
@@ -74,25 +67,7 @@ const SidebarRight = () => {
     >
       {/*HEADERS ACTIONS*/}
       <div className="col-span-5 md:col-span-2 flex items-center justify-end h-[7em]">
-        <div className="flex items-center gap-4">
-          {/* NOTIFICATIONS */}
-          <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
-            <div className="relative">
-              <div onClick={toggleNotifications}>
-                <Icon
-                  path={mdiBellOutline}
-                  size={0.9}
-                  className="cursor-pointer"
-                />
-              </div>
-              {showNotifications && <NotificationBanner />}
-            </div>
-          </ClickAwayListener>
-          {/* PROFILE BUTTON */}
-          <div className="hidden md:block">
-            <ProfileImage profilePic={user?.profilePhoto} />
-          </div>
-        </div>
+        <HeaderActionDesktop />
       </div>
       <div className="flex justify-between">
         <p className="font-bold pb-3">

@@ -59,6 +59,8 @@ import LateralMenuMobile from "@/components/layout/LateralMenuMobile";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import DynamicViewMobile from "@/components/common/DynamicViewMobile";
 import { useDynamicView } from "@/context/DynamicViewContext";
+import { useSidebarRight } from "@/context/SidebarRightContext";
+import HeaderActionDesktop from "@/components/common/HeaderActionDesktop";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
@@ -72,10 +74,11 @@ const MainLayout: FC = () => {
   const { isSearching, searchText } = useSearch();
   const { isOpened } = useSearchLocation();
   const { showDynamicView } = useDynamicView();
+  const { isSidebarRightVisible } = useSidebarRight();
 
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
+  const [isXlScreen, setIsXlScreen] = useState(true);
   const { hasScroll } = useLayoutScroll();
-
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
@@ -121,10 +124,20 @@ const MainLayout: FC = () => {
     }
   }, [scrollY, location.pathname]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsXlScreen(window.innerWidth >= 1280);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div
-      className={`w-full flex flex-col xl:flex-row justify-between relative ${
-        hasScroll ? "" : "h-screen max-h-screen min-h-screen"
+      className={`w-full flex flex-col xl:flex-row justify-between relative min-h-screen ${
+        hasScroll ? "" : "h-screen max-h-screen"
       }`}
     >
       {/* Header */}
@@ -161,7 +174,7 @@ const MainLayout: FC = () => {
         >
           <Icon
             path={mdiPlusBoxOutline}
-            size={1.5}
+            size={1.2}
             className="text-[#0DBC73]"
           />
         </div>
@@ -190,8 +203,10 @@ const MainLayout: FC = () => {
         {/* Columna central */}
         <div
           className={`${
+            isSidebarRightVisible ? "xl:w-[44%]" : "xl:w-[72%] lg:pr-[5em]"
+          } ${
             showPostButton ? "md:pt-[7em]" : ""
-          } flex flex-col h-full  xl:pt-0 w-full md:w-[70%] xl:w-[44%] md:px-4`}
+          } flex flex-col h-full  xl:pt-0 w-full md:w-[70%] md:px-4`}
         >
           {showPostButton && (
             <div
@@ -201,15 +216,34 @@ const MainLayout: FC = () => {
                   : "bg-[#ffffff] border-t-[0.5px] border-[#8C8C8C1A]"
               } xl:border-0`}
             >
-              <div
-                className={`sticky transition-all
-                  ${showHeader ? "pt-[1.5em]" : "hidden"}
-                  ${hasScroll ? "" : "hidden xl:block"}
-                `}
-              >
-                <SearchBar />
-              </div>
-              {sectionOptions && <SectionSwitcher options={sectionOptions} />}
+              {!isXlScreen || isSidebarRightVisible ? (
+                <div className={`${showHeader ? "pt-[1.5em]" : "hidden"}`}>
+                  <div
+                    className={`sticky transition-all ${
+                      hasScroll ? "" : "hidden xl:block"
+                    }`}
+                  >
+                    <SearchBar />
+                  </div>
+                  <SectionSwitcher options={sectionOptions} />
+                </div>
+              ) : (
+                <div
+                  className={`hidden xl:flex sticky transition-all ${
+                    showHeader ? "" : "hidden"
+                  } ${hasScroll ? "" : "hidden xl:flex"} justify-between`}
+                >
+                  <div className={`pt-[1.5em] w-[63%]`}>
+                    <div>
+                      <SearchBar />
+                    </div>
+                    <SectionSwitcher options={sectionOptions} />
+                  </div>
+                  <div className="w-[28%]">
+                    <HeaderActionDesktop />
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {isSearching ? (
@@ -237,18 +271,20 @@ const MainLayout: FC = () => {
         </div>
 
         {/* Columna derecha */}
-        <div
-          className="hidden xl:flex w-[28%] h-screen sticky top-0 justify-end pr-[1em] lg:pr-[5em] z-[2000]"
-          style={{
-            borderLeft: `0.5px solid ${
-              themeMode === "dark"
-                ? "rgba(255, 255, 255, 0.1)"
-                : "rgba(140, 140, 140, 0.1)"
-            }`,
-          }}
-        >
-          <SidebarRight />
-        </div>
+        {isSidebarRightVisible && (
+          <div
+            className="hidden xl:flex w-[28%] h-screen sticky top-0 justify-end pr-[1em] lg:pr-[5em] z-[2000]"
+            style={{
+              borderLeft: `0.5px solid ${
+                themeMode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(140, 140, 140, 0.1)"
+              }`,
+            }}
+          >
+            <SidebarRight />
+          </div>
+        )}
       </div>
 
       {/* Modals */}
