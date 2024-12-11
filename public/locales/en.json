@@ -86,7 +86,9 @@
     "Events": "Events",
     "Accounts": "Accounts",
     "Today": "Today",
-    "All": "All"
+    "All": "All",
+    "Trendings": "Trendings",
+    "Explorer": "Explorer"
   },
   "Chat": {
     "Messages": "Messages",

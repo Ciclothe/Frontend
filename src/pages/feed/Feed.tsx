@@ -49,6 +49,7 @@ import { useActiveSection } from "@/context/ActiveSectionContext";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useNavigate } from "react-router-dom";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useSidebarRight } from "@/context/SidebarRightContext";
 
 // TODO: #63 Remove this mock data and use the real data from the API
 const testPosts = {
@@ -455,6 +456,8 @@ const options = [
 ];
 
 const FeedView = () => {
+  const { setIsSidebarRightVisible } = useSidebarRight();
+
   const navigate = useNavigate();
   const { setShowPostButton } = usePostButton();
   const { setSectionOptions } = useSectionOptions();
@@ -470,6 +473,7 @@ const FeedView = () => {
   }, [setSectionOptions]);
 
   useEffect(() => {
+    setIsSidebarRightVisible(true);
     setHasScroll(true);
     setShowPostButton(true);
   }, []);

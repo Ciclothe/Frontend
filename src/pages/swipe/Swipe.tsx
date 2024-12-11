@@ -4,6 +4,7 @@ import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import CardComponent from "./components/Card";
 import TutorialOverlat from "./components/TutorialOverlay";
+import { useSidebarRight } from "@/context/SidebarRightContext";
 
 import Icon from "@mdi/react";
 import { mdiClose, mdiSwapHorizontal, mdiMessageText } from "@mdi/js";
@@ -85,12 +86,15 @@ const cardData: Card[] = [
 
 function SwipeView() {
   const [cards, setCards] = useState<Card[]>(cardData);
+  const { setIsSidebarRightVisible } = useSidebarRight();
+
   const { setShowPostButton } = usePostButton();
   const { setSectionOptions } = useSectionOptions();
   const { setHasScroll } = useLayoutScroll();
   const [isTutorialVisible, setIsTutorialVisible] = useState(true);
 
   useEffect(() => {
+    setIsSidebarRightVisible(true);
     setShowPostButton(true);
     setHasScroll(false);
   }, []);
