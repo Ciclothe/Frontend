@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 @import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
 @import url("https://p.typekit.net/p.css?s=1&k=efl3uwd&ht=tk&f=52.175.51586&a=126711539&app=typekit&e=css");
+@import url("https://use.typekit.net/efl3uwd.css");
 
 body {
   margin: 0;
@@ -28,6 +29,11 @@ body {
   border-radius: 16px;
   overflow: hidden;
   background-size: cover;
+}
+
+.bannerText {
+  font-family: "din-condensed-variable", sans-serif;
+  font-variation-settings: "wght" 200;
 }
 
 .action-btn {

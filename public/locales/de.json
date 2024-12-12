@@ -95,6 +95,12 @@
     "SeeAllmessages": "Alle Nachrichten anzeigen",
     "NewMessagesQuantity": "Neue Nachrichten"
   },
+  "ExplorerBanner": {
+    "Title": "Erfrische Deinen Stil: <br class='hidden md:block' /> Tausche Mode, <br class='hidden md:block' /> Kein Geld Erforderlich",
+    "Option1": "Finde Dein <br/> Nächstes Teil",
+    "Option2": "Biete einen Tausch an",
+    "Option3": "Gib Deinem Neuen Teil <br/> eine Geschichte"
+  },
   "Product": {
     "Description": {
       "Size": "Größe",

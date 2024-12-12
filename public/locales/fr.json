@@ -97,6 +97,12 @@
     "BlockUser": "Bloquer l'utilisateur",
     "Reviews": "Avis"
   },
+  "ExplorerBanner": {
+    "Title": "Rafraîchissez Votre Style : <br class='hidden md:block' /> Échangez de la Mode, <br class='hidden md:block' /> Sans Argent",
+    "Option1": "Trouvez Votre <br/> Prochaine Pièce",
+    "Option2": "Proposez un Échange",
+    "Option3": "Donnez une Histoire <br/> à Votre Nouvelle Pièce"
+  },
   "Notification": {
     "Notifications": "Notifications",
     "notifications": "notifications",

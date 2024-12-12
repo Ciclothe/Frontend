@@ -97,6 +97,12 @@
     "BlockUser": "Bloquear usuario",
     "Reviews": "Reseñas"
   },
+  "ExplorerBanner": {
+    "Title": "Refresca tu estilo: <br class='hidden md:block' /> Intercambia moda, <br class='hidden md:block' /> sin dinero de por medio",
+    "Option1": "Encuentra Tu <br/> Próxima Prenda",
+    "Option2": "Ofrece un Swap",
+    "Option3": "Dale una Historia <br/> a Tu Nueva Prenda"
+  },
   "Notification": {
     "Notifications": "Notificaciones",
     "notifications": "notificaciones",
