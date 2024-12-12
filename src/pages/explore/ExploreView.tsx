@@ -1,16 +1,15 @@
 // ExploreView.tsx
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useActiveSection } from "@/context/ActiveSectionContext";
-import { TradingTopics } from "./components/TradingTopics";
+import { ExplorerSection } from "./components/ExplorerSection";
 
 const options = [
-  { name: "Trendings", value: 0 },
-  { name: "Explorer", value: 1 },
-  { name: "Communities", value: 2 },
+  { name: "Explorer", value: 0 },
+  { name: "Communities", value: 1 },
 ];
 
 function ExploreView() {
@@ -33,8 +32,8 @@ function ExploreView() {
   }, [setSectionOptions]);
 
   return (
-    <div className="w-full">
-      {activeSection === 0 && <TradingTopics />}{" "}
+    <div className="w-full mt-4 px-4">
+      {activeSection === 0 && <ExplorerSection />}{" "}
       {/* Renderiza solo si activeSection es 0 */}
     </div>
   );
