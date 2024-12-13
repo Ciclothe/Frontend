@@ -99,11 +99,12 @@
     "BlockUser": "Block User",
     "Reviews": "Reviews"
   },
-  "ExplorerBanner": {
+  "ExplorerView": {
     "Title": "Refresh Your Style: <br class='hidden md:block' /> Swap Fashion, <br class='hidden md:block' /> No Money Involved",
     "Option1": "Find Your <br/> Next Piece",
     "Option2": "Offer a Swap",
-    "Option3": "Give a Story <br/> to Your New Piece"
+    "Option3": "Give a Story <br/> to Your New Piece",
+    "Categories": "Categories"
   },
   "Notification": {
     "Notifications": "Notifications",
