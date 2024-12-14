@@ -33,8 +33,8 @@ const PostImage: React.FC<PostImageProps> = ({ data }) => {
                 data.imageOrientation === "landscapes"
                   ? "aspect-[3/2] md:aspect-[16/9]"
                   : data.imageOrientation === "square"
-                  ? "aspect-[1/1]"
-                  : "aspect-[4/5]"
+                  ? "aspect-[5/6] md:aspect-[1/1]"
+                  : "aspect-[2/3] md:aspect-[4/5]"
               } max-h-[40em] col-span-12 rounded-lg relative flex items-center justify-start`}
             >
               <div className="relative w-full h-full">

@@ -161,7 +161,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
                 )}
                 <LazyLoadImage
                   src={data?.swapData?.offered?.coverImg}
-                  className="aspect-square w-full object-cover rounded-lg"
+                  className="aspect-[5/6] md:aspect-square w-full object-cover rounded-lg"
                   onLoad={handleImageLoadOffered}
                 />
               </div>
@@ -182,7 +182,7 @@ const SwapNotification: React.FC<SwapNotificationProps> = ({
                 )}
                 <LazyLoadImage
                   src={data?.swapData?.obtained?.coverImg}
-                  className="aspect-square w-full object-cover rounded-lg"
+                  className="aspect-[5/6] md:aspect-square w-full object-cover rounded-lg"
                   onLoad={handleImageLoadObtained}
                 />
               </div>
