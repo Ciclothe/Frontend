@@ -50,10 +50,10 @@ const ImageCarousel = ({
         <div
           className={`flex-shrink-0 relative ${
             garmentImgs[currentIndex]?.orientation === "landscapes"
-              ? "aspect-[16/9] w-full"
+              ? "aspect-[3/2] md:aspect-[16/9] w-full"
               : garmentImgs[currentIndex]?.orientation === "square"
-              ? "aspect-[1/1] w-full md:w-auto md:h-full"
-              : "aspect-[4/5] w-full md:w-auto md:h-full"
+              ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
+              : "aspect-[2/3] md:aspect-[4/5] w-full md:w-auto md:h-full"
           } ${isPostDetails ? "max-h-[35em]" : "max-h-[40em]"}`}
         >
           <img
