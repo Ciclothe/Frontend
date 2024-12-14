@@ -3,6 +3,7 @@ import { useTheme } from "@/context/ThemeContext.js";
 import PostInteractions from "./cards/PostInteractions";
 import PostHeader from "./cards/PostHeader";
 import PostImage from "./cards/PostImage";
+import ProfileImage from "@/components/ui/ProfilePic";
 
 interface PostCardProps {
   data: {
@@ -76,13 +77,12 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
         {/* PROFILE PIC */}
         <div className="col-span-1 max-h-full overflow-hidden">
           <div className="flex justify-center">
-            <img
-              src={data?.userData?.profilePicture}
-              alt="User pic"
-              className="rounded-full w-auto h-auto sm:w-7 sm:h-7 object-cover aspect-square"
+            <ProfileImage
+              profilePic={data?.userData?.profilePicture}
+              height={"1.5rem"}
             />
           </div>
-          <div className="col-span-1 h-full flex justify-center mt-4">
+          <div className="col-span-1 h-full flex justify-center mt-2">
             <div
               className={`w-[1px] h-full mt-2 ${
                 themeMode === "dark" ? "bg-white/10" : "bg-gray-500/10"

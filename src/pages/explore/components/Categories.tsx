@@ -47,72 +47,63 @@ const Categories: React.FC<CategoriesProps> = ({ data }) => {
   };
 
   return (
-    <div>
-      <p
-        className={`font-bold text-[1.3em] ${
-          themeMode === "dark" ? "text-white" : "text-black"
-        }`}
+    <div className="flex items-center relative rounded-lg">
+      {showButtons && (
+        <>
+          <button
+            onClick={scrollLeft}
+            className={`absolute left-0 z-10 p-1 rounded-l-lg h-full ${
+              themeMode === "dark"
+                ? "bg-[#171717] text-white"
+                : "bg-[#F7F7F7] text-black"
+            }`}
+            style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+          >
+            <Icon path={mdiChevronLeft} size={0.5} />
+          </button>
+        </>
+      )}
+
+      <div
+        ref={carouselRef}
+        className="flex items-center gap-4 overflow-x-auto scroll-smooth whitespace-nowrap no-scrollbar rounded-lg"
       >
-        Categories
-      </p>
-      <div className="mt-5 flex items-center relative">
-        {showButtons && (
-          <>
-            <button
-              onClick={scrollLeft}
-              className={`absolute left-0 z-10 p-1 rounded-l-lg h-full ${
-                themeMode === "dark"
-                  ? "bg-[#171717] text-white"
-                  : "bg-[#F7F7F7] text-black"
-              }`}
-              style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-            >
-              <Icon path={mdiChevronLeft} size={0.5} />
-            </button>
-          </>
-        )}
-
-        <div
-          ref={carouselRef}
-          className="flex items-center gap-4 overflow-x-auto scroll-smooth whitespace-nowrap no-scrollbar"
-        >
-          {data?.map((category: any, index: number) => (
-            <div
-              key={index}
-              className={`${
-                themeMode === "dark"
-                  ? "text-white border-[#232323]"
-                  : "text-black border-[#F7F7F7]"
-              } pl-4 border rounded-lg flex gap-4 items-center min-w-[11em] justify-center cursor-pointer`}
-            >
-              <p className="font-bold">{category.label}</p>
-              <div className="h-[4em] w-[4em]">
-                <img
-                  src={category?.img}
-                  className="object-cover h-full w-full"
-                  alt={category.label}
-                />
-              </div>
+        {data?.map((category: any, index: number) => (
+          <div
+            key={index}
+            className={`${
+              themeMode === "dark"
+                ? "text-white border-[#232323]"
+                : "text-black border-[#F7F7F7]"
+            } pl-4 border rounded-lg flex gap-4 items-center min-w-[11em] justify-center cursor-pointer`}
+          >
+            <p className="font-bold">{category.label}</p>
+            <div className="h-[4em] w-[4em]">
+              <img
+                src={category?.img}
+                className="object-cover h-full w-full"
+                alt={category.label}
+              />
             </div>
-          ))}
-        </div>
-
-        {showButtons && (
-          <>
-            <button
-              onClick={scrollRight}
-              className={`absolute right-0 z-10 p-1 ${
-                themeMode === "dark"
-                  ? "bg-[#171717] text-white"
-                  : "bg-[#F7F7F7] text-black"
-              } rounded-r-lg h-full`}
-              style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            >
-              <Icon path={mdiChevronRight} size={0.5} />
-            </button>
-          </>
-        )}
+          </div>
+        ))}
       </div>
+
+      {showButtons && (
+        <>
+          <button
+            onClick={scrollRight}
+            className={`absolute right-0 z-10 p-1 ${
+              themeMode === "dark"
+                ? "bg-[#171717] text-white"
+                : "bg-[#F7F7F7] text-black"
+            } rounded-r-lg h-full`}
+            style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+          >
+            <Icon path={mdiChevronRight} size={0.5} />
+          </button>
+        </>
+      )}
     </div>
   );
 };
