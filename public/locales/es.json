@@ -102,7 +102,8 @@
     "Option1": "Encuentra Tu <br/> Próxima Prenda",
     "Option2": "Ofrece un Swap",
     "Option3": "Dale una Historia <br/> a Tu Nueva Prenda",
-    "Categories": "Categorias"
+    "Categories": "Categorias",
+    "RecommendedForYou": "Recomendado para ti"
   },
   "Notification": {
     "Notifications": "Notificaciones",

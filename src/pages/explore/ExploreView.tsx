@@ -7,6 +7,7 @@ import { usePostButton } from "@/context/CreatePostActive";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import { ExplorerBanner } from "./components/ExplorerBanner";
 import Categories from "./components/Categories";
+import { RecommendedPost } from "./components/RecommendedPost";
 
 const options = [
   { name: "Explorer", value: 0 },
@@ -97,6 +98,7 @@ function ExploreView() {
         <div className="flex flex-col gap-4">
           <ExplorerBanner />
           <Categories data={CategoriesTestData} />
+          <RecommendedPost />
         </div>
       )}
     </div>

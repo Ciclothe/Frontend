@@ -484,7 +484,7 @@ const FeedView = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6 px-2">
+    <div className="flex flex-col gap-6 px-4">
       <div className="py-4 flex flex-col gap-4">
         {(activeSection === 0
           ? testPosts.following
