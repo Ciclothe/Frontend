@@ -4,15 +4,9 @@ import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { usePostButton } from "@/context/CreatePostActive";
-import { useActiveSection } from "@/context/ActiveSectionContext";
 import { ExplorerBanner } from "./components/ExplorerBanner";
 import Categories from "./components/Categories";
 import { RecommendedPost } from "./components/RecommendedPost";
-
-const options = [
-  { name: "Explorer", value: 0 },
-  { name: "Communities", value: 1 },
-];
 
 const CategoriesTestData = [
   {
@@ -78,7 +72,6 @@ function ExploreView() {
   const { setSectionOptions } = useSectionOptions();
   const { setHasScroll } = useLayoutScroll();
   const { setShowPostButton } = usePostButton();
-  const { activeSection } = useActiveSection();
 
   useEffect(() => {
     setHasScroll(true);
@@ -89,18 +82,16 @@ function ExploreView() {
   }, []);
 
   useEffect(() => {
-    setSectionOptions(options);
+    setSectionOptions([]);
   }, [setSectionOptions]);
 
   return (
-    <div className="w-full mt-4 px-4">
-      {activeSection === 0 && (
-        <div className="flex flex-col gap-4">
-          <ExplorerBanner />
-          <Categories data={CategoriesTestData} />
-          <RecommendedPost />
-        </div>
-      )}
+    <div className="w-full px-4">
+      <div className="flex flex-col gap-4">
+        <ExplorerBanner />
+        <Categories data={CategoriesTestData} />
+        <RecommendedPost />
+      </div>
     </div>
   );
 }

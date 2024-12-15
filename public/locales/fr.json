@@ -103,7 +103,8 @@
     "Option2": "Proposez un Échange",
     "Option3": "Donnez une Histoire <br/> à Votre Nouvelle Pièce",
     "Categories": "Catégories",
-    "RecommendedForYou": "Recommandé pour vous"
+    "RecommendedForYou": "Recommandé pour vous",
+    "LoadMore": "Charger plus"
   },
   "Notification": {
     "Notifications": "Notifications",

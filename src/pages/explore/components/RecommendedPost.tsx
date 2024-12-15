@@ -6,7 +6,6 @@ import { mdiCircleSmall } from "@mdi/js";
 import PostImage from "@/pages/feed/components/cards/PostImage";
 import HeartIcon from "@/assets/uiIcons/HeartIcon";
 import { useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useTranslation } from "react-i18next";
 
 const postData = [
@@ -371,82 +370,87 @@ export const RecommendedPost = () => {
         {t("ExplorerView.RecommendedForYou")}
       </p>
       <div className="mt-4">
-        <InfiniteScroll
-          dataLength={visiblePosts.length}
-          next={loadMorePosts}
-          hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
-          endMessage={<p>No more posts to show</p>}
-          style={{ textAlign: "center" }}
-        >
-          <Masonry columns={{ xs: 2, lg: 3 }} spacing={{ xs: 1, lg: 2 }}>
-            {visiblePosts.map((post) => (
-              <div key={post.id}>
-                <div
-                  className={`${
-                    themeMode === "dark" ? "text-white" : "text-black"
-                  } grid grid-cols-12 rounded-xl gap-2 cursor-pointer mb-2`}
-                >
-                  <div className="col-span-12 grid grid-cols-12 gap-2">
-                    {/* <PostHeader data={post} /> */}
-                    <div className="relative col-span-12">
-                      <PostImage data={post} />
-                    </div>
-                    <div className="col-span-12 flex gap-4 justify-between">
-                      <div className="flex gap-2">
-                        <ProfileImage
-                          profilePic={post?.userData?.profilePic}
-                          height={"1.5rem"}
-                        />
-                        <div>
-                          <p className="md:font-bold text-start capitalize titleStyles">
-                            {post?.title}
+        <Masonry columns={{ xs: 2, lg: 3 }} spacing={{ xs: 1, lg: 2 }}>
+          {visiblePosts.map((post) => (
+            <div key={post.id}>
+              <div
+                className={`${
+                  themeMode === "dark" ? "text-white" : "text-black"
+                } grid grid-cols-12 rounded-xl gap-2 cursor-pointer mb-2`}
+              >
+                <div className="col-span-12 grid grid-cols-12 gap-2">
+                  {/* <PostHeader data={post} /> */}
+                  <div className="relative col-span-12">
+                    <PostImage data={post} />
+                  </div>
+                  <div className="col-span-12 flex gap-4 justify-between">
+                    <div className="flex gap-2">
+                      <ProfileImage
+                        profilePic={post?.userData?.profilePic}
+                        height={"1.5rem"}
+                      />
+                      <div>
+                        <p className="md:font-bold text-start capitalize titleStyles">
+                          {post?.title}
+                        </p>
+                        <div className="hidden md:flex items-center opacity-50 capitalize">
+                          <p>
+                            {post?.userData?.location?.city},{" "}
+                            {post?.userData?.location?.country}
                           </p>
-                          <div className="hidden md:flex items-center opacity-50 capitalize">
-                            <p>
-                              {post?.userData?.location?.city},{" "}
-                              {post?.userData?.location?.country}
-                            </p>
-                            <Icon path={mdiCircleSmall} size={0.8} />
-                            <p>{formatDate(post?.createdAt)}</p>
-                          </div>
+                          <Icon path={mdiCircleSmall} size={0.8} />
+                          <p>{formatDate(post?.createdAt)}</p>
                         </div>
                       </div>
-                      {/* Like Button */}
-                      <div
+                    </div>
+                    {/* Like Button */}
+                    <div
+                      className={`${
+                        likedPosts[post.id] ? "opacity-100" : "opacity-50"
+                      } hidden md:flex items-center justify-center cursor-pointer rounded-lg gap-1`}
+                      onClick={() => toggleLike(post.id)}
+                    >
+                      <HeartIcon
+                        size={"1.3em"}
+                        colorFill={`#0DBC73`}
+                        colorStroke={`${
+                          themeMode === "dark" ? "#F1F1F1" : "#232323"
+                        }`}
+                        isSelected={likedPosts[post.id]}
+                      />
+                      <p
                         className={`${
-                          likedPosts[post.id] ? "opacity-100" : "opacity-50"
-                        } hidden md:flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-                        onClick={() => toggleLike(post.id)}
+                          likedPosts[post.id]
+                            ? "text-[#0DBC73]"
+                            : themeMode === "dark"
+                            ? "text-[#F1F1F1]"
+                            : "text-[#3A3A3A]"
+                        } font-bold`}
                       >
-                        <HeartIcon
-                          size={"1.3em"}
-                          colorFill={`#0DBC73`}
-                          colorStroke={`${
-                            themeMode === "dark" ? "#F1F1F1" : "#232323"
-                          }`}
-                          isSelected={likedPosts[post.id]}
-                        />
-                        <p
-                          className={`${
-                            likedPosts[post.id]
-                              ? "text-[#0DBC73]"
-                              : themeMode === "dark"
-                              ? "text-[#F1F1F1]"
-                              : "text-[#3A3A3A]"
-                          } font-bold`}
-                        >
-                          {post.postAnalitics.likes +
-                            (likedPosts[post.id] ? 1 : 0)}
-                        </p>
-                      </div>
+                        {post.postAnalitics.likes +
+                          (likedPosts[post.id] ? 1 : 0)}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </Masonry>
-        </InfiniteScroll>
+            </div>
+          ))}
+        </Masonry>
+        {hasMore && (
+          <div className="w-full flex justify-center py-4">
+            <button
+              onClick={loadMorePosts}
+              className={`border px-20 ${
+                themeMode === "dark"
+                  ? "border-white hover:bg-white hover:text-black"
+                  : "border-black hover:bg-black hover:text-white"
+              }`}
+            >
+              {t("ExplorerView.LoadMore")}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useActiveSection } from "@/context/ActiveSectionContext";
 import ProfileImage from "../ui/ProfilePic";
@@ -22,60 +22,12 @@ const notifications = [
     date: new Date(new Date().setHours(new Date().getHours() - 5)),
   },
   {
-    username: "Juanita",
-    message: "created a new post!",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/dc/a9/64/dca96480640809bd2872d3117f5fe92f.jpg",
-    isReaded: true,
-    date: new Date(),
-  },
-  {
-    username: "Carlos",
-    message: "commented on your post.",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/1a/97/fb/1a97fb82a413e531c71a642c89a85fee.jpg",
-    isReaded: false,
-    date: new Date(new Date().setHours(new Date().getHours() - 5)),
-  },
-  {
-    username: "Juanita",
-    message: "created a new post!",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/dc/a9/64/dca96480640809bd2872d3117f5fe92f.jpg",
-    isReaded: true,
-    date: new Date(),
-  },
-  {
-    username: "Carlos",
-    message: "commented on your post.",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/1a/97/fb/1a97fb82a413e531c71a642c89a85fee.jpg",
-    isReaded: false,
-    date: new Date(new Date().setHours(new Date().getHours() - 5)),
-  },
-  {
-    username: "Juanita",
-    message: "created a new post!",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/dc/a9/64/dca96480640809bd2872d3117f5fe92f.jpg",
-    isReaded: true,
-    date: new Date(),
-  },
-  {
-    username: "Carlos",
-    message: "commented on your post.",
-    profilePic:
-      "https://i.pinimg.com/280x280_RS/1a/97/fb/1a97fb82a413e531c71a642c89a85fee.jpg",
-    isReaded: false,
-    date: new Date(new Date().setHours(new Date().getHours() - 5)),
-  },
-  {
     username: "Maria",
     message: "liked your picture.",
     profilePic:
       "https://i.pinimg.com/280x280_RS/54/82/47/548247d1d9056e6484d74ac4078398cf.jpg",
     isReaded: true,
-    date: new Date(new Date().setDate(new Date().getDate() - 1)),
+    date: new Date(),
   },
   {
     username: "Pedro",
@@ -83,7 +35,7 @@ const notifications = [
     profilePic:
       "https://i.pinimg.com/280x280_RS/93/42/24/93422458cbc0fd5581195a54d2e7c27e.jpg",
     isReaded: false,
-    date: new Date(new Date().setDate(new Date().getDate() - 3)),
+    date: new Date(),
   },
 ];
 
@@ -133,10 +85,25 @@ const Notification = ({
 const NotificationsList = () => {
   const { setSectionOptions } = useSectionOptions();
   const { activeSection } = useActiveSection();
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
-    setSectionOptions(options);
-  }, [setSectionOptions]);
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768); // Punto de interrupción `md` (768px)
+    };
+
+    handleResize(); // Verificar al cargar
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Solo enviar opciones si la pantalla es menor a `md`
+    setSectionOptions(isSmallScreen ? options : []);
+  }, [isSmallScreen, setSectionOptions]);
 
   const filteredNotifications = notifications.filter((notification) => {
     if (activeSection === 0) {
