@@ -14,8 +14,10 @@ import SwapPost from "./components/SwapPost";
 import PostImage from "./components/PostImage";
 import PostContent from "./components/PostContent";
 import PostHeader from "./components/PostHeader";
+import { useSidebarRight } from "@/context/SidebarRightContext";
 
 const PostDetails = () => {
+  const { setIsSidebarRightVisible } = useSidebarRight();
   const { themeMode } = useTheme();
   const [videoThumbnail, setVideoThumbnail] = useState<string | null>(null);
   const [foundUrl, setFoundUrl] = useState<string | any>(null);
@@ -29,6 +31,7 @@ const PostDetails = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setIsSidebarRightVisible(true);
     setShowPostButton(false);
     setVideoThumbnail(null);
     if (postData?.type === "Text") {
@@ -135,8 +138,7 @@ const PostDetails = () => {
           )}
         </div>
 
-        {/* ADD COMMENT MOBILE SECTION */}
-        <CommentSectionMobile />
+        {postData?.type !== "Swap" ? <CommentSectionMobile /> : null}
       </div>
     </>
   );

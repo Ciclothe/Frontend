@@ -4,7 +4,7 @@ import { useTheme } from "@/context/ThemeContext";
 
 interface ProfileImageProps {
   profilePic?: string;
-  height?: string; // Optional height prop
+  height?: string;
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = ({

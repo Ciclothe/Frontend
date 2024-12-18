@@ -6,7 +6,7 @@ import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { usePostButton } from "@/context/CreatePostActive";
 import { ExplorerBanner } from "./components/ExplorerBanner";
 import Categories from "./components/Categories";
-import { RecommendedPost } from "./components/RecommendedPost";
+import { ExplorePosts } from "./components/ExplorePosts";
 
 const CategoriesTestData = [
   {
@@ -90,7 +90,7 @@ function ExploreView() {
       <div className="flex flex-col gap-4">
         <ExplorerBanner />
         <Categories data={CategoriesTestData} />
-        <RecommendedPost />
+        <ExplorePosts />
       </div>
     </div>
   );
