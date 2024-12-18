@@ -3,6 +3,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import Icon from "@mdi/react";
 import { mdiDotsVertical, mdiCircleSmall } from "@mdi/js";
 import PostOptions from "@/components/layout/PostOptions";
+import ProfileImage from "@/components/ui/ProfilePic";
 
 type PostHeaderProps = {
   postData: any;
@@ -45,10 +46,9 @@ const PostHeader: React.FC<PostHeaderProps> = ({ postData }) => {
     <div className="col-span-12 max-h-full flex gap-2 mx-4">
       {/* PROFILE PIC */}
       <div className="flex justify-center">
-        <LazyLoadImage
-          src={postData?.userData?.profilePicture}
-          alt="User pic"
-          className="rounded-full w-full h-7 aspect-square"
+        <ProfileImage
+          profilePic={postData?.userData?.profilePicture}
+          height={"1.5rem"}
         />
       </div>
       {/* USER DATA */}
