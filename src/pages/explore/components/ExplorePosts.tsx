@@ -248,6 +248,11 @@ export const ExplorePosts = () => {
                   </div>
                 </div>
               </div>
+              <hr
+                className={`col-span-12 my-4 md:hidden ${
+                  themeMode === "dark" ? "border-white/10" : "border-gray-500/1"
+                }`}
+              />
             </div>
           ))}
         </Masonry>
