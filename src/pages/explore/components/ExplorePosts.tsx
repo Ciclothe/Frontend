@@ -203,7 +203,7 @@ export const ExplorePosts = () => {
                         height={"1.5rem"}
                       />
                       <div className="flex items-center">
-                        <div className="hidden md:flex items-center opacity-50 capitalize">
+                        <div className="flex items-center opacity-50 capitalize">
                           <p className="flex items-center titleStyles">
                             {post?.userData?.location?.city},{" "}
                             {post?.userData?.location?.country}
@@ -219,7 +219,7 @@ export const ExplorePosts = () => {
                     <div
                       className={`${
                         likedPosts[post.id] ? "opacity-100" : "opacity-50"
-                      } hidden md:flex items-center justify-center cursor-pointer rounded-lg gap-1`}
+                      } flex items-center justify-center cursor-pointer rounded-lg gap-1`}
                       onClick={(e) => {
                         e.stopPropagation(), toggleLike(post.id);
                       }}
