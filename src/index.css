@@ -9,7 +9,7 @@ body {
   margin: 0;
   background-color: #0b0b0b;
   min-height: 100vh;
-  font-family: "helvetica";
+  font-family: "helvetica", sans-serif;
   font-size: 13px;
 }
 
@@ -244,10 +244,10 @@ button {
   text-overflow: ellipsis;
 }
 
-.descriptionStyles {
+.descriptionStylesPreview {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

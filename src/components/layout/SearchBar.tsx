@@ -5,16 +5,19 @@ import { mdiMagnify } from "@mdi/js";
 import { useTranslation } from "react-i18next";
 import { useSearch } from "@/context/SearchContext";
 import LocationCard from "@/components/common/LocationCard";
+import { useSidebarRight } from "@/context/SidebarRightContext";
 
 const SearchBar: React.FC = () => {
   const { themeMode } = useTheme();
   const { t } = useTranslation();
+  const { setIsSidebarRightVisible } = useSidebarRight();
 
   const { isSearching, setIsSearching, searchText, setSearchText } =
     useSearch();
 
   const handleFocus = () => {
     setIsSearching(true);
+    setIsSidebarRightVisible(true);
   };
 
   const handleBlur = () => {

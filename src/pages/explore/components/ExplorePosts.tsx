@@ -1,171 +1,80 @@
 import Masonry from "@mui/lab/Masonry";
-import ProfileImage from "@/components/ui/ProfilePic";
-import { useTheme } from "@/context/ThemeContext.js";
-import { Icon } from "@mdi/react";
-import { mdiCircleSmall } from "@mdi/js";
-import PostImage from "@/pages/feed/components/cards/PostImage";
-import HeartIcon from "@/assets/uiIcons/HeartIcon";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import PostCard from "@/pages/feed/components/PostCard";
 
 const postData = [
   {
     id: 1,
     type: "Swap",
+    createdAt: "2024-11-23T05:00:00Z",
     userData: {
-      userId: 1,
-      username: "johndoe",
+      username: "MisterX",
       profilePicture:
-        "https://i.pinimg.com/280x280_RS/49/17/b7/4917b743f77f549e0fa6a8dc98ff6716.jpg",
-      location: {
-        city: "Valencia",
-        country: "Spain",
-      },
-    },
-    garmentTitle: "Zapatillas Nike Air Max 97",
-    garmentCondition: "used",
-    garmentColor: "White",
-    garmentSize: "US 45",
-    garmentBrand: "Nike",
-    garmentImgs: [
-      {
-        src: "https://images1.vinted.net/t/03_00cfa_z194XqSvMvsjneuZHyZpao7G/f800/1722968174.jpeg?s=d0c8e397855b4cd8d9a46268b260601c39fd135f",
-        orientation: "square",
-      },
-      {
-        src: "https://images1.vinted.net/t/03_00cfa_z194XqSvMvsjneuZHyZpao7G/f800/1722968174.jpeg?s=d0c8e397855b4cd8d9a46268b260601c39fd135f",
-        orientation: "square",
-      },
-    ],
-    postAnalitics: {
-      likes: 100,
-      shares: 20,
-      saves: 10,
-      postLiked: true,
-      postShared: false,
-      postSaved: false,
-    },
-    createdAt: "2024-11-23T09:00:00Z",
-  },
-  {
-    id: 2,
-    type: "Swap",
-    userData: {
-      userId: 2,
-      username: "mahammad1901",
-      profilePicture:
-        "https://i.pinimg.com/280x280_RS/3f/82/b5/3f82b565f56bbd4993b3f435e53d7314.jpg",
+        "https://i.pinimg.com/75x75_RS/63/58/42/635842ca8a6895adc59e30761996cc12.jpg",
       location: {
         city: "Madrid",
         country: "Spain",
       },
     },
-    garmentTitle: "Puma feather light down jacket",
+    garmentTitle: "Hooded Bomber Jacket",
     garmentCondition: "as_new",
-    garmentColor: "Purple",
-    garmentSize: "S (Small)",
-    garmentBrand: "Puma",
+    garmentSize: "M (Medium)",
+    garmentBrand: "Trapstar",
+    garmentColor: "Black",
+    garmentDescription:
+      "• Super puffer jacket, used for 6 months but no longer my size 👌\n" +
+      "• Hood zipper needs repair (see last photo), that’s why it’s priced as it is\n" +
+      "• Keeps you warm, perfect for winter ❄️",
     garmentImgs: [
       {
-        src: "https://images1.vinted.net/t/04_0018f_jRetdbtKoL8UUhGULEz4Dkik/f800/1734024216.jpeg?s=dded4d04b3f20055acbdaad32c09a40cd8cb9689",
+        src: "https://images1.vinted.net/t/04_017c8_X6wmW3YofxA7FWy3izc4D9Nx/f800/1730917127.jpeg?s=aee6af5c500867852c68986eac21ace376ae6b4d",
         orientation: "portrait",
       },
       {
-        src: "https://images1.vinted.net/t/04_0018f_jRetdbtKoL8UUhGULEz4Dkik/f800/1734024216.jpeg?s=dded4d04b3f20055acbdaad32c09a40cd8cb9689",
+        src: "https://images1.vinted.net/t/04_024a1_cDq4Nvs1NXkoN7Qt1wsqFMBy/f800/1730917127.jpeg?s=db323a4f7e497112ce295d9f3810d0368ba3b62d",
+        orientation: "square",
+      },
+      {
+        src: "https://images1.vinted.net/t/02_01a04_JQx5vQr8FwZmzv1Jf8izuTPx/f800/1730917127.jpeg?s=c92619047aa7640c9731a526f7ed5f3af39702ad",
         orientation: "portrait",
+      },
+      {
+        src: "https://images1.vinted.net/t/03_01f3b_RMrZS9Yi49r9jHA2SXhZHxFq/f800/1730917127.jpeg?s=8b342fc8cb3345f5fbf06f7ae47285ab504b1504",
+        orientation: "landscapes",
+      },
+      {
+        src: "https://images1.vinted.net/t/02_001f1_dLWuVxtBGRvaLJw3n99nnUxm/f800/1730917127.jpeg?s=f333b75ad3db978b2ffcce0805e427cc755a9df6",
+        orientation: "portrait",
+      },
+      {
+        src: "https://images1.vinted.net/t/04_021a1_zJM9Rz6i6gAR9LNoSCYAos3j/f800/1730917127.jpeg?s=db18bf4d38ed9248d36d18354d5b1fbe6b65c6e9",
+        orientation: "landscapes",
       },
     ],
     postAnalitics: {
-      likes: 5,
-      shares: 0,
-      saves: 0,
+      likes: 745,
+      comments: 5,
+      shares: 4,
+      saves: 50,
       postLiked: false,
       postShared: false,
       postSaved: false,
+      swapOffered: false,
     },
-    createdAt: "2024-12-13T20:00:00Z",
-  },
-  {
-    id: 3,
-    type: "Swap",
-    userData: {
-      userId: 3,
-      username: "morrgannnnn",
-      profilePicture:
-        "https://i.pinimg.com/280x280_RS/1d/68/43/1d68434265b15fb69fd86cfbba8468d6.jpg",
-      location: {
-        city: "Valencia",
-        country: "Spain",
-      },
-    },
-    garmentTitle: "Bonnets Arcteryx Gris",
-    garmentCondition: "as_new",
-    garmentColor: "Gray",
-    garmentSize: "Unique",
-    garmentBrand: "Arcteryx",
-    garmentImgs: [
+    swapOffers: [
       {
-        src: "https://images1.vinted.net/t/01_00f83_os4fnjTfmyd4rVogaqCNS5Hn/f800/1733181847.jpeg?s=bd64615bcc20ca69bacad3d9a358a02e008e3fef",
-        orientation: "square",
-      },
-      {
-        src: "https://images1.vinted.net/t/01_00f83_os4fnjTfmyd4rVogaqCNS5Hn/f800/1733181847.jpeg?s=bd64615bcc20ca69bacad3d9a358a02e008e3fef",
-        orientation: "square",
+        username: "thomastomillo",
+        profilePicture:
+          "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
       },
     ],
-    postAnalitics: {
-      likes: 25,
-      shares: 5,
-      saves: 1,
-      postLiked: false,
-      postShared: false,
-      postSaved: true,
-    },
-    createdAt: "2024-12-10T09:00:00Z",
   },
 ];
 
 export const ExplorePosts = () => {
   const navigate = useNavigate();
-
-  const { themeMode } = useTheme();
-  const [likedPosts, setLikedPosts] = useState<Record<number, boolean>>(
-    Object.fromEntries(
-      postData.map((post) => [post.id, post.postAnalitics.postLiked])
-    )
-  );
-
   const { t } = useTranslation();
-
-  const toggleLike = (postId: number) => {
-    setLikedPosts((prev) => ({
-      ...prev,
-      [postId]: !prev[postId],
-    }));
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diff = Math.floor((now.getTime() - date.getTime()) / 1000); // segundos
-
-    const timeFormats = [
-      { unit: "year", value: Math.floor(diff / (60 * 60 * 24 * 365)) },
-      { unit: "month", value: Math.floor(diff / (60 * 60 * 24 * 30)) },
-      { unit: "week", value: Math.floor(diff / (60 * 60 * 24 * 7)) },
-      { unit: "day", value: Math.floor(diff / (60 * 60 * 24)) },
-      { unit: "hour", value: Math.floor(diff / (60 * 60)) },
-      { unit: "minute", value: Math.floor(diff / 60) },
-      { unit: "second", value: diff },
-    ];
-
-    const result = timeFormats.find(({ value }) => value > 0);
-    return result
-      ? `${result.value} ${result.unit}${result.value > 1 ? "s" : ""}`
-      : "just now";
-  };
-
   const redirectToPost = (post: any) => {
     const updatedPost = {
       ...post,
@@ -185,75 +94,11 @@ export const ExplorePosts = () => {
           spacing={{ xs: 1, lg: 2 }}
         >
           {postData.map((post) => (
-            <div key={post.id} onClick={() => redirectToPost(post)}>
-              <div
-                className={`${
-                  themeMode === "dark" ? "text-white" : "text-black"
-                } grid grid-cols-12 rounded-xl gap-2 cursor-pointer mb-2`}
-              >
-                <div className="col-span-12 grid grid-cols-12 gap-2">
-                  {/* <PostHeader data={post} /> */}
-                  <div className="relative col-span-12">
-                    <PostImage data={post} />
-                  </div>
-                  <div className="col-span-12 flex gap-4 justify-between items-center">
-                    <div className="flex gap-2">
-                      <ProfileImage
-                        profilePic={post?.userData?.profilePicture}
-                        height={"1.5rem"}
-                      />
-                      <div className="flex items-center">
-                        <div className="flex items-center opacity-50 capitalize">
-                          <p className="flex items-center titleStyles">
-                            {post?.userData?.location?.city},{" "}
-                            {post?.userData?.location?.country}
-                          </p>
-                          <Icon path={mdiCircleSmall} size={0.8} />
-                          <p className="titleStyles">
-                            {formatDate(post?.createdAt)}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Like Button */}
-                    <div
-                      className={`${
-                        likedPosts[post.id] ? "opacity-100" : "opacity-50"
-                      } flex items-center justify-center cursor-pointer rounded-lg gap-1`}
-                      onClick={(e) => {
-                        e.stopPropagation(), toggleLike(post.id);
-                      }}
-                    >
-                      <HeartIcon
-                        size={"1.3em"}
-                        colorFill={`#0DBC73`}
-                        colorStroke={`${
-                          themeMode === "dark" ? "#F1F1F1" : "#232323"
-                        }`}
-                        isSelected={likedPosts[post.id]}
-                      />
-                      <p
-                        className={`${
-                          likedPosts[post.id]
-                            ? "text-[#0DBC73]"
-                            : themeMode === "dark"
-                            ? "text-[#F1F1F1]"
-                            : "text-[#3A3A3A]"
-                        } font-bold`}
-                      >
-                        {post.postAnalitics.likes +
-                          (likedPosts[post.id] ? 1 : 0)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr
-                className={`col-span-12 my-4 md:hidden ${
-                  themeMode === "dark" ? "border-white/10" : "border-gray-500/1"
-                }`}
-              />
-            </div>
+            <PostCard
+              key={post.id}
+              data={post}
+              onClick={() => redirectToPost(post)}
+            />
           ))}
         </Masonry>
       </div>

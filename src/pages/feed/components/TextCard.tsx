@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PostInteractions from "./cards/PostInteractions";
+import PostInteractionsCard from "./cards/PostInteractionsCard";
 import { useTheme } from "@/context/ThemeContext.js";
 import PostHeader from "./cards/PostHeader";
 
@@ -97,7 +97,7 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
               <p className="font-bold text-[1.2em] titleStyles">
                 {data?.postTitle}
               </p>
-              <p className="opacity-50 descriptionStyles">
+              <p className="opacity-50 descriptionStylesPreview">
                 {data?.postDescription.split(" ").map((word, index) => {
                   if (word.match(/https?:\/\/[^\s]+/)) {
                     return (
@@ -128,7 +128,7 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
           </div>
         </div>
 
-        <PostInteractions data={data} />
+        <PostInteractionsCard data={data} />
 
         <hr
           className={`col-span-12 mt-4 md:hidden ${

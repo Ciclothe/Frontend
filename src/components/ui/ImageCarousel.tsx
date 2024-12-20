@@ -45,10 +45,10 @@ const ImageCarousel = ({
       <div
         className={`flex ${
           garmentImgs[currentIndex]?.orientation === "landscapes"
-            ? "aspect-[3/2] md:aspect-[16/9] w-full"
+            ? "aspect-[3/2] w-full"
             : garmentImgs[currentIndex]?.orientation === "square"
             ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
-            : "aspect-[2/3] md:aspect-[4/5] w-full md:w-auto md:h-full"
+            : "aspect-[4/5] w-full md:w-auto md:h-full"
         } ${isPostDetails ? "justify-center" : "justify-start"} w-full ${
           isPostDetails ? "max-h-[35em]" : "max-h-[40em]"
         }`}
@@ -59,7 +59,7 @@ const ImageCarousel = ({
               ? "aspect-[3/2] md:aspect-[16/9] w-full"
               : garmentImgs[currentIndex]?.orientation === "square"
               ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
-              : "aspect-[2/3] md:aspect-[4/5] w-full md:w-auto md:h-full"
+              : "aspect-[4/5] w-full md:w-auto md:h-full"
           }`}
         >
           <img
@@ -83,7 +83,7 @@ const ImageCarousel = ({
           </div>
           {/* SWAP DATA POST */}
           {!isPostDetails && (
-            <div className="hidden xl:block absolute bottom-0 w-full p-2 z-[100]">
+            <div className="block absolute bottom-0 w-full p-2 z-[100]">
               <SwapCard swapData={data} />
             </div>
           )}

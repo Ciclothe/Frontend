@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { Icon } from "@mdi/react";
-import { mdiCircleSmall, mdiDotsVertical } from "@mdi/js";
+import {
+  mdiCircleSmall,
+  mdiDotsVertical,
+  mdiCameraIris,
+  mdiThoughtBubble,
+} from "@mdi/js";
 import PostOptions from "@/components/layout/PostOptions";
+import { useTheme } from "@/context/ThemeContext.js";
+import Swapicon from "@/assets/icons/Swapicon";
 
 type PostHeaderProps = {
   data: any;
@@ -20,26 +27,78 @@ const formatDate = (dateString: string) => {
   const months = Math.floor(days / 30);
   const years = now.getFullYear() - date.getFullYear();
 
-  switch (true) {
-    case years > 0:
-      return date.getFullYear().toString();
-    case months > 0:
-      return `${months} ${months === 1 ? "month" : "months"}`;
-    case weeks > 0:
-      return `${weeks} ${weeks === 1 ? "week" : "weeks"}`;
-    case days > 0:
-      return `${days} ${days === 1 ? "day" : "days"}`;
-    case hours > 0:
-      return `${hours}h`;
-    case minutes > 0:
-      return `${minutes}m`;
-    default:
-      return `${seconds}s`;
-  }
+  if (years > 0) return date.getFullYear().toString();
+  if (months > 0) return `${months} ${months === 1 ? "month" : "months"}`;
+  if (weeks > 0) return `${weeks} ${weeks === 1 ? "week" : "weeks"}`;
+  if (days > 0) return `${days} ${days === 1 ? "day" : "days"}`;
+  if (hours > 0) return `${hours}h`;
+  if (minutes > 0) return `${minutes}m`;
+  return `${seconds}s`;
 };
 
 const PostHeader: React.FC<PostHeaderProps> = ({ data }) => {
   const [opened, setOpened] = useState(false);
+  const { themeMode } = useTheme();
+
+  // Render post type indicator
+  const renderPostTypeIndicator = () => {
+    const commonProps = `p-1 rounded-full ${
+      themeMode === "dark" ? "text-black" : "text-white"
+    }`;
+    switch (data?.type) {
+      case "Photo":
+        return (
+          <div className={`${commonProps} bg-[#8846F2]`}>
+            <Icon path={mdiCameraIris} size={0.5} />
+          </div>
+        );
+      case "Swap":
+        return (
+          <div className={`p-1 rounded-full bg-[#0DBC73]`}>
+            <Swapicon
+              size={"0.8em"}
+              color={themeMode === "dark" ? "black" : "white"}
+            />
+          </div>
+        );
+      case "Text":
+        return (
+          <div className={`${commonProps} bg-[#DF1E32]`}>
+            <Icon path={mdiThoughtBubble} size={0.5} />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  // Render community info if available
+  const renderCommunityInfo = () => {
+    if (data?.communityData) {
+      return (
+        <div className="flex items-center gap-1">
+          <img
+            src={data?.communityData.communityPicture}
+            alt="Community pic"
+            className="w-5 h-5 rounded-full"
+          />
+          <p className="opacity-50">/{data?.communityData.url}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Render location and date
+  const renderLocationAndDate = () => (
+    <div className="flex items-center opacity-50">
+      <p>
+        {data?.userData?.location?.city}, {data?.userData?.location?.country}
+      </p>
+      <Icon path={mdiCircleSmall} size={0.8} />
+      <p>{formatDate(data?.createdAt)}</p>
+    </div>
+  );
 
   return (
     <div className="col-span-12 grid grid-cols-12">
@@ -48,34 +107,11 @@ const PostHeader: React.FC<PostHeaderProps> = ({ data }) => {
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
             <p className="font-bold">@{data?.userData?.username}</p>
-            {data?.communityData && (
-              <div>
-                <div className="flex items-center gap-1">
-                  <img
-                    src={data?.communityData.communityPicture}
-                    alt="Community pic"
-                    className="w-5 h-5 rounded-full"
-                  />
-                  <p className="opacity-50">/{data?.communityData.url}</p>
-                </div>
-              </div>
-            )}
+            {renderPostTypeIndicator()}
+            {renderCommunityInfo()}
           </div>
-          <div className="flex items-center opacity-50">
-            <p>
-              {data?.userData?.location?.city},{" "}
-              {data?.userData?.location?.country}
-            </p>
-            <Icon path={mdiCircleSmall} size={0.8} />
-            <p>{formatDate(data?.createdAt)}</p>
-          </div>
+          {renderLocationAndDate()}
         </div>
-        {/* POST DESCRIPTION */}
-        {data?.type !== "Text" && (
-          <p className="descriptionStyles">
-            {data?.type === "Swap" ? "" : data?.postDescription}
-          </p>
-        )}
       </div>
 
       {/* Post Options (Dots) */}
