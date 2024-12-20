@@ -50,8 +50,8 @@ const MainLayout: FC = () => {
 
     if (Math.abs(currentScrollY - scrollY) >= scrollThreshold) {
       setShowHeader(currentScrollY <= scrollY);
-      setScrollY(currentScrollY);
     }
+    setScrollY(currentScrollY);
   }, [scrollY, scrollThreshold]);
 
   useEffect(() => {
