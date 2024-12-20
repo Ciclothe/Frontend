@@ -206,6 +206,7 @@ const testPosts = {
       id: 5,
       type: "Text",
       createdAt: "2024-11-23T09:00:00Z",
+      category: "Vintage",
       userData: {
         username: "MisterX",
         profilePicture:
@@ -245,6 +246,7 @@ const testPosts = {
     {
       id: 6,
       type: "Text",
+      category: "StreetWear",
       createdAt: "2024-11-23T07:20:00Z",
       userData: {
         username: "StreetStyleGuru",
