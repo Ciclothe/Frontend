@@ -67,8 +67,17 @@ const GarmentInfo: React.FC<GarmentInfoProps> = ({ postData }) => {
           }}
         >
           {/* Swap Icon */}
-          <Swapicon size={"1em"} color={"white"} />
-          <p className="font-bold">Swap</p>
+          <Swapicon
+            size={"1em"}
+            color={`${themeMode === "dark" ? "black" : "white"}`}
+          />
+          <p
+            className={`${
+              themeMode === "dark" ? "text-black" : "text-white"
+            } font-bold`}
+          >
+            Swap
+          </p>
         </button>
       </div>
     </>

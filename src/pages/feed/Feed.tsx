@@ -56,7 +56,7 @@ const testPosts = {
   following: [
     {
       id: 1,
-      type: "OutfitShowcase",
+      type: "Photo",
       createdAt: "2024-11-22T00:00:00Z",
       userData: {
         username: "MisterX",
@@ -81,18 +81,6 @@ const testPosts = {
         postShared: false,
         postSaved: true,
       },
-      swapData: {
-        offered: {
-          link: "https://www.amazon.com/EEPants",
-          coverImg:
-            "https://images1.vinted.net/t/04_00585_FtGP64tAq7toJToMuhRGohMi/f800/1730389722.jpeg?s=8d86ee31b9d4a54721bd598fb66d3d68ad0628a9",
-        },
-        obtained: {
-          link: "https://www.amazon.com/hoodie",
-          coverImg:
-            "https://images1.vinted.net/t/01_00674_rEcy8UXFctpwKXDqDCqZz1xY/f800/1709476134.jpeg?s=d81656aa53926c7a4d75d6d589384737203ff481",
-        },
-      },
       comments: [
         {
           username: "thomastomillo",
@@ -110,7 +98,7 @@ const testPosts = {
     },
     {
       id: 2,
-      type: "OutfitShowcase",
+      type: "Photo",
       createdAt: "2024-11-23T08:00:00Z",
       userData: {
         username: "MisterX",
@@ -146,60 +134,7 @@ const testPosts = {
             "https://images1.vinted.net/t/04_01bee_PdZZCTtFcTEB5K3ZKDcbK4BQ/f800/1731155171.jpeg?s=52bc114629b0bb2fe7dbfe49c8aee24595b8240f",
         },
       },
-      comments: [
-        {
-          username: "thomastomillo",
-          profilePicture:
-            "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
-          comment: "Damn !! thats a cool Hoodie my man",
-        },
-        {
-          username: "rforrever",
-          profilePicture:
-            "https://i.pinimg.com/280x280_RS/45/c0/51/45c0513b67958fadcfc29222b5e6a749.jpg",
-          comment: "Love it, bro!",
-        },
-      ],
-    },
-    {
-      id: 3,
-      type: "NotificationSwap",
-      createdAt: "2024-11-23T05:00:00Z",
-      postAnalitics: {
-        likes: 11,
-        comments: 1,
-        shares: 0,
-        saves: 0,
-        postLiked: true,
-        postShared: false,
-        postSaved: false,
-      },
-      swapData: {
-        offered: {
-          userName: "alejospinaro",
-          profilePicture:
-            "https://i.pinimg.com/75x75_RS/01/99/e6/0199e6920803750e09382d3ee75b13ad.jpg",
-          link: "https://www.amazon.com/EEPants",
-          coverImg:
-            "https://i.pinimg.com/736x/87/aa/71/87aa71cdda853a2e4bc784a7038364d8.jpg",
-        },
-        obtained: {
-          userName: "juansota",
-          profilePicture:
-            "https://i.pinimg.com/75x75_RS/f9/cc/19/f9cc192266f3273c6c5514148c59e2b2.jpg",
-          link: "https://www.amazon.com/hoodie",
-          coverImg:
-            "https://images1.vinted.net/t/01_00674_rEcy8UXFctpwKXDqDCqZz1xY/f800/1709476134.jpeg?s=d81656aa53926c7a4d75d6d589384737203ff481",
-        },
-      },
-      comments: [
-        {
-          username: "thomastomillo",
-          profilePicture:
-            "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
-          comment: "Nice swap!",
-        },
-      ],
+      comments: [],
     },
     {
       id: 4,
@@ -257,7 +192,15 @@ const testPosts = {
         postLiked: false,
         postShared: false,
         postSaved: false,
+        swapOffered: false,
       },
+      swapOffers: [
+        {
+          username: "thomastomillo",
+          profilePicture:
+            "https://i.pinimg.com/280x280_RS/d0/50/97/d0509778eb072559c48ae9dd0b8d96e3.jpg",
+        },
+      ],
     },
     {
       id: 5,

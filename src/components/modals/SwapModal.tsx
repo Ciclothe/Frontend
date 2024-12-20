@@ -194,7 +194,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                   </div>
                   <div className="relative col-span-5 sm:col-span-4">
                     <div
-                      className="flex items-center justify-between col-span-4  hover:cursor-pointer"
+                      className="flex items-center justify-between col-span-4 hover:cursor-pointer"
                       onClick={(e) => {
                         e.stopPropagation();
                         setShowPosts(!showPosts);
