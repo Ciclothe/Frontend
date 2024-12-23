@@ -102,49 +102,51 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
         <PostHeader data={data} />
         <div className="col-span-12 flex flex-col md:flex-row gap-2">
           <div
-            className={`flex-1 p-4 rounded-xl ${
+            className={`md:flex p-4 rounded-xl ${
               isDarkMode ? "bg-[#202020]" : "bg-[#F5F5F5]"
             }`}
           >
-            <p className="font-bold text-[1.2em] titleStyles">
-              {data.postTitle}
-            </p>
-            <p className="descriptionStylesPreview mt-4">
-              {data.postDescription.split(" ").map((word, index) =>
-                word.match(/https?:\/\/[^\s]+/) ? (
-                  <a
-                    key={index}
-                    href={word}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0DBC73] underline"
-                  >
-                    {word}
-                  </a>
-                ) : (
-                  ` ${word}`
-                )
-              )}
-            </p>
-            <div
-              className={`${
-                themeMode === "dark"
-                  ? "bg-[#413F3F] text-[#1C1C1C]"
-                  : "bg-[#E4E4E4] text-[#B3B3B5]"
-              } px-2 py-1 rounded-full mt-2 w-fit`}
-            >
-              <p>{data?.category}</p>
+            <div className="flex-1 justify-center">
+              <p className="font-bold text-[1.2em] titleStyles">
+                {data.postTitle}
+              </p>
+              <p className="descriptionStylesPreview mt-4">
+                {data.postDescription.split(" ").map((word, index) =>
+                  word.match(/https?:\/\/[^\s]+/) ? (
+                    <a
+                      key={index}
+                      href={word}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#0DBC73] underline"
+                    >
+                      {word}
+                    </a>
+                  ) : (
+                    ` ${word}`
+                  )
+                )}
+              </p>
+              <div
+                className={`${
+                  themeMode === "dark"
+                    ? "bg-[#413F3F] text-[#1C1C1C]"
+                    : "bg-[#E4E4E4] text-[#B3B3B5]"
+                } px-2 py-1 rounded-full mt-2 w-fit`}
+              >
+                <p>{data?.category}</p>
+              </div>
             </div>
+            {videoThumbnail && (
+              <div className="aspect-[3/2] md:w-[8em] md:max-w-[8em] w-full">
+                <img
+                  src={videoThumbnail}
+                  alt="Video thumbnail"
+                  className="w-full h-full object-cover rounded-lg"
+                />
+              </div>
+            )}
           </div>
-          {videoThumbnail && (
-            <div className="aspect-[16/9] md:w-[8em] md:max-w-[8em] w-full">
-              <img
-                src={videoThumbnail}
-                alt="Video thumbnail"
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-          )}
         </div>
       </div>
 
