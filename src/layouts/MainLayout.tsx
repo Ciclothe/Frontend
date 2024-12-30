@@ -10,6 +10,7 @@ import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { useDynamicView } from "@/context/DynamicViewContext";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { useHeaderVisibility } from "@/context/HeaderVisibilityContext";
 
 import MenuDesktop from "@/components/layout/MenuDesktop";
 import MenuMobile from "@/components/layout/MenuMobile";
@@ -40,6 +41,7 @@ const MainLayout: FC = () => {
   const { hasScroll } = useLayoutScroll();
   const { showDynamicView } = useDynamicView();
   const { isSidebarRightVisible } = useSidebarRight();
+  const { isVisible } = useHeaderVisibility();
 
   const location = useLocation();
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
@@ -182,19 +184,21 @@ const MainLayout: FC = () => {
                   <SectionSwitcher options={sectionOptions} />
                 </div>
               ) : (
-                <div
-                  className={`hidden xl:flex sticky transition-all ${
-                    showHeader ? "" : "hidden"
-                  } ${hasScroll ? "" : "hidden xl:flex"} justify-between`}
-                >
-                  <div className={`pt-[1.5em] w-[63%]`}>
-                    <SearchBar />
-                    <SectionSwitcher options={sectionOptions} />
+                isVisible && (
+                  <div
+                    className={`hidden xl:flex sticky transition-all ${
+                      showHeader ? "" : "hidden"
+                    } ${hasScroll ? "" : "hidden xl:flex"} justify-between`}
+                  >
+                    <div className="pt-[1.5em] w-[63%]">
+                      <SearchBar />
+                      <SectionSwitcher options={sectionOptions} />
+                    </div>
+                    <div className="w-[28%]">
+                      <HeaderActionDesktop />
+                    </div>
                   </div>
-                  <div className="w-[28%]">
-                    <HeaderActionDesktop />
-                  </div>
-                </div>
+                )
               )}
             </div>
           )}

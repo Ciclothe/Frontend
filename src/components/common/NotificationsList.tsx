@@ -89,10 +89,10 @@ const NotificationsList = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 768); // Punto de interrupción `md` (768px)
+      setIsSmallScreen(window.innerWidth < 768);
     };
 
-    handleResize(); // Verificar al cargar
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -101,8 +101,9 @@ const NotificationsList = () => {
   }, []);
 
   useEffect(() => {
-    // Solo enviar opciones si la pantalla es menor a `md`
-    setSectionOptions(isSmallScreen ? options : []);
+    if (isSmallScreen) {
+      setSectionOptions(options);
+    }
   }, [isSmallScreen, setSectionOptions]);
 
   const filteredNotifications = notifications.filter((notification) => {
