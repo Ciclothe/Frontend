@@ -23,6 +23,7 @@ import { MobileMenuProvider } from "@/context/MobileMenuContext";
 import { LayoutScrollProvider } from "@/context/LayoutScrollContext ";
 import { DynamicViewProvider } from "@/context/DynamicViewContext";
 import { SidebarRightProvider } from "@/context/SidebarRightContext";
+import { HeaderVisibilityProvider } from "@/context/HeaderVisibilityContext";
 
 interface AppProvidersProps {
   children: ReactNode;
@@ -31,31 +32,33 @@ interface AppProvidersProps {
 const AppProviders = ({ children }: AppProvidersProps) => {
   return (
     <I18nextProvider i18n={i18n}>
-      <MobileMenuProvider>
-        <SidebarRightProvider>
-          <DynamicViewProvider>
-            <LayoutScrollProvider>
-              <SearchProvider>
-                <SearchLocationProvider>
-                  <SectionOptionsProvider>
-                    <SwapProvider>
-                      <CreatePostActive>
-                        <ActiveSectionProvider>
-                          <UserProvider>
-                            <UserDataProvider>
-                              <ThemeProvider>{children}</ThemeProvider>
-                            </UserDataProvider>
-                          </UserProvider>
-                        </ActiveSectionProvider>
-                      </CreatePostActive>
-                    </SwapProvider>
-                  </SectionOptionsProvider>
-                </SearchLocationProvider>
-              </SearchProvider>
-            </LayoutScrollProvider>
-          </DynamicViewProvider>
-        </SidebarRightProvider>
-      </MobileMenuProvider>
+      <HeaderVisibilityProvider>
+        <MobileMenuProvider>
+          <SidebarRightProvider>
+            <DynamicViewProvider>
+              <LayoutScrollProvider>
+                <SearchProvider>
+                  <SearchLocationProvider>
+                    <SectionOptionsProvider>
+                      <SwapProvider>
+                        <CreatePostActive>
+                          <ActiveSectionProvider>
+                            <UserProvider>
+                              <UserDataProvider>
+                                <ThemeProvider>{children}</ThemeProvider>
+                              </UserDataProvider>
+                            </UserProvider>
+                          </ActiveSectionProvider>
+                        </CreatePostActive>
+                      </SwapProvider>
+                    </SectionOptionsProvider>
+                  </SearchLocationProvider>
+                </SearchProvider>
+              </LayoutScrollProvider>
+            </DynamicViewProvider>
+          </SidebarRightProvider>
+        </MobileMenuProvider>
+      </HeaderVisibilityProvider>
     </I18nextProvider>
   );
 };
