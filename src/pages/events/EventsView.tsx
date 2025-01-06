@@ -190,12 +190,15 @@ function EventsView() {
         {events.map((event) => (
           <div
             key={event.id}
-            className={`col-span-12 sm:col-span-6 xl:col-span-4 min-h-[20em] w-full items-center rounded-2xl p-4 flex flex-col justify-between`}
+            className={`${
+              themeMode === "dark" ? "hover:bg-[#1E1E1E]" : "hover:bg-[#F7F7F7]"
+            } col-span-12 cursor-pointer sm:col-span-6 xl:col-span-4 w-full items-center rounded-2xl p-4 flex flex-col justify-between`}
             style={{
-              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(${event.eventPic})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
+              border: `0.5px solid ${
+                themeMode === "dark"
+                  ? "rgba(255, 255, 255, 0.1)"
+                  : "rgba(140, 140, 140, 0.1)"
+              }`,
             }}
           >
             <div className="w-full">
@@ -239,7 +242,7 @@ function EventsView() {
                 </div>
               </div>
             </div>
-            <div className="w-full">
+            <div className="w-full mt-10">
               <div className={`items-center gap-4 justify-center flex`}>
                 <div className="text-center">
                   <p className="text-[1.2em] font-bold">{event.category}</p>
