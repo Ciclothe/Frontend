@@ -107,6 +107,13 @@
     "Categories": "Categories",
     "YourStyle": "Your Style"
   },
+  "EventsView": {
+    "CloseToYou": "Close to you",
+    "Members": "Members",
+    "Garments": "Garments",
+    "ViewEvent": "View Event",
+    "Join": "Join"
+  },
   "Notification": {
     "Notifications": "Notifications",
     "notifications": "notifications",

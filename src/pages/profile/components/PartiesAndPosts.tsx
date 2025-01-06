@@ -10,7 +10,7 @@ import {
 import Swapicon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext";
 
-function PartiesAndPosts({ userActivities }) {
+function PartiesAndPosts({ userActivities }: any) {
   const [selectedEvent, setSelectedEvent] = useState(0);
   const { themeMode } = useTheme();
 
@@ -33,9 +33,9 @@ function PartiesAndPosts({ userActivities }) {
   };
 
   return (
-    <div className="py-5 flex flex-col gap-2 w-full">
+    <div className="md:py-5 flex flex-col gap-2 w-full">
       <div className="flex font-bold gap-2 w-full justify-center">
-        <ul className="flex w-[30%]">
+        <ul className="flex w-full md:w-[30%]">
           <li
             onClick={() => handleClick(0)}
             className={`cursor-pointer transition-opacity pt-2 w-[50%] flex justify-center ${
@@ -68,7 +68,7 @@ function PartiesAndPosts({ userActivities }) {
             {userActivities.parties.map((party: any, index: number) => (
               <div
                 key={index}
-                className="flex flex-col m-2 gap-2 cursor-pointer w-[20vw] px-4 rounded-xl"
+                className="flex flex-col m-2 gap-2 cursor-pointer w-full md:w-[20vw] px-4 rounded-xl"
                 style={{
                   border: `0.5px solid ${
                     themeMode === "dark"
@@ -86,7 +86,7 @@ function PartiesAndPosts({ userActivities }) {
                           {party.participants
                             .slice(0, 3)
                             .map((participant: any, i: number) => (
-                              <div key={i} className="relative">
+                              <div key={i} className="relative ml-[-5px]">
                                 <img
                                   src={participant?.profilePic}
                                   className="rounded-full h-5 w-5 object-cover"
@@ -97,7 +97,7 @@ function PartiesAndPosts({ userActivities }) {
 
                           {/* Mostrar el número de usuarios restantes */}
                           {party.participants.length > 3 && (
-                            <div className="flex items-center justify-center rounded-full bg-[#EEEEEE] h-5 w-5 text-center text-sm text-black">
+                            <div className="flex ml-[-5px] z-[100] items-center justify-center rounded-full bg-[#EEEEEE] h-5 w-5 text-center text-sm text-black">
                               <p className="text-[8px] font-bold">
                                 +{party.participants.length - 3}
                               </p>
@@ -107,7 +107,7 @@ function PartiesAndPosts({ userActivities }) {
                         <p className="font-bold">{party?.createdBy}</p>
                       </div>
                       {/* Capacidad */}
-                      <div className="flex items-center gap-1 text-[#1B6B44]">
+                      <div className="flex items-center gap-1 text-[#0DBC73]">
                         <Icon
                           path={mdiAccountGroup}
                           size={0.8}
@@ -157,11 +157,11 @@ function PartiesAndPosts({ userActivities }) {
             ))}
           </div>
         ) : (
-          <div className="flex w-full gap-2">
+          <div className="flex-col flex sm:flex-row w-full gap-2">
             {userActivities.closet.map((post: any, index: any) => (
               <div
                 key={index}
-                className="rounded-xl p-3 relative"
+                className="w-full sm:w-fit rounded-xl p-3 relative"
                 style={{
                   border: `0.5px solid ${
                     themeMode === "dark"

@@ -105,6 +105,13 @@
     "Categories": "Catégories",
     "YourStyle": "Ton Style"
   },
+  "EventsView": {
+    "CloseToYou": "Près de chez vous",
+    "Members": "Membres",
+    "Garments": "Vêtements",
+    "ViewEvent": "Voir l'événement",
+    "Join": "Rejoindre"
+  },
   "Notification": {
     "Notifications": "Notifications",
     "notifications": "notifications",

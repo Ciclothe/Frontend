@@ -7,6 +7,7 @@ import { usePostButton } from "@/context/CreatePostActive";
 import { ExplorerBanner } from "./components/ExplorerBanner";
 import Categories from "./components/Categories";
 import { ExplorePosts } from "./components/ExplorePosts";
+import { useHeaderVisibility } from "@/context/HeaderVisibilityContext";
 
 const CategoriesTestData = [
   {
@@ -72,10 +73,13 @@ function ExploreView() {
   const { setSectionOptions } = useSectionOptions();
   const { setHasScroll } = useLayoutScroll();
   const { setShowPostButton } = usePostButton();
+  const { toggleVisibility } = useHeaderVisibility();
 
   useEffect(() => {
     setHasScroll(true);
     setShowPostButton(true);
+    toggleVisibility(true);
+
     if (isSidebarRightVisible) {
       setIsSidebarRightVisible(false);
     }
@@ -86,7 +90,7 @@ function ExploreView() {
   }, [setSectionOptions]);
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full px-4 md:px-0">
       <div className="flex flex-col gap-4">
         <ExplorerBanner />
         <Categories data={CategoriesTestData} />

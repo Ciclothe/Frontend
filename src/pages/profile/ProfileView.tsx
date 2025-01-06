@@ -239,7 +239,7 @@ const userData = {
   },
 };
 
-function Profile() {
+function ProfileView() {
   const { isSidebarRightVisible, setIsSidebarRightVisible } = useSidebarRight();
   const { setHasScroll } = useLayoutScroll();
   const { setSectionOptions } = useSectionOptions();
@@ -255,16 +255,16 @@ function Profile() {
   }, []);
 
   return (
-    <div className="flex flex-col flex flex-grow py-6">
+    <div className="flex flex-col flex flex-grow md:py-6">
       <HeaderPicture
         coverPic={userData?.coverPic}
         location={userData?.location}
       />
-      <div className="mt-[-10px]">
+      <div className="mt-[-10px] px-4 md:px-0">
         <ContentProfile userData={userData} />
       </div>
     </div>
   );
 }
 
-export default Profile;
+export default ProfileView;

@@ -10,7 +10,8 @@ import CreateAccount from "@/components/views/CreateAccount";
 import SignIn from "@/components/views/SignIn";
 import MainLayout from "@/layouts/MainLayout";
 import PostDetails from "@/pages/post/PostDetails";
-import Profile from "@/pages/profile/Profile";
+import ProfileView from "@/pages/profile/ProfileView";
+import EventsView from "@/pages/events/EventsView";
 
 function RoutesViews() {
   return (
@@ -22,7 +23,9 @@ function RoutesViews() {
         <Route path="/swipes" element={<SwipeView />} />
         <Route path="/explore" element={<ExploreView />} />
         <Route path="/post/:username" element={<PostDetails />} />
-        <Route path="/profile" element={<Profile />} />
+        {/* //TODO: Add a token to the profile url /profile/${token} */}
+        <Route path="/profile" element={<ProfileView />} />
+        <Route path="/events" element={<EventsView />} />
       </Route>
 
       {/* Routes for Authentication */}
