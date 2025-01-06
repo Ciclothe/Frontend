@@ -103,6 +103,13 @@
     "Categories": "Kategorien",
     "YourStyle": "Dein Stil"
   },
+  "EventsView": {
+    "CloseToYou": "In Ihrer Nähe",
+    "Members": "Mitglieder",
+    "Garments": "Kleidung",
+    "ViewEvent": "Veranstaltung anzeigen",
+    "Join": "Beitreten"
+  },
   "Product": {
     "Description": {
       "Size": "Größe",

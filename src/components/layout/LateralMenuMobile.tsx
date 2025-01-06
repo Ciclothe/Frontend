@@ -14,6 +14,7 @@ import ModeSwitch from "@/components/ui/ThemeSwitch";
 import LanguageSwitch from "@/components/ui/LanguageSwitch";
 import { useMobileMenu } from "@/context/MobileMenuContext";
 import LocationCard from "@/components/common/LocationCard";
+import { Link } from "react-router-dom";
 
 const LateralMenuMobile = () => {
   const { themeMode } = useTheme();
@@ -66,7 +67,9 @@ const LateralMenuMobile = () => {
           >
             <div>
               <div className="flex justify-between items-center">
-                <ProfileImage profilePic={user?.profilePhoto} />
+                <Link to={"/profile"}>
+                  <ProfileImage profilePic={user?.profilePhoto} />
+                </Link>
                 <LanguageSwitch onlyFlag={false} position={"right"} />
               </div>
               <div className="mt-2">

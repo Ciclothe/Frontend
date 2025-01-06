@@ -5,16 +5,16 @@ import { useTheme } from "@/context/ThemeContext";
 //! STYLES
 import "../Profile.css";
 
-function UserInformation({ userData }) {
+function UserInformation({ userData }: any) {
   const { themeMode } = useTheme();
 
   return (
     <div className="py-5 flex flex-col gap-2 justify-center items-center">
-      <div className="text-center max-w-[55%]">
+      <div className="text-center md:max-w-[55%]">
         <p className="font-bold userName text-[1.5em]">@{userData.userName}</p>
         <p className="opacity-70 mt-2">{userData.description}</p>
       </div>
-      <div className="flex w-full justify-between max-w-[45%] my-2">
+      <div className="flex w-full justify-between md:max-w-[45%] my-2">
         <div className="flex flex-col items-center">
           <div className="flex">
             {userData.followers.map(
@@ -121,14 +121,14 @@ function UserInformation({ userData }) {
           <p className="font-bold text-[#0DBC73]">Parties</p>
         </div>
       </div>
-      <div className="flex gap-4 items-center justify-center">
+      <div className="flex gap-4 items-center justify-center w-full">
         <button
           className={`${
             themeMode === "dark" ? "bg-white text-black" : "bg-black text-white"
           } font-bold flex items-center justify-center gap-2 px-8`}
         >
           <Icon path={mdiPencil} className="icon" />
-          Edit Profile
+          <p className="hidden md:block">Edit Profile</p>
         </button>
         <button
           className={`${
@@ -136,7 +136,7 @@ function UserInformation({ userData }) {
           } font-bold flex items-center justify-center gap-2 px-8`}
         >
           <Icon path={mdiShareVariant} className="icon" />
-          Share Profile
+          <p className="hidden md:block">Share Profile</p>
         </button>
       </div>
     </div>

@@ -211,7 +211,9 @@ const MainLayout: FC = () => {
               className={`${
                 hasScroll
                   ? showPostButton
-                    ? "md:mt-[9em] xl:mt-[0em]"
+                    ? !sectionOptions.length
+                      ? "mt-[1em] md:mt-[6em] xl:mt-[0em]"
+                      : "mt-[1em] md:mt-[9em] xl:mt-[0em]"
                     : ""
                   : ""
               } flex-grow`}

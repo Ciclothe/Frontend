@@ -3,7 +3,7 @@ import UserInformation from "./UserInformation";
 import PartiesAndPosts from "./PartiesAndPosts";
 import { useTheme } from "@/context/ThemeContext";
 
-function ContentProfile({ userData }) {
+function ContentProfile({ userData }: any) {
   const { themeMode } = useTheme();
 
   return (
@@ -12,7 +12,7 @@ function ContentProfile({ userData }) {
         themeMode === "dark"
           ? "md:bg-[#0B0B0B] text-white"
           : "md:bg-white text-black"
-      } rounded-xl relative p-5 flex flex-col items-center`}
+      } rounded-xl relative md:p-5 flex flex-col items-center`}
     >
       <div className="w-fit">
         <ProfilePhoto profilePic={userData.profilePic} />

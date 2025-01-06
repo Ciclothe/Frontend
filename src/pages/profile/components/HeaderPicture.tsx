@@ -2,12 +2,12 @@ import Icon from "@mdi/react";
 import { mdiMapMarker } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext";
 
-function HeaderPicture({ coverPic, location }) {
+function HeaderPicture({ coverPic, location }: any) {
   const { themeMode } = useTheme();
 
   return (
     <div
-      className={`w-full h-[50vh] rounded-t-xl bg-cover bg-center relative`}
+      className={`w-full h-[50vh] md:rounded-t-xl bg-cover bg-center relative`}
       style={{ backgroundImage: `url(${coverPic})` }}
     >
       {/* Gradient Overlay */}

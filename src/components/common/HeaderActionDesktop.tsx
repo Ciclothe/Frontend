@@ -5,6 +5,7 @@ import { mdiBellOutline } from "@mdi/js";
 import NotificationBanner from "@/components/common/NotificationBanner";
 import ProfileImage from "@/components/ui/ProfilePic";
 import { useUserData } from "@/context/UserDataContext";
+import { Link } from "react-router-dom";
 
 const HeaderActionDesktop = () => {
   const { user } = useUserData();
@@ -32,9 +33,11 @@ const HeaderActionDesktop = () => {
           </div>
         </ClickAwayListener>
         {/* PROFILE BUTTON */}
-        <div className="hidden md:block">
-          <ProfileImage profilePic={user?.profilePhoto} />
-        </div>
+        <Link to={"/profile"}>
+          <div className="hidden md:block">
+            <ProfileImage profilePic={user?.profilePhoto} />
+          </div>
+        </Link>
       </div>
     </div>
   );
