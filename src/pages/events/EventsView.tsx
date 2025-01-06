@@ -3,7 +3,7 @@ import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useEffect, useState } from "react";
 import ProfileImage from "@/components/ui/ProfilePic";
 import { Icon } from "@mdi/react";
-import { mdiCircleSmall, mdiCheckDecagram } from "@mdi/js";
+import { mdiCheckDecagram } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { usePostButton } from "@/context/CreatePostActive";
@@ -25,61 +25,150 @@ function EventsView() {
   const events = [
     {
       id: 1,
-      profilePic: "",
-      username: "/VintageVibes",
-      description: "Vintage Clothing",
+      eventName: "VintageVibes",
+      eventPic:
+        "https://i.pinimg.com/736x/89/42/7b/89427b6937dc02ce04bd6802f36cff93.jpg",
+      category: "Vintage",
       date: "04 January 2025",
       location: "Calle de miquel paredes 24",
       members: { current: 25, total: 80 },
       garments: 20,
       verified: false,
+      participants: [
+        {
+          userId: 1,
+          userName: "lielcita1230",
+          profilePic:
+            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+        },
+        {
+          userId: 2,
+          userName: "marcRios24",
+          profilePic:
+            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+        },
+        {
+          userId: 3,
+          userName: "jorgeTD",
+          profilePic:
+            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+        },
+        {
+          userId: 4,
+          userName: "Maria_goya",
+          profilePic:
+            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+        },
+      ],
+      saved: false,
     },
     {
       id: 2,
-      profilePic:
-        "https://i.pinimg.com/736x/45/88/7e/45887ebc2b7eab92a66c1e27e569ce93.jpg",
-      username: "/RetroArt",
-      description: "Retro Art Pieces",
-      date: "10 Jan",
-      location: "Av. de la Paz",
-      members: { current: 40, total: 100 },
-      garments: 15,
-      verified: false,
+      eventName: "Urban Explorers",
+      eventPic:
+        "https://i.pinimg.com/736x/b0/74/b0/b074b08427f6b27ce054a2737aa336da.jpg",
+      category: "Streetwear",
+      date: "10 January 2025",
+      location: "Avenida del Arte 52",
+      members: { current: 45, total: 100 },
+      garments: 35,
+      verified: true,
+      participants: [
+        {
+          userId: 5,
+          userName: "explorerX",
+          profilePic:
+            "https://i.pinimg.com/736x/64/77/62/647762393c7ce848b7b451b6f94bc8de.jpg",
+        },
+        {
+          userId: 6,
+          userName: "citywanderer",
+          profilePic:
+            "https://i.pinimg.com/736x/64/77/62/647762393c7ce848b7b451b6f94bc8de.jpg",
+        },
+      ],
+      saved: true,
     },
     {
       id: 3,
-      profilePic:
-        "https://i.pinimg.com/736x/62/e2/26/62e22644e818ca0c37a81982a43ed6d0.jpg",
-      username: "/UrbanThreads",
-      description: "Urban Clothing",
-      date: "15 Jan",
-      location: "Calle Mayor",
-      members: { current: 60, total: 120 },
-      garments: 30,
+      eventName: "Classic Couture",
+      eventPic:
+        "https://i.pinimg.com/736x/ff/bc/db/ffbcdbf226806a31708e6c601f4ce464.jpg",
+      category: "Formal",
+      date: "18 January 2025",
+      location: "Boulevard de la Moda 10",
+      members: { current: 15, total: 50 },
+      garments: 10,
       verified: true,
+      participants: [
+        {
+          userId: 7,
+          userName: "suitlover",
+          profilePic:
+            "https://i.pinimg.com/736x/00/07/cc/0007cc15239017d80fbef9de83a70f8f.jpg",
+        },
+      ],
+      saved: false,
     },
     {
       id: 4,
-      profilePic:
-        "https://i.pinimg.com/736x/21/94/6b/21946b99faa27180d0f372b39b6d19a2.jpg",
-      username: "/ClassicLines",
-      description: "Classic Styles",
-      date: "20 Jan",
-      location: "Plaza Central",
-      members: { current: 75, total: 90 },
-      garments: 25,
-      verified: true,
+      eventName: "Eco Fashion Fest",
+      eventPic:
+        "https://i.pinimg.com/736x/34/e9/f2/34e9f260eb8743ff49b63c800eb30b1f.jpg",
+      category: "Sustainable",
+      date: "22 January 2025",
+      location: "Plaza Verde 15",
+      members: { current: 30, total: 75 },
+      garments: 50,
+      verified: false,
+      participants: [
+        {
+          userId: 8,
+          userName: "ecoWarrior",
+          profilePic:
+            "https://i.pinimg.com/736x/e9/d9/7f/e9d97f5f46ad1e3c9ae91afa64056150.jpg",
+        },
+        {
+          userId: 9,
+          userName: "greenQueen",
+          profilePic:
+            "https://i.pinimg.com/736x/e9/d9/7f/e9d97f5f46ad1e3c9ae91afa64056150.jpg",
+        },
+      ],
+      saved: true,
     },
     {
       id: 5,
-      profilePic: "",
-      username: "/BoldFashion",
-      description: "Bold Fashion Statements",
-      date: "25 Jan",
-      location: "Gran Vía",
-      members: { current: 50, total: 70 },
-      garments: 40,
+      eventName: "Summer Splash Style",
+      eventPic:
+        "https://i.pinimg.com/736x/5d/be/3f/5dbe3f5f6acf415a820e4235fe76af4b.jpg",
+      category: "Casual",
+      date: "28 January 2025",
+      location: "Paseo del Sol 22",
+      members: { current: 60, total: 100 },
+      garments: 25,
       verified: false,
+      participants: [
+        {
+          userId: 10,
+          userName: "sunnyDays",
+          profilePic:
+            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
+        },
+        {
+          userId: 11,
+          userName: "beachBum",
+          profilePic:
+            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
+        },
+        {
+          userId: 12,
+          userName: "poolParty",
+          profilePic:
+            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
+        },
+      ],
+      saved: false,
     },
   ];
 
@@ -101,78 +190,63 @@ function EventsView() {
         {events.map((event) => (
           <div
             key={event.id}
-            className={`col-span-6 sm:col-span-3 md:col-span-6 lg:col-span-4 ${
-              isHoverCard === event.id ? "text-center relative z-[100]" : ""
-            } w-full items-center`}
-            onMouseEnter={() => setIsHoverCard(event.id)}
-            onMouseLeave={() => setIsHoverCard(null)}
+            className={`col-span-12 sm:col-span-6 xl:col-span-4 min-h-[20em] w-full items-center rounded-2xl p-4 flex flex-col justify-between`}
+            style={{
+              backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url(${event.eventPic})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
           >
-            <div
-              className={`${
-                themeMode === "dark" ? "bg-[#1E1E1E]" : "bg-[#F7F7F7]"
-              } px-2 py-4 flex flex-col rounded-2xl w-full ${
-                isHoverCard === event.id
-                  ? "absolute top-0 md:gap-3 left-0 text-center items-center justify-center"
-                  : "relative"
-              } `}
-            >
-              {event.verified && (
-                <Icon
-                  path={mdiCheckDecagram}
-                  size={0.8}
-                  className="absolute right-2 top-2 text-[#0DBC73]"
-                />
-              )}
-              <div
-                className={`${
-                  isHoverCard === event.id ? "block" : "flex items-center"
-                } justify-between w-full`}
-              >
-                <div
-                  className={`w-full ${
-                    isHoverCard === event.id ? "block" : "md:flex gap-2"
-                  }`}
+            <div className="w-full">
+              <div className="flex w-full justify-between items-center">
+                <p
+                  className="text-[1.1em]"
+                  style={{
+                    fontFamily: "droid-serif",
+                    fontWeight: 700,
+                    fontStyle: "italic",
+                  }}
                 >
-                  <div className="flex justify-center">
-                    <ProfileImage profilePic={event.profilePic} />
-                  </div>
-                  <div
-                    className={`w-full ${
-                      isHoverCard === event.id
-                        ? "text-center"
-                        : "text-center md:text-start md:pl-2"
-                    }`}
-                  >
-                    <p className="font-bold">{event.username}</p>
-                    <p className="opacity-50 w-full whitespace-nowrap overflow-hidden text-ellipsis">
-                      {event.description}
-                    </p>
-                  </div>
+                  {event.eventName}
+                </p>
+                {event.verified && (
+                  <Icon
+                    path={mdiCheckDecagram}
+                    size={0.8}
+                    className="text-[#0DBC73]"
+                  />
+                )}
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <div
+                  className={`${
+                    themeMode === "dark"
+                      ? "bg-[#F7F7F7] text-black"
+                      : "bg-[#171717] text-white"
+                  }  px-3 flex items-center justify-center cursor-pointer rounded-full gap-2 w-fit`}
+                >
+                  <p>{event.date}</p>
                 </div>
                 <div
                   className={`${
-                    isHoverCard === event.id ? "hidden md:flex" : "hidden"
-                  } opacity-50 flex`}
+                    themeMode === "dark"
+                      ? "bg-[#F7F7F7] text-black"
+                      : "bg-[#171717] text-white"
+                  }  px-3 flex items-center justify-center cursor-pointer rounded-full gap-2 w-fit`}
                 >
-                  <p
-                    className={`w-[50%] text-end whitespace-nowrap overflow-hidden text-ellipsis`}
-                  >
-                    {event.date}
-                  </p>
-                  <Icon path={mdiCircleSmall} size={0.8} />
-                  <p
-                    className={`w-[50%] text-start whitespace-nowrap overflow-hidden text-ellipsis `}
-                  >
-                    {event.location}
-                  </p>
+                  <p>{event.location}</p>
                 </div>
               </div>
-              <div
-                className={`items-center gap-4 justify-center ${
-                  isHoverCard === event.id ? "hidden md:flex" : "hidden"
-                }`}
-              >
-                <div>
+            </div>
+            <div className="w-full">
+              <div className={`items-center gap-4 justify-center flex`}>
+                <div className="text-center">
+                  <p className="text-[1.2em] font-bold">{event.category}</p>
+                  <p className="opacity-50">{t("EventsView.Category")}</p>
+                </div>
+                <div className={`w-[2px] h-5 bg-white/50`}></div>
+                <div className="text-center">
                   <p className="text-[1.2em] font-bold">
                     <span className="opacity-50">{event.members.current}</span>/
                     {event.members.total}
@@ -180,35 +254,44 @@ function EventsView() {
                   <p className="opacity-50">{t("EventsView.Members")}</p>
                 </div>
                 <div className={`w-[2px] h-5 bg-white/50`}></div>
-                <div>
+                <div className="text-center">
                   <p className="text-[1.2em] font-bold">{event.garments}</p>
                   <p className="opacity-50">{t("EventsView.Garments")}</p>
                 </div>
               </div>
-              <div
-                className={`${
-                  isHoverCard === event.id ? "grid" : "grid md:hidden"
-                } grid-cols-12 gap-3 w-full mt-2 ms:mt-0`}
-              >
-                <button
-                  className={`bg-[#0DBC73] w-full col-span-12 md:col-span-6 py-2 rounded-lg items-center justify-center`}
-                >
+
+              <div className="flex items-center gap-2 mt-2 w-full">
+                {event.participants.length > 0 && (
+                  <div className="flex items-center">
+                    {event.participants
+                      .slice(0, 3)
+                      .map((participant: any, i: number) => (
+                        <div key={i} className="relative ml-[-10px]">
+                          <ProfileImage
+                            profilePic={participant?.profilePic}
+                            height={"1.2rem"}
+                          />
+                        </div>
+                      ))}
+
+                    {/* Mostrar el número de usuarios restantes */}
+                    {event.participants.length > 3 && (
+                      <div className="flex ml-[-10px] z-[100] items-center justify-center rounded-full bg-[#EEEEEE] h-5 w-5 text-center text-sm text-black">
+                        <p className="text-[8px] font-bold">
+                          +{event.participants.length - 3}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <button className="bg-[#0DBC73] w-full py-2 gap-2 rounded-lg flex items-center justify-center">
                   <p
                     className={`${
                       themeMode === "dark" ? "text-black" : "text-white"
                     } font-bold`}
                   >
-                    {t("EventsView.ViewEvent")}
+                    View event
                   </p>
-                </button>
-                <button
-                  className={`border-[#DF1E32] border text-[#DF1E32] hover:bg-[#DF1E32] ${
-                    themeMode === "dark"
-                      ? "hover:text-black"
-                      : "hover:text-white"
-                  } col-span-12 w-full md:col-span-6 py-2 rounded-lg items-center justify-center`}
-                >
-                  <p className={`font-bold`}> {t("EventsView.Join")}</p>
                 </button>
               </div>
             </div>
