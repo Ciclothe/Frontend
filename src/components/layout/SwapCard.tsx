@@ -47,13 +47,17 @@ const SwapCard: React.FC<SwapCardProps> = ({ swapData }) => {
             {t(`GarmentCondition.${swapData.garmentCondition}`)}
           </p>
           <div className="w-full">
-            <h2 className="font-bold text-[1.2em] capitalize">
+            <h2 className="font-bold text-[1.2em] capitalize titleStyles">
               {swapData.garmentTitle}
             </h2>
             <div className="flex items-center gap-2 opacity-60 capitalize">
-              <p>{swapData.garmentColor}</p>
-              <p className="border-l-[1px] pl-2">{swapData.garmentSize}</p>
-              <p className="border-l-[1px] pl-2">{swapData.garmentBrand}</p>
+              <p className="titleStyles">{swapData.garmentColor}</p>
+              <p className="border-l-[1px] pl-2 titleStyles">
+                {swapData.garmentSize}
+              </p>
+              <p className="border-l-[1px] pl-2 titleStyles">
+                {swapData.garmentBrand}
+              </p>
             </div>
           </div>
         </div>

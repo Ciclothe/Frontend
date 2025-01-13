@@ -1,14 +1,26 @@
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProfileImage from "@/components/ui/ProfilePic";
 import { Icon } from "@mdi/react";
-import { mdiCheckDecagram } from "@mdi/js";
+import {
+  mdiCheckDecagram,
+  mdiCalendarBlank,
+  mdiClockOutline,
+  mdiMapMarker,
+  mdiShareVariant,
+} from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useLayoutScroll } from "@/context/LayoutScrollContext ";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useHeaderVisibility } from "@/context/HeaderVisibilityContext";
 import { useTranslation } from "react-i18next";
+import { MapContainer, TileLayer } from "react-leaflet";
+import API_CONSTANTS from "@/services/config";
+import { Marker } from "react-leaflet";
+import L from "leaflet";
+import SaveIcon from "@/assets/uiIcons/SaveIcon";
+import { useNavigate } from "react-router-dom";
 
 function EventsView() {
   const { setIsSidebarRightVisible } = useSidebarRight();
@@ -16,22 +28,32 @@ function EventsView() {
   const { setHasScroll } = useLayoutScroll();
   const { setShowPostButton } = usePostButton();
   const { toggleVisibility } = useHeaderVisibility();
+  const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
+  const navigate = useNavigate();
+
+  const mapRef = useRef<any>(null);
 
   const { themeMode } = useTheme();
-  const [isHoverCard, setIsHoverCard] = useState<any>(null);
   const { t } = useTranslation();
+
+  const customIcon = new L.Icon({
+    iconUrl: "https://img.icons8.com/?size=200&id=7880&format=png&color=DF1E32",
+    iconSize: [25, 25],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
 
   // Simulated API response
   const events = [
     {
       id: 1,
-      eventName: "VintageVibes",
-      eventPic:
-        "https://i.pinimg.com/736x/89/42/7b/89427b6937dc02ce04bd6802f36cff93.jpg",
+      eventName: "Retro Revival Night: Fashion & Music",
+      createdBy: "lielcite",
       category: "Vintage",
-      date: "04 January 2025",
-      location: "Calle de miquel paredes 24",
-      members: { current: 25, total: 80 },
+      date: "2025-01-15",
+      time: "19:00:00",
+      location: { lat: "39.4676153", lng: "-0.4039672" },
+      members: { current: 12, total: 80 },
       garments: 20,
       verified: false,
       participants: [
@@ -45,13 +67,13 @@ function EventsView() {
           userId: 2,
           userName: "marcRios24",
           profilePic:
-            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+            "https://i.pinimg.com/736x/6d/7d/b2/6d7db235794ef83e1402f3310979df02.jpg",
         },
         {
           userId: 3,
           userName: "jorgeTD",
           profilePic:
-            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
+            "https://i.pinimg.com/736x/8a/bc/83/8abc8309179e57a54678324e27499109.jpg",
         },
         {
           userId: 4,
@@ -61,114 +83,47 @@ function EventsView() {
         },
       ],
       saved: false,
+      shared: false,
     },
     {
       id: 2,
-      eventName: "Urban Explorers",
-      eventPic:
-        "https://i.pinimg.com/736x/b0/74/b0/b074b08427f6b27ce054a2737aa336da.jpg",
+      eventName: "Urban Fusion Gathering: Style & Sneakers",
+      createdBy: "alejosito",
       category: "Streetwear",
-      date: "10 January 2025",
-      location: "Avenida del Arte 52",
-      members: { current: 45, total: 100 },
-      garments: 35,
+      date: "2025-01-21",
+      time: "14:30:00",
+      location: { lat: "39.480889579488", lng: "-0.34110993065103" },
+      members: { current: 25, total: 80 },
+      garments: 20,
       verified: true,
       participants: [
         {
-          userId: 5,
-          userName: "explorerX",
+          userId: 1,
+          userName: "lielcita1230",
           profilePic:
-            "https://i.pinimg.com/736x/64/77/62/647762393c7ce848b7b451b6f94bc8de.jpg",
+            "https://i.pinimg.com/736x/10/18/20/101820fe913030a0f891efc060d72a60.jpg",
         },
         {
-          userId: 6,
-          userName: "citywanderer",
+          userId: 2,
+          userName: "marcRios24",
           profilePic:
-            "https://i.pinimg.com/736x/64/77/62/647762393c7ce848b7b451b6f94bc8de.jpg",
+            "https://i.pinimg.com/736x/b7/f3/d4/b7f3d461cb4844a528d30582e0f833d4.jpg",
         },
-      ],
-      saved: true,
-    },
-    {
-      id: 3,
-      eventName: "Classic Couture",
-      eventPic:
-        "https://i.pinimg.com/736x/ff/bc/db/ffbcdbf226806a31708e6c601f4ce464.jpg",
-      category: "Formal",
-      date: "18 January 2025",
-      location: "Boulevard de la Moda 10",
-      members: { current: 15, total: 50 },
-      garments: 10,
-      verified: true,
-      participants: [
         {
-          userId: 7,
-          userName: "suitlover",
+          userId: 3,
+          userName: "jorgeTD",
           profilePic:
-            "https://i.pinimg.com/736x/00/07/cc/0007cc15239017d80fbef9de83a70f8f.jpg",
+            "https://i.pinimg.com/736x/d7/b1/36/d7b136775e2256659202e3059108f5d3.jpg",
+        },
+        {
+          userId: 4,
+          userName: "Maria_goya",
+          profilePic:
+            "https://i.pinimg.com/736x/3b/43/7d/3b437d344167319ea707b2970caf4dee.jpg",
         },
       ],
       saved: false,
-    },
-    {
-      id: 4,
-      eventName: "Eco Fashion Fest",
-      eventPic:
-        "https://i.pinimg.com/736x/34/e9/f2/34e9f260eb8743ff49b63c800eb30b1f.jpg",
-      category: "Sustainable",
-      date: "22 January 2025",
-      location: "Plaza Verde 15",
-      members: { current: 30, total: 75 },
-      garments: 50,
-      verified: false,
-      participants: [
-        {
-          userId: 8,
-          userName: "ecoWarrior",
-          profilePic:
-            "https://i.pinimg.com/736x/e9/d9/7f/e9d97f5f46ad1e3c9ae91afa64056150.jpg",
-        },
-        {
-          userId: 9,
-          userName: "greenQueen",
-          profilePic:
-            "https://i.pinimg.com/736x/e9/d9/7f/e9d97f5f46ad1e3c9ae91afa64056150.jpg",
-        },
-      ],
-      saved: true,
-    },
-    {
-      id: 5,
-      eventName: "Summer Splash Style",
-      eventPic:
-        "https://i.pinimg.com/736x/5d/be/3f/5dbe3f5f6acf415a820e4235fe76af4b.jpg",
-      category: "Casual",
-      date: "28 January 2025",
-      location: "Paseo del Sol 22",
-      members: { current: 60, total: 100 },
-      garments: 25,
-      verified: false,
-      participants: [
-        {
-          userId: 10,
-          userName: "sunnyDays",
-          profilePic:
-            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
-        },
-        {
-          userId: 11,
-          userName: "beachBum",
-          profilePic:
-            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
-        },
-        {
-          userId: 12,
-          userName: "poolParty",
-          profilePic:
-            "https://i.pinimg.com/736x/f9/73/ce/f973ceadaf66b020f9e8b337f9ef4717.jpg",
-        },
-      ],
-      saved: false,
+      shared: false,
     },
   ];
 
@@ -183,6 +138,87 @@ function EventsView() {
     setSectionOptions([]);
   }, [setSectionOptions]);
 
+  const formatTime = (time: any) => {
+    const date =
+      typeof time === "string" ? new Date(`1970-01-01T${time}`) : time;
+
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    const period = hours >= 12 ? "P.M." : "A.M.";
+
+    hours = hours % 12 || 12;
+
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+
+    return `${hours}:${formattedMinutes} ${period}`;
+  };
+
+  const formatDateToHumanReadable = (dateString: any) => {
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const month = months[date.getMonth()];
+
+    return `${day} ${month} ${year}`;
+  };
+
+  const locationFetcher = (lat: string, lng: string) => {
+    const [location, setLocation] = useState<string>("");
+
+    useEffect(() => {
+      const fetchLocation = async () => {
+        try {
+          const response = await fetch(
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${token}`
+          );
+          const data = await response.json();
+          if (data.features && data.features.length > 0) {
+            setLocation(
+              data.features[0].text + ", " + data.features[0].address
+            );
+          } else {
+            setLocation("No location found");
+          }
+        } catch (error) {
+          console.error("Error fetching location:", error);
+          setLocation("Error fetching location");
+        }
+      };
+
+      fetchLocation();
+    }, [lat, lng]); // Re-run when lat or lng changes
+
+    return location; // Return the location
+  };
+
+  const handleEventClick = (eventId: number, eventName: string) => {
+    // Convertir el nombre del evento en un 'slug' seguro para la URL
+    const slug = encodeURIComponent(
+      eventName.replace(/\s+/g, "-").toLowerCase()
+    );
+
+    // Generar la URL con el eventId y el 'slug' codificado
+    navigate(`/event/${eventId}/${slug}`);
+  };
+
   return (
     <div className="w-full px-4 md:px-0">
       <p className="font-bold text-[1.3em]">{t("EventsView.CloseToYou")}</p>
@@ -191,8 +227,10 @@ function EventsView() {
           <div
             key={event.id}
             className={`${
-              themeMode === "dark" ? "hover:bg-[#1E1E1E]" : "hover:bg-[#F7F7F7]"
-            } col-span-12 cursor-pointer sm:col-span-6 xl:col-span-4 w-full items-center rounded-2xl p-4 flex flex-col justify-between`}
+              themeMode === "dark"
+                ? "md:hover:bg-[#1E1E1E]"
+                : "md:hover:bg-[#F7F7F7]"
+            } col-span-12 cursor-pointer sm:col-span-6 xl:col-span-4 w-full items-center rounded-2xl p-4 flex gap-3 flex-col justify-between`}
             style={{
               border: `0.5px solid ${
                 themeMode === "dark"
@@ -200,76 +238,19 @@ function EventsView() {
                   : "rgba(140, 140, 140, 0.1)"
               }`,
             }}
+            onClick={() => handleEventClick(event.id, event.eventName)}
           >
-            <div className="w-full">
-              <div className="flex w-full justify-between items-center">
-                <p
-                  className="text-[1.1em]"
-                  style={{
-                    fontFamily: "droid-serif",
-                    fontWeight: 700,
-                    fontStyle: "italic",
-                  }}
-                >
-                  {event.eventName}
-                </p>
-                {event.verified && (
-                  <Icon
-                    path={mdiCheckDecagram}
-                    size={0.8}
-                    className="text-[#0DBC73]"
-                  />
-                )}
-              </div>
-              <div className="flex flex-col gap-2 mt-2">
-                <div
-                  className={`${
-                    themeMode === "dark"
-                      ? "bg-[#F7F7F7] text-black"
-                      : "bg-[#171717] text-white"
-                  }  px-3 flex items-center justify-center cursor-pointer rounded-full gap-2 w-fit`}
-                >
-                  <p>{event.date}</p>
-                </div>
-                <div
-                  className={`${
-                    themeMode === "dark"
-                      ? "bg-[#F7F7F7] text-black"
-                      : "bg-[#171717] text-white"
-                  }  px-3 flex items-center justify-center cursor-pointer rounded-full gap-2 w-fit`}
-                >
-                  <p>{event.location}</p>
-                </div>
-              </div>
-            </div>
-            <div className="w-full mt-10">
-              <div className={`items-center gap-4 justify-center flex`}>
-                <div className="text-center">
-                  <p className="text-[1.2em] font-bold">{event.category}</p>
-                  <p className="opacity-50">{t("EventsView.Category")}</p>
-                </div>
-                <div className={`w-[2px] h-5 bg-white/50`}></div>
-                <div className="text-center">
-                  <p className="text-[1.2em] font-bold">
-                    <span className="opacity-50">{event.members.current}</span>/
-                    {event.members.total}
-                  </p>
-                  <p className="opacity-50">{t("EventsView.Members")}</p>
-                </div>
-                <div className={`w-[2px] h-5 bg-white/50`}></div>
-                <div className="text-center">
-                  <p className="text-[1.2em] font-bold">{event.garments}</p>
-                  <p className="opacity-50">{t("EventsView.Garments")}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 mt-2 w-full">
+            <div className="w-full flex items-center justify-between">
+              <div className="flex items-center gap-1">
                 {event.participants.length > 0 && (
                   <div className="flex items-center">
                     {event.participants
                       .slice(0, 3)
                       .map((participant: any, i: number) => (
-                        <div key={i} className="relative ml-[-10px]">
+                        <div
+                          key={i}
+                          className={`relative ${i > 0 ? "ml-[-5px]" : ""}`}
+                        >
                           <ProfileImage
                             profilePic={participant?.profilePic}
                             height={"1.2rem"}
@@ -279,23 +260,118 @@ function EventsView() {
 
                     {/* Mostrar el número de usuarios restantes */}
                     {event.participants.length > 3 && (
-                      <div className="flex ml-[-10px] z-[100] items-center justify-center rounded-full bg-[#EEEEEE] h-5 w-5 text-center text-sm text-black">
+                      <div className="flex ml-[-5px] z-[100] items-center justify-center rounded-full bg-[#EEEEEE] h-5 w-5 text-center text-sm text-black">
                         <p className="text-[8px] font-bold">
-                          +{event.participants.length - 3}
+                          +{event.members?.current - 3}
                         </p>
                       </div>
                     )}
                   </div>
                 )}
-                <button className="bg-[#0DBC73] w-full py-2 gap-2 rounded-lg flex items-center justify-center">
-                  <p
-                    className={`${
-                      themeMode === "dark" ? "text-black" : "text-white"
-                    } font-bold`}
-                  >
-                    View event
+                <p
+                  className="text-[1.1em]"
+                  style={{
+                    fontFamily: "droid-serif",
+                    fontWeight: 700,
+                    fontStyle: "italic",
+                  }}
+                >
+                  @{event.createdBy}
+                </p>
+              </div>
+              {event.verified && (
+                <Icon
+                  path={mdiCheckDecagram}
+                  size={0.8}
+                  className="text-[#0DBC73]"
+                />
+              )}
+            </div>
+            <div className="w-full">
+              <div>
+                <p className="opacity-50 mb-[-5px]">{event.category}</p>
+                <p className="text-[1.2em] font-bold titleStyles">
+                  {event.eventName}
+                </p>
+              </div>
+              <div className="flex mt-3 gap-2">
+                <div className="flex items-center gap-1 max-w-[33%]">
+                  <Icon
+                    path={mdiCalendarBlank}
+                    size={0.8}
+                    className="flex-shrink-0"
+                  />
+                  <p className="truncate overflow-hidden whitespace-nowrap">
+                    {formatDateToHumanReadable(event?.date)}
                   </p>
-                </button>
+                </div>
+                <div className="flex items-center gap-1 max-w-[33%]">
+                  <Icon
+                    path={mdiClockOutline}
+                    size={0.8}
+                    className="flex-shrink-0"
+                  />
+                  <p className="truncate overflow-hidden whitespace-nowrap">
+                    {formatTime(event?.time)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 max-w-[33%]">
+                  <Icon
+                    path={mdiMapMarker}
+                    size={0.8}
+                    className="flex-shrink-0"
+                  />
+                  <p className="truncate overflow-hidden whitespace-nowrap">
+                    {locationFetcher(event.location.lat, event.location.lng)}{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-[100%] aspect-[3/2] rounded-xl overflow-hidden">
+              <MapContainer
+                center={[
+                  parseFloat(event.location.lat),
+                  parseFloat(event.location.lng),
+                ]}
+                zoom={15}
+                style={{ height: "150%", width: "150%" }}
+                ref={mapRef}
+                zoomControl={false}
+              >
+                <TileLayer
+                  url={`https://api.mapbox.com/styles/v1/mapbox/${
+                    themeMode === "dark" ? "dark-v11" : "light-v11"
+                  }/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWxlam9zcGluYXIiLCJhIjoiY20wa2lreDMxMTk5eDJrb2F0N3NtNHBkMyJ9.LV8h87QAtrtHZ2U2FP4V1g`}
+                />
+                <Marker
+                  position={[
+                    parseFloat(event.location.lat),
+                    parseFloat(event.location.lng),
+                  ]}
+                  icon={customIcon}
+                ></Marker>
+              </MapContainer>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <button
+                className={`${
+                  themeMode === "dark"
+                    ? "bg-[#F7F7F7] text-black"
+                    : "bg-[#171717] text-white"
+                }  px-4 py-2 font-bold rounded-full gap-2`}
+              >
+                <p>View event</p>
+              </button>
+              <div className="flex items-center gap-2">
+                <SaveIcon
+                  size={"1.3em"}
+                  colorFill={`#0DBC73`}
+                  colorStroke={`${
+                    themeMode === "dark" ? "#F1F1F1" : "#232323"
+                  }`}
+                  isSelected={event.saved}
+                />
+                <Icon path={mdiShareVariant} size={0.8} />
               </div>
             </div>
           </div>

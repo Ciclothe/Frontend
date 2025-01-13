@@ -127,15 +127,6 @@ const TextCard: React.FC<TextCardProps> = ({ data, onClick }) => {
                   )
                 )}
               </p>
-              <div
-                className={`${
-                  themeMode === "dark"
-                    ? "bg-[#413F3F] text-[#1C1C1C]"
-                    : "bg-[#E4E4E4] text-[#B3B3B5]"
-                } px-2 py-1 rounded-full mt-2 w-fit`}
-              >
-                <p>{data?.category}</p>
-              </div>
             </div>
             {videoThumbnail && (
               <div className="aspect-[3/2] md:w-[8em] md:max-w-[8em] w-full">

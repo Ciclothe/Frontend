@@ -9,9 +9,10 @@ import ProfileImage from "@/components/ui/ProfilePic";
 interface PostCardProps {
   data: any;
   onClick: () => void;
+  type?: string;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
+const PostCard: React.FC<PostCardProps> = ({ data, onClick, type }) => {
   const { themeMode } = useTheme();
   const location = useLocation();
   const isExplorePage = location.pathname === "/explore";
@@ -23,12 +24,12 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
     "gap-2",
     "cursor-pointer",
     themeMode === "dark" ? "text-white" : "text-black",
-    isExplorePage
+    isExplorePage || type === "event"
       ? ""
       : themeMode === "dark"
       ? "md:hover:bg-[#1E1E1E]"
       : "hover:md:bg-[#F7F7F7]",
-    !isExplorePage ? "md:p-4 md:border md:border-1" : "",
+    !isExplorePage && type !== "event" ? "md:p-4 md:border md:border-1" : "",
     !isExplorePage && themeMode === "dark" ? "md:border-white/10" : "",
     !isExplorePage && themeMode !== "dark" ? "md:border-gray-500/1" : "",
   ].join(" ");
@@ -53,7 +54,7 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
 
       {/* Post Content Section */}
       <div className="col-span-11 grid grid-cols-12 gap-2">
-        <PostHeader data={data} />
+        <PostHeader data={data} type={type} />
         <PostImage data={data} />
 
         {data?.type !== "Text" && (
@@ -66,7 +67,7 @@ const PostCard: React.FC<PostCardProps> = ({ data, onClick }) => {
       </div>
 
       {/* Post Interactions */}
-      <PostInteractionsCard data={data} />
+      {type !== "event" && <PostInteractionsCard data={data} />}
 
       {/* Divider for Small Screens */}
       <hr

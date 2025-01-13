@@ -3,7 +3,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import FeedIcon from "@/assets/uiIcons/Feedicon";
-import CommunitiesIcon from "@/assets/uiIcons/CommunitiesIcon";
+// import CommunitiesIcon from "@/assets/uiIcons/CommunitiesIcon";
 import ExploreIcon from "@/assets/uiIcons/ExploreIcon";
 import EventsIcon from "@/assets/uiIcons/EventsIcon";
 import SwipeIcon from "@/assets/uiIcons/SwipeIcon";
@@ -103,17 +103,17 @@ const MenuMobile = () => {
       label: "Swipes",
       route: "/Swipes",
     },
-    {
-      icon: (isActive: boolean) => (
-        <CommunitiesIcon
-          size={"1em"}
-          isActive={isActive}
-          colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
-        />
-      ),
-      label: "Explore",
-      route: "/explore",
-    },
+    // {
+    //   icon: (isActive: boolean) => (
+    //     <CommunitiesIcon
+    //       size={"1em"}
+    //       isActive={isActive}
+    //       colorSelected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+    //     />
+    //   ),
+    //   label: "Explore",
+    //   route: "/explore",
+    // },
   ];
 
   return (

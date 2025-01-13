@@ -12,6 +12,7 @@ import MainLayout from "@/layouts/MainLayout";
 import PostDetails from "@/pages/post/PostDetails";
 import ProfileView from "@/pages/profile/ProfileView";
 import EventsView from "@/pages/events/EventsView";
+import EventDetails from "@/pages/events/EventDetails";
 
 function RoutesViews() {
   return (
@@ -23,6 +24,7 @@ function RoutesViews() {
         <Route path="/swipes" element={<SwipeView />} />
         <Route path="/explore" element={<ExploreView />} />
         <Route path="/post/:username" element={<PostDetails />} />
+        <Route path="/event/:eventId/:eventName" element={<EventDetails />} />
         {/* //TODO: Add a token to the profile url /profile/${token} */}
         <Route path="/profile" element={<ProfileView />} />
         <Route path="/events" element={<EventsView />} />

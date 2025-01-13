@@ -83,7 +83,7 @@ const ImageCarousel = ({
           </div>
           {/* SWAP DATA POST */}
           {!isPostDetails && (
-            <div className="block absolute bottom-0 w-full p-2 z-[100]">
+            <div className="block absolute bottom-0 w-full p-2 z-[100] sm:opacity-50 hover:opacity-100">
               <SwapCard swapData={data} />
             </div>
           )}
@@ -93,7 +93,7 @@ const ImageCarousel = ({
                 e.stopPropagation();
                 handlePrev();
               }}
-              className="absolute left-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-r-lg"
+              className="absolute z-[100] left-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-r-lg"
             >
               <Icon path={mdiChevronLeft} size={0.8} />
             </div>
@@ -102,7 +102,7 @@ const ImageCarousel = ({
                 e.stopPropagation();
                 handleNext();
               }}
-              className="absolute right-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-l-lg"
+              className="absolute z-[100] right-0 hover:bg-black text-white px-1 py-2 flex items-center hover:bg-opacity-40 cursor-pointer rounded-l-lg"
             >
               <Icon path={mdiChevronRight} size={0.8} />
             </div>

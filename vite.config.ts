@@ -2,8 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  base: "/", // This is the base path of the project
   plugins: [react()],
   resolve: {
     alias: {
@@ -12,5 +12,8 @@ export default defineConfig({
         "./node_modules/engine.io-client/lib/xmlhttprequest.js",
       "@": path.resolve(__dirname, "src"),
     },
+  },
+  build: {
+    outDir: "dist", // This is the output directory for the build
   },
 });

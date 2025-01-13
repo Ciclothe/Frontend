@@ -7,7 +7,7 @@ import TutorialOverlat from "./components/TutorialOverlay";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 
 import Icon from "@mdi/react";
-import { mdiClose, mdiSwapHorizontal, mdiMessageText } from "@mdi/js";
+import { mdiClose, mdiSwapHorizontal } from "@mdi/js";
 
 type Card = {
   userId: number;
@@ -103,7 +103,7 @@ function SwipeView() {
     setSectionOptions([]);
   }, [setSectionOptions]);
 
-  // TODO: #70 Create accept/reject/message functionality for cards based on swipe direction and make API call to update data
+  // TODO: #70 Create accept/reject functionality for cards based on swipe direction and make API call to update data
   const handleReject = (id: number) => {
     console.log(`Card with id ${id} was rejected`);
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
@@ -114,9 +114,9 @@ function SwipeView() {
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
   };
 
-  const sendMessage = (id: number) => {
-    console.log(`Send Message to post with id ${id}`);
-  };
+  // const sendMessage = (id: number) => {
+  //   console.log(`Send Message to post with id ${id}`);
+  // };
 
   const handleTutorialChange = (isVisible: boolean) => {
     setIsTutorialVisible(isVisible);
@@ -147,7 +147,7 @@ function SwipeView() {
         >
           <Icon path={mdiClose} size={1.5} />
         </button>
-        <button
+        {/* <button
           className={`rounded-full p-2 border border-2 border-[#5D9FF6] text-[#5D9FF6] bg-[#5D9FF6] bg-opacity-20 ${
             cards.length == 0 || isTutorialVisible
               ? "opacity-50 cursor-not-allowed"
@@ -157,7 +157,7 @@ function SwipeView() {
           onClick={() => sendMessage(cards[cards.length - 1].id)}
         >
           <Icon path={mdiMessageText} size={0.7} />
-        </button>
+        </button> */}
         <button
           className={`rounded-full p-2 border border-2 border-[#0DBC73] text-[#0DBC73] bg-[#0DBC73] bg-opacity-20 ${
             cards.length == 0 || isTutorialVisible

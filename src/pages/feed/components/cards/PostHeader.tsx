@@ -12,6 +12,7 @@ import Swapicon from "@/assets/icons/Swapicon";
 
 type PostHeaderProps = {
   data: any;
+  type?: string;
 };
 
 const formatDate = (dateString: string) => {
@@ -36,7 +37,7 @@ const formatDate = (dateString: string) => {
   return `${seconds}s`;
 };
 
-const PostHeader: React.FC<PostHeaderProps> = ({ data }) => {
+const PostHeader: React.FC<PostHeaderProps> = ({ data, type }) => {
   const [opened, setOpened] = useState(false);
   const { themeMode } = useTheme();
 
@@ -45,30 +46,33 @@ const PostHeader: React.FC<PostHeaderProps> = ({ data }) => {
     const commonProps = `p-1 rounded-full ${
       themeMode === "dark" ? "text-black" : "text-white"
     }`;
-    switch (data?.type) {
-      case "Photo":
-        return (
-          <div className={`${commonProps} bg-[#8846F2]`}>
-            <Icon path={mdiCameraIris} size={0.5} />
-          </div>
-        );
-      case "Swap":
-        return (
-          <div className={`p-1 rounded-full bg-[#0DBC73]`}>
-            <Swapicon
-              size={"0.8em"}
-              color={themeMode === "dark" ? "black" : "white"}
-            />
-          </div>
-        );
-      case "Text":
-        return (
-          <div className={`${commonProps} bg-[#DF1E32]`}>
-            <Icon path={mdiThoughtBubble} size={0.5} />
-          </div>
-        );
-      default:
-        return null;
+
+    if (type !== "event") {
+      switch (data?.type) {
+        case "Photo":
+          return (
+            <div className={`${commonProps} bg-[#8846F2]`}>
+              <Icon path={mdiCameraIris} size={0.5} />
+            </div>
+          );
+        case "Swap":
+          return (
+            <div className={`p-1 rounded-full bg-[#0DBC73]`}>
+              <Swapicon
+                size={"0.8em"}
+                color={themeMode === "dark" ? "black" : "white"}
+              />
+            </div>
+          );
+        case "Text":
+          return (
+            <div className={`${commonProps} bg-[#DF1E32]`}>
+              <Icon path={mdiThoughtBubble} size={0.5} />
+            </div>
+          );
+        default:
+          return null;
+      }
     }
   };
 
@@ -107,10 +111,15 @@ const PostHeader: React.FC<PostHeaderProps> = ({ data }) => {
         <div className="flex flex-col">
           <div className="flex gap-2 items-center">
             <p className="font-bold">@{data?.userData?.username}</p>
-            {renderPostTypeIndicator()}
-            {renderCommunityInfo()}
+            {type !== "event" && (
+              <>
+                {renderPostTypeIndicator()}
+                {renderCommunityInfo()}
+              </>
+            )}
           </div>
-          {renderLocationAndDate()}
+
+          {type !== "event" && renderLocationAndDate()}
         </div>
       </div>
 

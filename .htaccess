@@ -1,0 +1,15 @@
+# Habilitar la reescritura de URLs
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Permitir que los archivos existentes (como CSS o imágenes) se carguen normalmente
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Redirigir todas las demás solicitudes a index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Opcional: Manejar errores 404 con React
+ErrorDocument 404 /index.html

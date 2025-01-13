@@ -111,7 +111,7 @@ const Card = ({
 
   const handleDragEnd = () => {
     const directionX = x.get();
-    const directionY = y.get();
+    // const directionY = y.get();
 
     if (Math.abs(directionX) > 50) {
       setCards((pv) => pv.filter((v) => v.id !== id));
@@ -126,10 +126,10 @@ const Card = ({
       setBgColor("#000000");
     }
 
-    if (directionY > 50) {
-      setCards((pv) => pv.filter((v) => v.id !== id));
-      console.log(`Send Message to post with id ${id}`);
-    }
+    // if (directionY > 50) {
+    //   setCards((pv) => pv.filter((v) => v.id !== id));
+    //   console.log(`Send Message to post with id ${id}`);
+    // }
   };
 
   // TODO: #66 Create and implement report modal for cards
@@ -139,7 +139,7 @@ const Card = ({
 
   const backgroundColor = () => {
     const directionX = x.get();
-    const directionY = y.get();
+    // const directionY = y.get();
     if (Math.abs(directionX) > 10) {
       if (directionX > 0) {
         setBgColor("#0DBC73");
@@ -150,9 +150,9 @@ const Card = ({
       setBgColor("#000000");
     }
 
-    if (directionY > 50) {
-      setBgColor("#5D9FF6");
-    }
+    // if (directionY > 50) {
+    //   setBgColor("#5D9FF6");
+    // }
   };
 
   // TODO: #71 Create follow user functionality

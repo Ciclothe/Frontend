@@ -18,7 +18,7 @@
  */
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Icon from "@mdi/react";
-import { mdiGestureSwipeLeft, mdiGestureSwipeDown } from "@mdi/js";
+import { mdiGestureSwipeLeft } from "@mdi/js";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
@@ -83,12 +83,12 @@ function TutorialView({ onTutorialChange }: TutorialViewProps) {
             </div>
           </div>
 
-          <div className="flex text-white flex-col justify-center items-center py-6 border-t-2 border-dashed border-white">
+          {/* <div className="flex text-white flex-col justify-center items-center py-6 border-t-2 border-dashed border-white">
             <Icon path={mdiGestureSwipeDown} size={4} />
             <p className="text-center font-bold">
               {t("Global.Send")} <br /> {t("Global.Message")}
             </p>
-          </div>
+          </div> */}
         </motion.div>
       )}
     </>

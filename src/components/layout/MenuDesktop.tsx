@@ -29,7 +29,7 @@ import FeedIcon from "@/assets/uiIcons/Feedicon";
 import SwipeIcon from "@/assets/uiIcons/SwipeIcon";
 import ExploreIcon from "@/assets/uiIcons/ExploreIcon";
 import EventsIcon from "@/assets/uiIcons/EventsIcon";
-import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
+// import ChatsIcon from "@/assets/uiIcons/ChatsIcon";
 import Icon from "@mdi/react";
 import { mdiCog, mdiPlusBoxOutline } from "@mdi/js";
 import CiclotheLogotipo from "../../../public/CiclotheLogotipo";
@@ -99,19 +99,19 @@ const MenuDesktop = () => {
       label: "Events",
       route: "/events",
     },
-    {
-      icon: (isActive: boolean) => (
-        <ChatsIcon
-          size={"1em"}
-          colorSelected={"#0DBC73"}
-          colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
-          colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
-          isSelected={isActive}
-        />
-      ),
-      label: "Chats",
-      route: "/chats",
-    },
+    // {
+    //   icon: (isActive: boolean) => (
+    //     <ChatsIcon
+    //       size={"1em"}
+    //       colorSelected={"#0DBC73"}
+    //       colorUnselected={themeMode === "dark" ? "#ffffff" : "#0a0a0a"}
+    //       colorStroke={themeMode === "dark" ? "#0a0a0a" : "#ffffff"}
+    //       isSelected={isActive}
+    //     />
+    //   ),
+    //   label: "Chats",
+    //   route: "/chats",
+    // },
   ];
 
   return (

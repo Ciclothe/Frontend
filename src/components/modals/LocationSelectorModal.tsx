@@ -14,7 +14,9 @@ const LocationRangeSelector = () => {
   const { themeMode } = useTheme();
   const { t } = useTranslation();
 
-  const [position, setPosition] = useState<number[]>([]);
+  const [position, setPosition] = useState<[number, number]>([
+    6.25184, -75.56359,
+  ]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
@@ -60,7 +62,7 @@ const LocationRangeSelector = () => {
   const handleSuggestionClick = (suggestion: any) => {
     const { center, place_name } = suggestion;
     const newPosition = [center[1], center[0]];
-    setPosition(newPosition);
+    setPosition([center[1], center[0]]);
     setSearchQuery(place_name);
     setSuggestions([]);
     mapRef.current?.flyTo(newPosition, 13);
@@ -218,10 +220,10 @@ const LocationRangeSelector = () => {
           </button>
         </div>
 
-        <div className="w-full h-[300px] rounded-2xl">
+        <div className="w-full h-[300px] rounded-2xl overflow-hidden">
           {position.length > 0 && (
             <MapContainer
-              center={position}
+              center={[position[0], position[1]]}
               zoom={13}
               style={{ height: "100%", width: "100%" }}
               ref={mapRef}
@@ -229,7 +231,7 @@ const LocationRangeSelector = () => {
             >
               <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
               <Circle
-                center={position}
+                center={[position[0], position[1]]}
                 radius={range}
                 pathOptions={{
                   color: "#0DBC73",
