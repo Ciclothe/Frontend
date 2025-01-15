@@ -2,7 +2,7 @@ import HeaderPicture from "./components/HeaderPicture";
 import ContentProfile from "./components/ContentProfile";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import { useEffect } from "react";
-import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useLayoutScroll } from "@/context/LayoutScrollContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useHeaderVisibility } from "@/context/HeaderVisibilityContext";
 

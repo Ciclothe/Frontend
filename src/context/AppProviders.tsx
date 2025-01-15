@@ -20,7 +20,7 @@ import { SectionOptionsProvider } from "@/context/SectionOptionsContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { SearchLocationProvider } from "@/context/RangeLocationContext";
 import { MobileMenuProvider } from "@/context/MobileMenuContext";
-import { LayoutScrollProvider } from "@/context/LayoutScrollContext ";
+import { LayoutScrollProvider } from "@/context/LayoutScrollContext";
 import { DynamicViewProvider } from "@/context/DynamicViewContext";
 import { SidebarRightProvider } from "@/context/SidebarRightContext";
 import { HeaderVisibilityProvider } from "@/context/HeaderVisibilityContext";

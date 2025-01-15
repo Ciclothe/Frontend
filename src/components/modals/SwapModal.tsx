@@ -164,7 +164,7 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
       <div
         className={`${
           themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
-        } rounded-xl p-6 w-fit max-w-[90vw] lg:max-w-[70vw] xl:max-w-[50vw] flex flex-col gap-4 items-center justify-center`}
+        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center`}
         onClick={(e) => e.stopPropagation()}
       >
         {Object.keys(testPosts).length > 0 ? (
@@ -389,7 +389,12 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
                 </span>
               </p>
               <div className="pt-3 flex items-center justify-center">
-                <button type="button" className="btn-grn-fill">
+                <button
+                  type="button"
+                  className={`${
+                    themeMode === "dark" ? "text-black" : "text-white"
+                  } btn-grn-fill`}
+                >
                   <p>{t(`Swipe.SendOffer`)}</p>
                 </button>
               </div>

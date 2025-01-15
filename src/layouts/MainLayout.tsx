@@ -6,7 +6,7 @@ import { useSwap } from "@/context/SwapContext";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSearch } from "@/context/SearchContext";
 import { useSearchLocation } from "@/context/RangeLocationContext";
-import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useLayoutScroll } from "@/context/LayoutScrollContext";
 import { useDynamicView } from "@/context/DynamicViewContext";
 import { useSidebarRight } from "@/context/SidebarRightContext";
 import useMediaQuery from "@/hooks/useMediaQuery";
@@ -162,7 +162,7 @@ const MainLayout: FC = () => {
             isSidebarRightVisible ? "xl:w-[44%]" : "xl:w-[72%] lg:pr-[5em]"
           } ${
             showPostButton ? "md:pt-[7em]" : ""
-          } flex flex-col h-full  xl:pt-0 w-full md:w-[70%] md:px-4`}
+          } flex flex-col h-full xl:pt-0 w-full md:w-[70%] md:px-4`}
         >
           {showPostButton && (
             <div

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { usePostButton } from "@/context/CreatePostActive";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
-import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useLayoutScroll } from "@/context/LayoutScrollContext";
 import CardComponent from "./components/Card";
 import TutorialOverlat from "./components/TutorialOverlay";
 import { useSidebarRight } from "@/context/SidebarRightContext";
