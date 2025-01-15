@@ -174,7 +174,7 @@ const LocationRangeSelector = () => {
       <div
         className={`${
           themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
-        } rounded-xl p-6 w-[50rem] max-w-[90vw] flex flex-col gap-4 items-center justify-center`}
+        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center`}
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="font-bold">{t("LocationSelector.SelectLocation")}</h2>

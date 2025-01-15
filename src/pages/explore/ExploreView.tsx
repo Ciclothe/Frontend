@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useSectionOptions } from "@/context/SectionOptionsContext";
 import { useSidebarRight } from "@/context/SidebarRightContext";
-import { useLayoutScroll } from "@/context/LayoutScrollContext ";
+import { useLayoutScroll } from "@/context/LayoutScrollContext";
 import { usePostButton } from "@/context/CreatePostActive";
 import { ExplorerBanner } from "./components/ExplorerBanner";
 import Categories from "./components/Categories";
