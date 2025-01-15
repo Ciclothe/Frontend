@@ -261,7 +261,8 @@ function CardEvent({ event }: any) {
             </button>
             <div
               onClick={(e) => {
-                e.stopPropagation(), setShowModalToSelectItems(true);
+                e.stopPropagation(),
+                  setShowModalToSelectItems(event?.isJoined ? false : true);
               }}
             >
               <Icon

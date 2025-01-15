@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MapContainer, TileLayer, Circle } from "react-leaflet";
 import Icon from "@mdi/react";
-import { mdiMagnify, mdiMapMarkerOutline } from "@mdi/js";
+import { mdiMagnify, mdiMapMarkerOutline, mdiClose } from "@mdi/js";
 import "leaflet/dist/leaflet.css";
 import Slider from "@mui/material/Slider";
 import axios from "axios";
@@ -174,9 +174,17 @@ const LocationRangeSelector = () => {
       <div
         className={`${
           themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
-        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center`}
+        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center relative`}
         onClick={(e) => e.stopPropagation()}
       >
+        <button
+          className={`${
+            themeMode === "dark" ? "bg-[#232323]" : "bg-[#F7F7F7]"
+          } p-2 flex items-center justify-center rounded-full absolute p-2 right-4 top-4`}
+          onClick={() => setIsOpened(false)}
+        >
+          <Icon path={mdiClose} size={0.7} />
+        </button>
         <h2 className="font-bold">{t("LocationSelector.SelectLocation")}</h2>
 
         <div className="sm:flex gap-2 items-center w-full">

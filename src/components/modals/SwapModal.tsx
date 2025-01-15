@@ -73,7 +73,7 @@ import React, { useEffect, useState } from "react";
 import Swapicon from "@/assets/icons/Swapicon";
 import { useTheme } from "@/context/ThemeContext";
 import Icon from "@mdi/react";
-import { mdiMenuDown, mdiCheckBold } from "@mdi/js";
+import { mdiMenuDown, mdiCheckBold, mdiClose } from "@mdi/js";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import HangerDayMode from "@/assets/imgs/HangerDayMode.png";
 import HangerNightMode from "@/assets/imgs/HangerNightMode.png";
@@ -164,9 +164,17 @@ const SwapModal: React.FC<SwapModalProps> = ({ selectedPost }) => {
       <div
         className={`${
           themeMode === "dark" ? "bg-[#171717]" : "bg-[#FFFFFF]"
-        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center`}
+        } rounded-xl p-6 md:px-20 flex flex-col gap-4 max-h-[90vh] overflow-auto max-w-[90vw] w-[55em] items-center relative`}
         onClick={(e) => e.stopPropagation()}
       >
+        <button
+          className={`${
+            themeMode === "dark" ? "bg-[#232323]" : "bg-[#F7F7F7]"
+          } p-2 flex items-center justify-center rounded-full absolute p-2 right-4 top-4`}
+          onClick={() => setModalState(false)}
+        >
+          <Icon path={mdiClose} size={0.7} />
+        </button>
         {Object.keys(testPosts).length > 0 ? (
           <div>
             <div className="flex justify-center">
