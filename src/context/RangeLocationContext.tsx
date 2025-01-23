@@ -8,12 +8,17 @@ import React, {
 import axios from "axios";
 import API_CONSTANTS from "@/services/config";
 
+interface Location {
+  city: string;
+  country: string;
+}
+
 interface SearchContextProps {
   isOpened: boolean;
   setIsOpened: (value: boolean) => void;
-  locationSearch: { city: number; country: number };
+  locationSearch: Location;
   setLocation: (value: {
-    locationCityCountry: number[];
+    locationCityCountry: { longitude: number; latitude: number };
     range: number;
   }) => void;
   setRange: (value: number) => void;
@@ -29,32 +34,48 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
-  const [locationSearch, setLocationSearch] = useState<{
-    city: number;
-    country: number;
-  }>({ city: -0.37966, country: 39.47391 });
+  const [locationSearch, setLocationSearch] = useState<Location>({
+    city: "València",
+    country: "Spain",
+  });
   const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
 
   const [range, setRange] = useState<number>(2000);
 
   useEffect(() => {
-    fetchLocation(locationSearch.city, locationSearch.country);
+    const savedLocation = localStorage.getItem("locationSearch");
+    const savedRange = localStorage.getItem("range");
+
+    if (savedLocation) {
+      setLocationSearch(JSON.parse(savedLocation));
+    }
+
+    if (savedRange) {
+      setRange(Number(savedRange));
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("locationSearch", JSON.stringify(locationSearch));
+    localStorage.setItem("range", range.toString());
+  }, [locationSearch, range]);
 
   const fetchLocation = async (lat: number, lon: number) => {
     try {
       const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${lat},${lon}.json?access_token=${token}`
+        `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${lon}&latitude=${lat}&access_token=${token}`
       );
 
-      const data = response.data.features[0];
+      if (response.status !== 200) {
+        console.error("Error fetching location:", response.statusText);
+        return;
+      }
+
+      const data = response?.data?.features[0];
       if (data) {
-        const city =
-          data.context.find((item: any) => item.id.includes("place"))?.text ||
-          "Undefined";
-        const country =
-          data.context.find((item: any) => item.id.includes("country"))?.text ||
-          "Undefined";
+        const city = data.properties?.context?.place?.name || "Undefined";
+        const country = data.properties?.context?.country?.name || "Undefined";
+
         setLocationSearch({ city, country });
       }
       setIsOpened(false);
@@ -63,18 +84,13 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  const setLocation = async ({
-    locationCityCountry,
-    range,
-  }: {
-    locationCityCountry: number[];
+  const setLocation = async (params: {
+    locationCityCountry: { longitude: number; latitude: number };
     range: number;
   }) => {
-    if (locationCityCountry.length === 2) {
-      const [lon, lat] = locationCityCountry;
-      await fetchLocation(lat, lon);
-    }
-    setRange(range);
+    const { longitude, latitude } = params.locationCityCountry;
+    await fetchLocation(latitude, longitude);
+    setRange(params.range);
   };
 
   return (
@@ -97,7 +113,9 @@ export const SearchLocationProvider: React.FC<{ children: ReactNode }> = ({
 export const useSearchLocation = () => {
   const context = useContext(RangeLocationContext);
   if (!context) {
-    throw new Error("useSearch must be used within a SearchLocationProvider");
+    throw new Error(
+      "useSearchLocation must be used within a SearchLocationProvider"
+    );
   }
   return context;
 };

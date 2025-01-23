@@ -166,7 +166,7 @@ const MainLayout: FC = () => {
         >
           {showPostButton && (
             <div
-              className={`hidden md:block fixed left-[30%] w-[70%] xl:w-full px-4 xl:px-0 xl:sticky xl:top-0 z-[1000] ${
+              className={`hidden md:block fixed left-[30%] w-[70%] xl:w-full px-4 lg:pr-[5em] xl:pr-none xl:px-0 xl:sticky xl:top-0 z-[1000] ${
                 themeMode === "dark"
                   ? "bg-[#0b0b0b] border-t-[0.5px] border-[#FFFFFF1A]"
                   : "bg-[#ffffff] border-t-[0.5px] border-[#8C8C8C1A]"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MapContainer, TileLayer, Circle } from "react-leaflet";
 import Icon from "@mdi/react";
 import { mdiMagnify, mdiMapMarkerOutline, mdiClose } from "@mdi/js";
 import "leaflet/dist/leaflet.css";
@@ -9,14 +8,15 @@ import { useTheme } from "@/context/ThemeContext";
 import { useTranslation } from "react-i18next";
 import API_CONSTANTS from "@/services/config";
 import { useSearchLocation } from "@/context/RangeLocationContext";
+import Map, { useMap, Source, Layer } from "react-map-gl";
+import * as turf from "@turf/turf";
+import { Units } from "@turf/turf";
+import { FeatureCollection, Polygon } from "geojson";
 
 const LocationRangeSelector = () => {
   const { themeMode } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
-  const [position, setPosition] = useState<[number, number]>([
-    6.25184, -75.56359,
-  ]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
@@ -24,30 +24,34 @@ const LocationRangeSelector = () => {
     useSearchLocation();
 
   const mapRef = useRef<any>(null);
+  const [position, setPosition] = React.useState<{
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  }>({
+    longitude: 39.47391,
+    latitude: 39.47391,
+    zoom: 10,
+  });
 
-  // Fetch geocoding data from Mapbox
+  const [circleData, setCircleData] = useState<FeatureCollection<Polygon>>({
+    type: "FeatureCollection",
+    features: [],
+  });
+
   const fetchGeocoding = async (query: string) => {
     try {
-      const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          query
-        )}.json`,
-        {
-          params: {
-            access_token: token,
-            types: "place,locality,address,poi",
-            limit: 5,
-          },
-        }
-      );
-      return response.data.features;
+      const encodedQuery = encodeURIComponent(query);
+      const url = `https://api.mapbox.com/search/searchbox/v1/suggest?q=${encodedQuery}&types=city&language=${i18n.language}&limit=5&session_token=${token}&access_token=${token}`;
+      const response = await axios.get(url);
+
+      return response.data.suggestions;
     } catch (error) {
       console.error("Error fetching geocoding data:", error);
       return [];
     }
   };
 
-  // Handle search input changes
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     if (e.target.value.length > 2) {
@@ -58,23 +62,37 @@ const LocationRangeSelector = () => {
     }
   };
 
-  // Handle suggestion click
-  const handleSuggestionClick = (suggestion: any) => {
-    const { center, place_name } = suggestion;
-    const newPosition = [center[1], center[0]];
-    setPosition([center[1], center[0]]);
-    setSearchQuery(place_name);
-    setSuggestions([]);
-    mapRef.current?.flyTo(newPosition, 13);
+  const handleSuggestionClick = async (suggestion: any) => {
+    try {
+      const url = `https://api.mapbox.com/search/searchbox/v1/retrieve/${suggestion.mapbox_id}?session_token=${token}&access_token=${token}`;
+      const response = await axios.get(url);
+
+      if (response.status === 200 && response.data.features?.length > 0) {
+        const feature = response.data.features[0];
+        const [longitude, latitude] = feature.geometry.coordinates;
+
+        setPosition({
+          longitude,
+          latitude,
+          zoom: 11,
+        });
+        setSearchQuery(feature.properties?.full_address || suggestion.name);
+        setSuggestions([]);
+        mapRef.current?.flyTo({ center: [longitude, latitude], zoom: 11 });
+      } else {
+        console.error("Invalid data received:", response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching detailed location data:", error);
+      alert(t("LocationSelector.ErrorFetchingData"));
+    }
   };
 
-  // Handle range slider change
   const handleRangeChange = (e: Event, newValue: number | number[]) => {
     e.preventDefault();
     setRange(newValue as number);
   };
 
-  // Fetch user's location based on `location` prop or fallback to current location
   useEffect(() => {
     const fetchUserLocation = async () => {
       if (locationSearch?.city && locationSearch?.country) {
@@ -85,8 +103,8 @@ const LocationRangeSelector = () => {
           const { features } = response.data;
           if (features.length > 0) {
             const [longitude, latitude] = features[0].center;
-            setPosition([latitude, longitude]);
-            mapRef.current?.flyTo([latitude, longitude], 13);
+            setPosition({ latitude, longitude, zoom: 10 });
+            mapRef.current?.flyTo([latitude, longitude], 10);
           }
         } catch (error) {
           console.error("Error fetching location data:", error);
@@ -95,7 +113,7 @@ const LocationRangeSelector = () => {
       } else {
         navigator.geolocation.getCurrentPosition((locationSearch) => {
           const { latitude, longitude } = locationSearch.coords;
-          setPosition([latitude, longitude]);
+          setPosition({ latitude, longitude, zoom: 10 });
         });
       }
     };
@@ -112,8 +130,8 @@ const LocationRangeSelector = () => {
     navigator.geolocation.getCurrentPosition(
       (locationSearch) => {
         const { latitude, longitude } = locationSearch.coords;
-        setPosition([latitude, longitude]);
-        mapRef.current?.flyTo([latitude, longitude], 13);
+        setPosition({ latitude, longitude, zoom: 11 });
+        mapRef.current?.flyTo([latitude, longitude], 11);
       },
       (error) => {
         console.error("Error obtaining location:", error);
@@ -137,29 +155,62 @@ const LocationRangeSelector = () => {
   };
 
   const handleApply = async () => {
-    try {
-      const response = await fetch(
-        `${API_CONSTANTS.API_BASE_URL}/search/publications?search=concert&latitude=${position[0]}&longitude=${position[1]}&radius=${range}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Error al cargar usuario");
-      }
-      const data = await response.json();
-      // TODO: Save response data to context
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const response = await fetch(
+    //     `${API_CONSTANTS.API_BASE_URL}/search/publications?search=concert&latitude=${position.longitude}&longitude=${position.latitude}&radius=${range}`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       credentials: "include",
+    //     }
+    //   );
+    //   if (!response.ok) {
+    //     throw new Error("Error al cargar usuario");
+    //   }
+    //   const data = await response.json();
+    //   // TODO: Save response data to context
+    //   console.log(data);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
     setLocation({ locationCityCountry: position, range });
   };
+
+  const MapEventHandler = () => {
+    const { current: map } = useMap();
+
+    useEffect(() => {
+      if (map) {
+        map.resize();
+      }
+    }, [map]);
+
+    return null;
+  };
+
+  const updateCircleData = (
+    longitude: number,
+    latitude: number,
+    radius: number
+  ) => {
+    const center = turf.point([longitude, latitude]);
+    const options = { steps: 64, units: "meters" as Units };
+
+    const circle = turf.circle(center, radius, options);
+    circle.properties = { radius };
+
+    setCircleData({
+      type: "FeatureCollection",
+      features: [circle],
+    });
+  };
+
+  useEffect(() => {
+    updateCircleData(position.longitude, position.latitude, range);
+  }, [position, range]);
 
   return (
     <div
@@ -213,7 +264,7 @@ const LocationRangeSelector = () => {
                     } p-2 cursor-pointer`}
                     onClick={() => handleSuggestionClick(suggestion)}
                   >
-                    {suggestion.place_name}
+                    {suggestion?.name}, {suggestion?.context?.country?.name}
                   </li>
                 ))}
               </ul>
@@ -229,26 +280,42 @@ const LocationRangeSelector = () => {
         </div>
 
         <div className="w-full h-[300px] rounded-2xl overflow-hidden">
-          {position.length > 0 && (
-            <MapContainer
-              center={[position[0], position[1]]}
-              zoom={13}
-              style={{ height: "100%", width: "100%" }}
-              ref={mapRef}
-              zoomControl={false}
-            >
-              <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-              <Circle
-                center={[position[0], position[1]]}
-                radius={range}
-                pathOptions={{
-                  color: "#0DBC73",
-                  fillColor: "#0DBC73",
-                  fillOpacity: 0.3,
+          <Map
+            {...position}
+            onMove={(e) => {
+              setPosition(e.viewState);
+            }}
+            style={{ width: "100%", height: "100%" }}
+            mapStyle={`mapbox://styles/alejospinar/${
+              themeMode === "dark"
+                ? "cm67f0g7500ha01r891ot5w96"
+                : "cm67er22x002f01qzf9q3apfd"
+            }`}
+            mapboxAccessToken="pk.eyJ1IjoiYWxlam9zcGluYXIiLCJhIjoiY20wa2lreDMxMTk5eDJrb2F0N3NtNHBkMyJ9.LV8h87QAtrtHZ2U2FP4V1g"
+          >
+            <Source id="circle" type="geojson" data={circleData}>
+              <Layer
+                id="circle-layer"
+                type="fill"
+                source="my-source"
+                paint={{
+                  "fill-color": "#0DBC73",
+                  "fill-opacity": 0.3,
                 }}
               />
-            </MapContainer>
-          )}
+
+              <Layer
+                id="circle-border"
+                type="line"
+                source="my-source"
+                paint={{
+                  "line-color": "#0DBC73",
+                  "line-width": 2,
+                }}
+              />
+            </Source>
+            <MapEventHandler />
+          </Map>
         </div>
 
         <div className="w-full">

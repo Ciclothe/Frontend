@@ -2,7 +2,7 @@ import { Icon } from "@mdi/react";
 import { mdiHanger, mdiStar, mdiCheckBold } from "@mdi/js";
 import { useTheme } from "@/context/ThemeContext.js";
 import { useState } from "react";
-import { mdiArrowLeft, mdiClose } from "@mdi/js";
+import { mdiClose } from "@mdi/js";
 
 import { useTranslation } from "react-i18next";
 
@@ -217,7 +217,16 @@ function EventsView({ event, opened, closeModal }: any) {
                 {garmentInCloset.map((garment) => (
                   <div
                     key={garment.id}
-                    className="flex items-center gap-4 w-full bg-[#232323] p-3 rounded-lg"
+                    className={` ${
+                      themeMode === "dark" ? "bg-[#232323]" : "bg-[#F2F3F5]"
+                    } flex items-center gap-4 w-full p-3 rounded-lg cursor-pointer`}
+                    onClick={() => {
+                      setSelectedItems((prevSelected) =>
+                        prevSelected.includes(garment.id)
+                          ? prevSelected.filter((id) => id !== garment.id)
+                          : [...prevSelected, garment.id]
+                      );
+                    }}
                   >
                     {/* POST IMG */}
                     <div className="w-[7em] aspect-square rounded-lg">
@@ -259,7 +268,9 @@ function EventsView({ event, opened, closeModal }: any) {
                           ? "bg-[#0DBC73]"
                           : "bg-white"
                       } h-5 aspect-square rounded-md cursor-pointer flex items-center justify-center flex-shrink-0`}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        console.log("clicked");
                         setSelectedItems((prevSelected) =>
                           prevSelected.includes(garment.id)
                             ? prevSelected.filter((id) => id !== garment.id)
@@ -297,7 +308,11 @@ function EventsView({ event, opened, closeModal }: any) {
         {garmentInCloset.length > 0 && (
           <div className="flex flex-col items-center gap-2 w-full">
             <p> {t("EventsView.Or")}</p>
-            <button className="bg-[#232323] font-bold">
+            <button
+              className={` ${
+                themeMode === "dark" ? "bg-[#232323]" : "bg-[#F2F3F5]"
+              } font-bold`}
+            >
               {" "}
               {t("EventsView.AddGarment")}
             </button>

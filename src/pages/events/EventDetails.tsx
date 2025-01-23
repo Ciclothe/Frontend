@@ -442,7 +442,6 @@ const EventDetails = () => {
         <GoBackSticky />
         <EventMapLocation
           eventLocation={{ lat: 41.7269, lng: -49.9481 }}
-          iconUrl="https://img.icons8.com/?size=200&id=IEqhpkeOWOog&format=png&color=000000"
           zoom={3}
         />
         <div className="flex-grow flex flex-col items-center justify-center">
@@ -496,8 +495,7 @@ const EventDetails = () => {
         {/* //! MAP */}
         <EventMapLocation
           eventLocation={{ lat: event.location.lat, lng: event.location.lng }}
-          iconUrl="https://img.icons8.com/?size=200&id=7880&format=png&color=DF1E32"
-          zoom={17}
+          zoom={16}
         />
 
         {/* //! EVENT ACTIONS */}
