@@ -2,54 +2,34 @@ import ProfileImage from "@/components/ui/ProfilePic";
 import { Icon } from "@mdi/react";
 import {
   mdiCheckDecagram,
-  mdiCalendarBlank,
-  mdiClockOutline,
-  mdiMapMarker,
-  mdiShareVariant,
-  mdiCalendarPlus,
-  mdiCalendarRemove,
+  mdiCircleSmall,
+  mdiNavigationVariant,
+  mdiMapOutline,
 } from "@mdi/js";
-import { MapContainer, TileLayer } from "react-leaflet";
-import { Marker } from "react-leaflet";
-import SaveIcon from "@/assets/uiIcons/SaveIcon";
-import L from "leaflet";
 import { useTheme } from "@/context/ThemeContext.js";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ChooseItemsModal from "./ChooseItemsModal";
 import API_CONSTANTS from "@/services/config";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function CardEvent({ event }: any) {
+function CardEvent({ event, onCardClick }: any) {
   const token = API_CONSTANTS.MAPBOX_ACCESS_TOKEN;
   const navigate = useNavigate();
   const { themeMode } = useTheme();
   const [showModalToSelectItems, setShowModalToSelectItems] = useState(false);
   const { t } = useTranslation();
 
-  const mapRef = useRef<any>(null);
-
-  const customIcon = new L.Icon({
-    iconUrl: "https://img.icons8.com/?size=200&id=7880&format=png&color=DF1E32",
-    iconSize: [25, 25],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  });
-
   const formatTime = (time: any) => {
     const date =
       typeof time === "string" ? new Date(`1970-01-01T${time}`) : time;
 
-    let hours = date.getHours();
+    const hours = date.getHours();
     const minutes = date.getMinutes();
-
-    const period = hours >= 12 ? "P.M." : "A.M.";
-
-    hours = hours % 12 || 12;
 
     const formattedMinutes = minutes.toString().padStart(2, "0");
 
-    return `${hours}:${formattedMinutes} ${period}`;
+    return `${hours}:${formattedMinutes}`;
   };
 
   const formatDateToHumanReadable = (dateString: any) => {
@@ -108,17 +88,21 @@ function CardEvent({ event }: any) {
   };
 
   const handleEventClick = (eventId: number, eventName: string) => {
-    // Convertir el nombre del evento en un 'slug' seguro para la URL
     const slug = encodeURIComponent(
       eventName.replace(/\s+/g, "-").toLowerCase()
     );
 
-    // Generar la URL con el eventId y el 'slug' codificado
     navigate(`/event/${eventId}/${slug}`);
   };
 
   const closeModal = () => {
     setShowModalToSelectItems(false);
+  };
+
+  const handleCardClick = () => {
+    if (onCardClick) {
+      onCardClick(event.location);
+    }
   };
 
   return (
@@ -127,17 +111,11 @@ function CardEvent({ event }: any) {
         key={event.id}
         className={`${
           themeMode === "dark"
-            ? "md:hover:bg-[#1E1E1E]"
-            : "md:hover:bg-[#F7F7F7]"
-        } col-span-12 cursor-pointer sm:col-span-6 xl:col-span-4 w-full items-center rounded-2xl p-4 flex gap-3 flex-col justify-between`}
-        style={{
-          border: `0.5px solid ${
-            themeMode === "dark"
-              ? "rgba(255, 255, 255, 0.1)"
-              : "rgba(140, 140, 140, 0.1)"
-          }`,
-        }}
-        onClick={() => handleEventClick(event.id, event.eventName)}
+            ? "bg-[#0B0B0B] md:hover:bg-[#1E1E1E]"
+            : "bg-[#FFFFFF] md:hover:bg-[#F7F7F7]"
+        } w-full sm:w-1/2 xl:w-1/3 cursor-pointer items-center rounded-2xl p-4 flex gap-3 flex-col justify-between`}
+        style={{ userSelect: "none" }}
+        onClick={handleCardClick}
       >
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center gap-1">
@@ -187,14 +165,31 @@ function CardEvent({ event }: any) {
         <div className="w-full">
           <div>
             <p className="opacity-50 mb-[-5px]">{event.category}</p>
-            <p className="text-[1.2em] font-bold titleStyles">
+            <p
+              className="text-[1.2em] font-bold w-full truncate"
+              style={{
+                fontFamily: "Futura Maxi CG Bold",
+                fontWeight: 400,
+              }}
+            >
               {event.eventName}
             </p>
           </div>
-          <div className="flex mt-3 gap-2">
-            <div className="flex items-center gap-1 max-w-[33%]">
+          <div className="flex my-2 opacity-50">
+            <Icon
+              path={mdiMapOutline}
+              size={0.7}
+              className="flex-shrink-0 mr-1"
+            />
+            <div className="flex items-center max-w-[50%]">
+              <p className="truncate overflow-hidden whitespace-nowrap">
+                {formatTime(event?.time)}
+              </p>
+            </div>
+
+            <div className="flex items-center max-w-[50%]">
               <Icon
-                path={mdiCalendarBlank}
+                path={mdiCircleSmall}
                 size={0.8}
                 className="flex-shrink-0"
               />
@@ -202,87 +197,33 @@ function CardEvent({ event }: any) {
                 {formatDateToHumanReadable(event?.date)}
               </p>
             </div>
-            <div className="flex items-center gap-1 max-w-[33%]">
-              <Icon
-                path={mdiClockOutline}
-                size={0.8}
-                className="flex-shrink-0"
-              />
-              <p className="truncate overflow-hidden whitespace-nowrap">
-                {formatTime(event?.time)}
-              </p>
-            </div>
-            <div className="flex items-center gap-1 max-w-[33%]">
-              <Icon path={mdiMapMarker} size={0.8} className="flex-shrink-0" />
-              <p className="truncate overflow-hidden whitespace-nowrap">
-                {locationFetcher(event.location.lat, event.location.lng)}{" "}
-              </p>
-            </div>
           </div>
-        </div>
-        <div
-          className="w-[100%] aspect-[3/2] rounded-xl overflow-hidden"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <MapContainer
-            center={[
-              parseFloat(event.location.lat),
-              parseFloat(event.location.lng),
-            ]}
-            zoom={15}
-            style={{ height: "150%", width: "150%" }}
-            ref={mapRef}
-            zoomControl={false}
+          <div
+            className={`${
+              themeMode === "dark" ? "bg-[#2A2A2A]" : "bg-[#EFEFEF]"
+            } py-1 px-2 rounded-md gap-1  flex items-center w-fit max-w-[70%]`}
           >
-            <TileLayer
-              url={`https://api.mapbox.com/styles/v1/mapbox/${
-                themeMode === "dark" ? "dark-v11" : "light-v11"
-              }/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWxlam9zcGluYXIiLCJhIjoiY20wa2lreDMxMTk5eDJrb2F0N3NtNHBkMyJ9.LV8h87QAtrtHZ2U2FP4V1g`}
+            <Icon
+              path={mdiNavigationVariant}
+              size={0.7}
+              className="flex-shrink-0 mr-1 opacity-50"
             />
-            <Marker
-              position={[
-                parseFloat(event.location.lat),
-                parseFloat(event.location.lng),
-              ]}
-              icon={customIcon}
-            ></Marker>
-          </MapContainer>
+            <p className="truncate overflow-hidden whitespace-nowrap opacity-50">
+              {locationFetcher(event.location.lat, event.location.lng)}{" "}
+            </p>
+          </div>
         </div>
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-2">
-            <button
-              className={`${
-                themeMode === "dark"
-                  ? "bg-[#F7F7F7] text-black"
-                  : "bg-[#171717] text-white"
-              }  px-4 py-2 font-bold rounded-full gap-2`}
-            >
-              <p>{t("EventsView.ViewEvent")}</p>
-            </button>
-            <div
-              onClick={(e) => {
-                e.stopPropagation(),
-                  setShowModalToSelectItems(event?.isJoined ? false : true);
-              }}
-            >
-              <Icon
-                path={event?.isJoined ? mdiCalendarRemove : mdiCalendarPlus}
-                size={0.8}
-                className={`${
-                  event?.isJoined ? "text-[#DF1E32]" : "text-[#5BE8FB]"
-                }`}
-              />
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <SaveIcon
-              size={"1.3em"}
-              colorFill={`#0DBC73`}
-              colorStroke={`${themeMode === "dark" ? "#F1F1F1" : "#232323"}`}
-              isSelected={event.saved}
-            />
-            <Icon path={mdiShareVariant} size={0.8} />
-          </div>
+        <div className="flex items-center justify-between w-full mt-2">
+          <button
+            className={`${
+              themeMode === "dark"
+                ? "bg-[#F7F7F7] text-black"
+                : "bg-[#171717] text-white"
+            }  px-4 py-2 font-bold rounded-md gap-2 w-full`}
+            onClick={() => handleEventClick(event.id, event.eventName)}
+          >
+            <p>{t("EventsView.ViewEvent")}</p>
+          </button>
         </div>
       </div>
       <ChooseItemsModal
