@@ -5,6 +5,7 @@ import { useTheme } from "@/context/ThemeContext.js";
 import ProfileImage from "@/components/ui/ProfilePic";
 import SwapIcon from "@/assets/icons/Swapicon";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 type PostInteractionsProps = {
   data: any;
@@ -19,6 +20,7 @@ const PostInteractionsCard: React.FC<PostInteractionsProps> = ({
   const { themeMode } = useTheme();
   const location = useLocation();
   const isExplore = location.pathname === "/explore";
+  const { t } = useTranslation();
 
   return (
     <div className="col-span-12 grid grid-cols-12">
@@ -51,15 +53,18 @@ const PostInteractionsCard: React.FC<PostInteractionsProps> = ({
                 <div>
                   <p className="titleStyles">
                     <span className="font-bold">
-                      {data?.comments?.length} People
+                      {data?.comments?.length} {t("Post.People")}
                     </span>
-                    <span className="opacity-50"> are chatting about this</span>
+                    <span className="opacity-50">
+                      {" "}
+                      {t("Post.ChattingAboutThis")}
+                    </span>
                   </p>
                 </div>
               </div>
             ) : (
               <div>
-                <p className="opacity-50 titleStyles">0 Comments</p>
+                <p className="opacity-50 titleStyles">{t("Post.NoComments")}</p>
               </div>
             )
           ) : (
@@ -85,18 +90,21 @@ const PostInteractionsCard: React.FC<PostInteractionsProps> = ({
                   <div>
                     <p className="titleStyles">
                       <span className="font-bold">
-                        {data.swapOffers?.length} People
+                        {data.swapOffers?.length} {t("Post.People")}
                       </span>
                       <span className="opacity-50">
                         {" "}
-                        are offering a swap right now
+                        {t("Post.OferringSwap")}
                       </span>
                     </p>
                   </div>
                 </div>
               ) : (
                 <div>
-                  <p className="opacity-50 titleStyles">0 Offers</p>
+                  <p className="opacity-50 titleStyles">
+                    {" "}
+                    {t("Post.NoneOffers")}
+                  </p>
                 </div>
               )}
             </>
@@ -117,7 +125,7 @@ const PostInteractionsCard: React.FC<PostInteractionsProps> = ({
                 size={"1.2em"}
                 colorFill={`${themeMode === "dark" ? "#232323" : "#F1F1F1"}`}
               />
-              <p>comment</p>
+              <p>{t("Post.Comment")}</p>
             </div>
           ) : (
             <div
@@ -129,7 +137,7 @@ const PostInteractionsCard: React.FC<PostInteractionsProps> = ({
                 size={"1.2em"}
                 color={`${themeMode === "dark" ? "#232323" : "#F1F1F1"}`}
               />
-              <p>offer</p>
+              <p>{t("Post.Offer")}</p>
             </div>
           )}
 

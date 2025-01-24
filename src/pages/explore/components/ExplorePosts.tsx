@@ -17,6 +17,7 @@ const postData = [
         country: "Spain",
       },
     },
+    shippingPreference: "inPerson",
     garmentTitle: "Hooded Bomber Jacket",
     garmentCondition: "as_new",
     garmentSize: "M (Medium)",
