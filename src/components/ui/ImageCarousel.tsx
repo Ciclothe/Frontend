@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Icon } from "@mdi/react";
-import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import {
+  mdiChevronLeft,
+  mdiChevronRight,
+  mdiTruckDelivery,
+  mdiAccountCircleOutline,
+} from "@mdi/js";
 import SwipeIcon from "@/assets/uiIcons/SwipeIcon";
 import { useTheme } from "@/context/ThemeContext.js";
 import SwapCard from "@/components/layout/SwapCard";
+import { useTranslation } from "react-i18next";
 
 interface Image {
   src: string;
@@ -23,6 +29,7 @@ const ImageCarousel = ({
 }: ImageCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const { themeMode } = useTheme();
+  const { t } = useTranslation();
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -34,6 +41,14 @@ const ImageCarousel = ({
     setCurrentIndex((prevIndex) =>
       prevIndex < garmentImgs.length - 1 ? prevIndex + 1 : 0
     );
+  };
+
+  const getShippingMethod = (method: string) => {
+    if (method === "inPerson") {
+      return t("Swap.InPerson");
+    } else if (method === "delivery") {
+      return t("Swap.Delivery");
+    }
   };
 
   return (
@@ -69,17 +84,38 @@ const ImageCarousel = ({
             }`}
             alt={`garment-${currentIndex}`}
           />
-          <div
-            className={`${
-              themeMode === "dark" ? "bg-opacity-20" : "bg-opacity-10"
-            } absolute right-2 top-2 text-[#0DBC73] gap-2 px-2 py-1 flex items-center rounded-full bg-[#0DBC73] backdrop-blur-md backdrop-brightness-[60%] border border-[#0DBC73]`}
-          >
-            <SwipeIcon
-              size={"1.2em"}
-              colorSelected={"#0DBC73"}
-              isSelected={true}
-            />
-            <p className="font-bold">{currentIndex + 1}</p>
+          <div className="absolute left-0 top-2 flex items-center w-full justify-between px-2">
+            <div
+              className={`${
+                data.shippingPreference === "delivery"
+                  ? "text-[#5F22AA] bg-[#F1DBFE]"
+                  : "text-[#0D7359] bg-[#DBFEF5]"
+              } px-2 py-[2px] rounded-full  w-fit flex gap-1 items-center`}
+            >
+              <Icon
+                path={
+                  data.shippingPreference === "delivery"
+                    ? mdiTruckDelivery
+                    : mdiAccountCircleOutline
+                }
+                size={0.8}
+              />
+              <p className="text-xs">
+                {getShippingMethod(data.shippingPreference)}
+              </p>
+            </div>
+            <div
+              className={`${
+                themeMode === "dark" ? "bg-opacity-20" : "bg-opacity-10"
+              } text-[#0DBC73] gap-2 px-2 py-1 flex items-center rounded-full bg-[#0DBC73] backdrop-blur-md backdrop-brightness-[60%] border border-[#0DBC73]`}
+            >
+              <SwipeIcon
+                size={"1.2em"}
+                colorSelected={"#0DBC73"}
+                isSelected={true}
+              />
+              <p className="font-bold">{currentIndex + 1}</p>
+            </div>
           </div>
           {/* SWAP DATA POST */}
           {!isPostDetails && (

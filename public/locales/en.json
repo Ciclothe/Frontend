@@ -62,6 +62,19 @@
     "Events": "Events",
     "Chats": "Chats"
   },
+  "Swap": {
+    "InPerson": "In person",
+    "Delivery": "Delivery"
+  },
+  "Post": {
+    "People": "People",
+    "ChattingAboutThis": "are chatting about this",
+    "NoComments": "0 Comments",
+    "OferringSwap": "are offering a swap right now",
+    "NoneOffers": "0 Offers",
+    "Offer": "Offer",
+    "Comment": "Comment"
+  },
   "RecommendedCard": {
     "RecommendedProfiles": "Recommended Profiles",
     "Follow": "Follow",

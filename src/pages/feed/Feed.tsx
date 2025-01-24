@@ -139,6 +139,7 @@ const testPosts = {
     {
       id: 4,
       type: "Swap",
+      shippingPreference: "delivery",
       createdAt: "2024-11-23T05:00:00Z",
       userData: {
         username: "MisterX",
