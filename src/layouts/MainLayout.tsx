@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useCallback } from "react";
+import { FC, useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useTheme } from "@/context/ThemeContext";
 import { usePostButton } from "@/context/CreatePostActive";
@@ -29,7 +29,6 @@ import { mdiPlusBoxOutline } from "@mdi/js";
 
 const MainLayout: FC = () => {
   const [showHeader, setShowHeader] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
   const [isXlScreen, setIsXlScreen] = useState(true);
 
   const { themeMode } = useTheme();
@@ -45,16 +44,7 @@ const MainLayout: FC = () => {
 
   const location = useLocation();
   const isMdOrLarger = useMediaQuery("(min-width: 768px)");
-  const scrollThreshold = sectionOptions.length ? 70 : 100;
 
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-
-    if (Math.abs(currentScrollY - scrollY) >= scrollThreshold) {
-      setShowHeader(currentScrollY <= scrollY);
-    }
-    setScrollY(currentScrollY);
-  }, [scrollY, scrollThreshold]);
 
   useEffect(() => {
     const handleResize = () => setIsXlScreen(window.innerWidth >= 1280);
@@ -69,30 +59,10 @@ const MainLayout: FC = () => {
       setShowHeader(false);
     } else if (!isMdOrLarger) {
       setShowHeader(true);
+    } else {
+      setShowHeader(true);
     }
   }, [location.pathname, isMdOrLarger]);
-
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout | null = null;
-
-    const throttledScroll = () => {
-      if (!timeoutId) {
-        timeoutId = setTimeout(() => {
-          handleScroll();
-          timeoutId = null;
-        }, 100);
-      }
-    };
-
-    if (!location.pathname.includes("/post")) {
-      window.addEventListener("scroll", throttledScroll);
-    }
-
-    return () => {
-      window.removeEventListener("scroll", throttledScroll);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [handleScroll, location.pathname]);
 
   const renderHeader = () => (
     <div
