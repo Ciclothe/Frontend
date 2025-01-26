@@ -88,7 +88,7 @@ const ImageCarousel = ({
             {data.shippingPreference && (
               <div
                 className={`${
-                    data.shippingPreference === "delivery"
+                  data.shippingPreference === "delivery"
                     ? "text-[#5F22AA] bg-[#F1DBFE]"
                     : "text-[#0D7359] bg-[#DBFEF5]"
                 } px-2 py-[2px] rounded-full  w-fit flex gap-1 items-center`}
