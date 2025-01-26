@@ -90,7 +90,7 @@ const PostDetails = () => {
               />
               {/* MAIN CONTENT */}
               {postData?.type !== "Text" && (
-                <div className="col-span-12 grid grid-cols-12 gap-1 h-[35em] justify-center items-center relative rounded-xl m-4">
+                <div className="col-span-12 grid grid-cols-12 gap-1 justify-center items-center relative rounded-xl m-4">
                   {/* POST IMAGE BACKGROUND */}
                   <LazyLoadImage
                     src={
