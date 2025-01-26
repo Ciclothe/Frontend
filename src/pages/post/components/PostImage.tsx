@@ -14,14 +14,14 @@ const PostImage: React.FC<PostImageProps> = ({ postData }) => {
 
   const imageOrientationClass =
     postData?.imageOrientation === "landscapes"
-      ? "aspect-[3/2] md:aspect-[16/9]"
+      ? "aspect-[3/2]"
       : postData?.imageOrientation === "square"
-      ? "aspect-[1/1]"
-      : "aspect-[4/5]";
+        ? "aspect-[1/1]"
+        : "aspect-[4/5] max-w-[100%] md:max-w-[80%]";
 
   return (
     <div className="col-span-12 relative flex items-center justify-center">
-      <div className={`${imageOrientationClass} max-h-[35em] relative`}>
+      <div className={`${imageOrientationClass} relative`}>
         {/* Skeleton Loader */}
         {isLoadingPostImg && (
           <Skeleton

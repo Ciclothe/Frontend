@@ -34,9 +34,9 @@ const PostImage: React.FC<PostImageProps> = ({ data }) => {
           data.imageOrientation === "landscapes"
             ? "aspect-[3/2]"
             : data.imageOrientation === "square"
-            ? "aspect-[5/6] md:aspect-[1/1]"
-            : "aspect-[4/5]"
-        } max-h-[40em] col-span-12 rounded-xl relative flex items-center justify-start`}
+              ? "aspect-[5/6] md:aspect-[1/1]"
+              : "aspect-[4/5] max-w-[100%] md:max-w-[80%]"
+        } col-span-12 rounded-xl relative flex items-center justify-start`}
       >
         <div className="relative w-full h-full">
           {/* Post Image with Skeleton Loading */}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@mdi/react";
 import {
   mdiChevronLeft,
@@ -10,6 +10,8 @@ import SwipeIcon from "@/assets/uiIcons/SwipeIcon";
 import { useTheme } from "@/context/ThemeContext.js";
 import SwapCard from "@/components/layout/SwapCard";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import clsx from "clsx";
 
 interface Image {
   src: string;
@@ -30,6 +32,13 @@ const ImageCarousel = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const { themeMode } = useTheme();
   const { t } = useTranslation();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes("/explore/")) {
+      setCurrentIndex(0);
+    }
+  }, [location]);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -58,15 +67,23 @@ const ImageCarousel = ({
       }`}
     >
       <div
-        className={`flex ${
-          garmentImgs[currentIndex]?.orientation === "landscapes"
-            ? "aspect-[3/2] w-full"
-            : garmentImgs[currentIndex]?.orientation === "square"
-              ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
-              : "aspect-[4/5] w-full md:w-auto md:h-full"
-        } ${isPostDetails ? "justify-center" : "justify-start"} w-full ${
-          isPostDetails ? "max-h-[35em]" : "max-h-[40em]"
-        }`}
+        className={clsx(
+          "flex w-full",
+          {
+            "aspect-[3/2]":
+              garmentImgs[currentIndex]?.orientation === "landscapes",
+            "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full":
+              garmentImgs[currentIndex]?.orientation === "square",
+            "aspect-[4/5] max-w-[100%] md:w-auto md:h-full":
+              location.pathname.includes("/explore"),
+            "aspect-[4/5] max-w-[100%] md:max-w-[80%] md:w-auto md:h-full":
+              !location.pathname.includes("/explore"),
+          },
+          {
+            "justify-center": isPostDetails,
+            "justify-start": !isPostDetails,
+          }
+        )}
       >
         <div
           className={`flex-shrink-0 relative ${
@@ -80,7 +97,7 @@ const ImageCarousel = ({
           <img
             src={garmentImgs[currentIndex]?.src}
             className={`w-full h-full object-cover ${
-              isPostDetails ? " rounded-null" : " rounded-lg"
+              isPostDetails ? "rounded-lg md:rounded-none" : " rounded-lg"
             }`}
             alt={`garment-${currentIndex}`}
           />
@@ -88,10 +105,10 @@ const ImageCarousel = ({
             {data.shippingPreference && (
               <div
                 className={`${
-                    data.shippingPreference === "delivery"
+                  data.shippingPreference === "delivery"
                     ? "text-[#5F22AA] bg-[#F1DBFE]"
                     : "text-[#0D7359] bg-[#DBFEF5]"
-                } px-2 py-[2px] rounded-full  w-fit flex gap-1 items-center`}
+                } px-2 py-[2px] rounded-full w-fit flex gap-1 items-center`}
               >
                 <Icon
                   path={
