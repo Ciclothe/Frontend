@@ -62,8 +62,8 @@ const ImageCarousel = ({
           garmentImgs[currentIndex]?.orientation === "landscapes"
             ? "aspect-[3/2] w-full"
             : garmentImgs[currentIndex]?.orientation === "square"
-            ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
-            : "aspect-[4/5] w-full md:w-auto md:h-full"
+              ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
+              : "aspect-[4/5] w-full md:w-auto md:h-full"
         } ${isPostDetails ? "justify-center" : "justify-start"} w-full ${
           isPostDetails ? "max-h-[35em]" : "max-h-[40em]"
         }`}
@@ -73,8 +73,8 @@ const ImageCarousel = ({
             garmentImgs[currentIndex]?.orientation === "landscapes"
               ? "aspect-[3/2] md:aspect-[16/9] w-full"
               : garmentImgs[currentIndex]?.orientation === "square"
-              ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
-              : "aspect-[4/5] w-full md:w-auto md:h-full"
+                ? "aspect-[5/6] md:aspect-[1/1] w-full md:w-auto md:h-full"
+                : "aspect-[4/5] w-full md:w-auto md:h-full"
           }`}
         >
           <img
@@ -85,25 +85,27 @@ const ImageCarousel = ({
             alt={`garment-${currentIndex}`}
           />
           <div className="absolute left-0 top-2 flex items-center w-full justify-between px-2">
-            <div
-              className={`${
-                data.shippingPreference === "delivery"
-                  ? "text-[#5F22AA] bg-[#F1DBFE]"
-                  : "text-[#0D7359] bg-[#DBFEF5]"
-              } px-2 py-[2px] rounded-full  w-fit flex gap-1 items-center`}
-            >
-              <Icon
-                path={
-                  data.shippingPreference === "delivery"
-                    ? mdiTruckDelivery
-                    : mdiAccountCircleOutline
-                }
-                size={0.8}
-              />
-              <p className="text-xs">
-                {getShippingMethod(data.shippingPreference)}
-              </p>
-            </div>
+            {data.shippingPreference && (
+              <div
+                className={`${
+                    data.shippingPreference === "delivery"
+                    ? "text-[#5F22AA] bg-[#F1DBFE]"
+                    : "text-[#0D7359] bg-[#DBFEF5]"
+                } px-2 py-[2px] rounded-full  w-fit flex gap-1 items-center`}
+              >
+                <Icon
+                  path={
+                    data.shippingPreference === "delivery"
+                      ? mdiTruckDelivery
+                      : mdiAccountCircleOutline
+                  }
+                  size={0.8}
+                />
+                <p className="text-xs">
+                  {getShippingMethod(data.shippingPreference)}
+                </p>
+              </div>
+            )}
             <div
               className={`${
                 themeMode === "dark" ? "bg-opacity-20" : "bg-opacity-10"

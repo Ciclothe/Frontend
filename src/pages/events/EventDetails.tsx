@@ -420,7 +420,7 @@ const EventDetails = () => {
     setIsSidebarRightVisible(true);
     setShowPostButton(false);
     setHasScroll(true);
-  }, []);
+  }, [setHasScroll, setIsSidebarRightVisible, setShowPostButton]);
 
   const { eventId, eventName } = useParams();
 
